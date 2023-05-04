@@ -16,6 +16,7 @@ import Footer from "./components/common/Footer";
 
 //test
 import Title from "./components/common/Title";
+import Search from "./components/common/Search";
 
 const Container = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ function App() {
           <NavBar />
           <ContentBox>
             <Title></Title>
+            <Search></Search>
           </ContentBox>
           <Footer />
         </Container>

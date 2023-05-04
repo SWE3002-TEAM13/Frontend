@@ -14,6 +14,9 @@ import GlobalStyles from "./styles/GlobalStyles";
 import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
 
+//test
+import Title from "./components/common/Title";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,7 +24,9 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const ContentBox = styled.div``;
+const ContentBox = styled.div`
+  padding: 50px 0px 0px 0px;
+`;
 
 function App() {
   return (
@@ -30,7 +35,9 @@ function App() {
         <GlobalStyles />
         <Container>
           <NavBar />
-          <ContentBox></ContentBox>
+          <ContentBox>
+            <Title></Title>
+          </ContentBox>
           <Footer />
         </Container>
       </ThemeProvider>

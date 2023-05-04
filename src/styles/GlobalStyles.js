@@ -13,11 +13,20 @@ export const globalStyles = (theme, isOpen) => css`
     will-change: background-color;
   }
   html {
+    style {
+      @font-face {
+        font-family: "GmarketSansMedium";
+        font-style: normal;
+        font-weight: normal;
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+          format("woff");
+      }
+    }
     font-size: 16px;
-    font-family: "Pretendard Std Variable", "Pretendard Std", Pretendard,
-      -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
-      "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-      sans-serif;
+    font-family: "GmarketSansMedium", "Pretendard Std Variable",
+      "Pretendard Std", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+      Roboto, "Helvetica Neue", "Segoe UI", "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     /* 디바이스에서 자동으로 글자크기를 키우는 것을 방지 */
     -webkit-text-size-adjust: none; /* 크롬, 사파리, 오페라 신버전 */
     -ms-text-size-adjust: none; /* IE */

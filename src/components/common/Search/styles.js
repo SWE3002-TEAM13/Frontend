@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const StyledSearch = styled.div`
-  width: 250px;
+  width: 100%;
   height: 30px;
   display: flex;
   border: 2px solid;
@@ -18,7 +18,7 @@ export const SearchContainer = styled.input`
     outline: none;
   }
   background-color: transparent;
-  width: 220px;
+  width: 100%;
   height: 100%;
   padding: 5px;
   -webkit-appearance: none;

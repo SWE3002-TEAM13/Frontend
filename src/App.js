@@ -15,8 +15,7 @@ import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
 
 //test
-import Title from "./components/common/Title";
-import Search from "./components/common/Search";
+import SearchBox from "./components/SearchBox";
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const Container = styled.div`
 `;
 
 const ContentBox = styled.div`
-  padding: 50px 0px 0px 0px;
+  padding: 80px 33vh;
 `;
 
 function App() {
@@ -37,8 +36,7 @@ function App() {
         <Container>
           <NavBar />
           <ContentBox>
-            <Title></Title>
-            <Search></Search>
+            <SearchBox></SearchBox>
           </ContentBox>
           <Footer />
         </Container>

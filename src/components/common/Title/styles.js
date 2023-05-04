@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const StyledTitle = styled.div`
+  min-width: max-content;
   display: flex;
   font-size: 30px;
 `;

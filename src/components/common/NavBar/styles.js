@@ -10,6 +10,7 @@ export const StyledNavBar = styled.header`
   border-style: solid;
   border-width: 0px 0px 1px 0px;
   border-color: ${({ theme }) => theme.color.grayGreen};
+  box-shadow: 0px 0px 5px 0px gray;
   align-items: center;
 `;
 
@@ -17,31 +18,25 @@ export const NavBarContainer = styled.nav`
   margin: auto auto;
   display: flex;
   justify-content: space-between;
-  background-color: blue;
   max-width: 1280px;
 `;
 
 export const NavBarLogoContainer = styled.div`
   display: flex;
-  background-color: red;
   column-gap: 4px;
   align-items: center;
-`;
-
-export const NavBarLogoText = styled.h1`
-  font-weight: 700;
-  font-size: 20px;
 `;
 
 export const NavBarMenuContainer = styled.ul`
   display: flex;
   column-gap: 40px;
   align-items: center;
+  padding-right: 30px;
 `;
 
 export const NavBarMenuText = styled.li`
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 12px;
 `;
 
 export const NavBarLogoutContainer = styled.li`

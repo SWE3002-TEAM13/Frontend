@@ -1,9 +1,6 @@
 import {
   NavBarContainer,
   NavBarLogoContainer,
-  NavBarLogoutContainer,
-  NavBarLogoutText,
-  NavBarLogoutIcon,
   NavBarMenuContainer,
   NavBarMenuText,
   StyledNavBar,

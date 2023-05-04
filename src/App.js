@@ -12,6 +12,7 @@ import { theme } from "./styles/theme";
 import styled from "@emotion/styled/macro";
 import GlobalStyles from "./styles/GlobalStyles";
 import NavBar from "./components/common/NavBar";
+import Footer from "./components/common/Footer";
 
 const Container = styled.div`
   display: flex;
@@ -29,6 +30,8 @@ function App() {
         <GlobalStyles />
         <Container>
           <NavBar />
+          <ContentBox></ContentBox>
+          <Footer />
         </Container>
       </ThemeProvider>
     </MuiThemeProvider>

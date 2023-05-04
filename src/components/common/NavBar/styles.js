@@ -38,18 +38,3 @@ export const NavBarMenuText = styled.li`
   font-weight: 400;
   font-size: 12px;
 `;
-
-export const NavBarLogoutContainer = styled.li`
-  display: flex;
-  align-items: center;
-`;
-export const NavBarLogoutText = styled.div`
-  font-weight: 400;
-  font-size: 16px;
-  margin-right: 6px;
-`;
-
-export const NavBarLogoutIcon = styled.div`
-  width: 24px;
-  height: 24px;
-`;

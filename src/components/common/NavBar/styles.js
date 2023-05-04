@@ -3,8 +3,6 @@ import { NAVBAR_HEIGHT } from "../../../constants/navbar";
 
 export const StyledNavBar = styled.header`
   position: fixed;
-
-  padding: 8px 16px;
   width: 100%;
   height: ${NAVBAR_HEIGHT}px;
   background-color: ${({ theme }) => theme.color.background};
@@ -19,11 +17,13 @@ export const NavBarContainer = styled.nav`
   margin: auto auto;
   display: flex;
   justify-content: space-between;
+  background-color: blue;
   max-width: 1280px;
 `;
 
 export const NavBarLogoContainer = styled.div`
   display: flex;
+  background-color: red;
   column-gap: 4px;
   align-items: center;
 `;

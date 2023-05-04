@@ -9,13 +9,14 @@ import {
   NavBarMenuText,
   StyledNavBar,
 } from "./styles";
+import Logo from "../Logo";
 
 function NavBar(props) {
   return (
     <StyledNavBar>
       <NavBarContainer>
         <NavBarLogoContainer>
-          <NavBarLogoText>성균:나누Re</NavBarLogoText>
+          <Logo variant="small" />
         </NavBarLogoContainer>
       </NavBarContainer>
     </StyledNavBar>

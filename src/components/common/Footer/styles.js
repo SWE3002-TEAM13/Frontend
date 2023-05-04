@@ -14,7 +14,7 @@ export const FooterContainer = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 7px;
   width: 1280px;
 `;
 

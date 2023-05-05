@@ -17,6 +17,9 @@ export const LikeNumber = styled.p`
 `;
 
 export const LikeIconContainer = styled.img`
+  :focus {
+    cursor: pointer;
+  }
   width: 25px;
   height: 25px;
 `;

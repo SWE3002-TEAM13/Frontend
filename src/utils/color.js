@@ -1,13 +1,8 @@
-export const color = {
-  lightGreen: "#8DC63F",
-  green: "#2B6653",
-  grayGreen: "#5B756C",
-  background: "#F5F5F5",
-  orange: "#FF6C0F",
-  black: "#000000",
-  white: "#FFFFFF",
-  heart: "#FF7272",
-  lightGray: "EEEEEE",
-  gray: "#D9D9D9",
-  darkGray: "#737373",
-};
+export function hexToRgba(hex, alpha) {
+  const target = hex.startsWith("#") ? hex.slice(1, 7) : hex;
+  const r = parseInt(target.slice(0, 2), 16);
+  const g = parseInt(target.slice(2, 4), 16);
+  const b = parseInt(target.slice(4, 6), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}

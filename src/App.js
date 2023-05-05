@@ -17,6 +17,7 @@ import Footer from "./components/common/Footer";
 //test
 import SearchBox from "./components/SearchBox";
 import StateTag from "./components/common/StateTag";
+import Like from "./components/common/Like";
 
 const Container = styled.div`
   display: flex;
@@ -39,6 +40,7 @@ function App() {
           <ContentBox>
             <SearchBox></SearchBox>
             <StateTag></StateTag>
+            <Like></Like>
           </ContentBox>
           <Footer />
         </Container>

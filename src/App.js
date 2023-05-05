@@ -16,8 +16,7 @@ import Footer from "./components/common/Footer";
 
 //test
 import SearchBox from "./components/SearchBox";
-import StateTag from "./components/common/StateTag";
-import Like from "./components/common/Like";
+import Card from "./components/Card";
 
 const Container = styled.div`
   display: flex;
@@ -39,8 +38,7 @@ function App() {
           <NavBar />
           <ContentBox>
             <SearchBox></SearchBox>
-            <StateTag></StateTag>
-            <Like></Like>
+            <Card></Card>
           </ContentBox>
           <Footer />
         </Container>

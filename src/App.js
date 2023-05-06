@@ -16,7 +16,7 @@ import Footer from "./components/common/Footer";
 
 //test
 import SearchBox from "./components/SearchBox";
-import Card from "./components/Card";
+import CardList from "./components/CardList";
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const Container = styled.div`
 `;
 
 const ContentBox = styled.div`
-  padding: 80px 33vh;
+  padding: 80px 33vh 20px 33vh;
 `;
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
           <NavBar />
           <ContentBox>
             <SearchBox></SearchBox>
-            <Card></Card>
+            <CardList></CardList>
           </ContentBox>
           <Footer />
         </Container>

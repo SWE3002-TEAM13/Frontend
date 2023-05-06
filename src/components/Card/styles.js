@@ -17,7 +17,7 @@ export const ImgContainer = styled.div`
   min-width: 120px;
   font-size: 12px;
   justify-content: center;
-  align-items: centerl;
+  align-items: center;
   background-color: ${({ theme }) => theme.color.gray};
 `;
 

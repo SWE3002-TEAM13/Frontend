@@ -14,9 +14,14 @@ import GlobalStyles from "./styles/GlobalStyles";
 import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
 
-//test
-import SearchBox from "./components/SearchBox";
-import Form from "./components/common/Form";
+// Pages import
+import LendPage from "./pages/Lend";
+import MainPage from "./pages/Main";
+import RentPage from "./pages/Rent";
+import SharePage from "./pages/Share";
+import ChatPage from "./pages/Chat";
+import ProfilePage from "./pages/Profile";
+import NotFound from "./components/common/NotFound";
 
 const Container = styled.div`
   display: flex;
@@ -26,6 +31,7 @@ const Container = styled.div`
 `;
 
 const ContentBox = styled.div`
+  min-height: 50vh;
   padding: 80px 33vh 20px 33vh;
 `;
 
@@ -34,14 +40,23 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <Container>
-          <NavBar />
-          <ContentBox>
-            <SearchBox></SearchBox>
-            <Form></Form>
-          </ContentBox>
-          <Footer />
-        </Container>
+        <Router>
+          <Container>
+            <NavBar />
+            <ContentBox>
+              <Routes>
+                <Route path="/" exact={true} element={<MainPage />} />
+                <Route path="/rent" exact={true} element={<RentPage />} />
+                <Route path="/lend" exact={true} element={<LendPage />} />
+                <Route path="/share" exact={true} element={<SharePage />} />
+                <Route path="/chat" exact={true} element={<ChatPage />} />
+                <Route path="/profile" exact={true} element={<ProfilePage />} />
+                <Route path="*" exact={true} element={<NotFound />} />
+              </Routes>
+            </ContentBox>
+            <Footer />
+          </Container>
+        </Router>
       </ThemeProvider>
     </MuiThemeProvider>
   );

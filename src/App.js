@@ -6,13 +6,13 @@ import {
   useLocation,
 } from "react-router-dom";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./styles/theme";
 import styled from "@emotion/styled/macro";
 import GlobalStyles from "./styles/GlobalStyles";
 import NavBar from "./components/common/NavBar";
 import Footer from "./components/common/Footer";
+import NotFound from "./components/common/NotFound";
 
 // Pages import
 import LendPage from "./pages/Lend";
@@ -21,7 +21,6 @@ import RentPage from "./pages/Rent";
 import SharePage from "./pages/Share";
 import ChatPage from "./pages/Chat";
 import ProfilePage from "./pages/Profile";
-import NotFound from "./components/common/NotFound";
 
 const Container = styled.div`
   display: flex;
@@ -30,10 +29,7 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const ContentBox = styled.div`
-  min-height: 50vh;
-  padding: 80px 33vh 20px 33vh;
-`;
+const ContentBox = styled.div``;
 
 function App() {
   return (

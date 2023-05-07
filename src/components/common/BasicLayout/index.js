@@ -1,5 +1,7 @@
 import { StyledLayout } from "./styles";
 
-function BasicLayout(prors) {
-  return <StyledLayout>{props}</StyledLayout>;
+function BasicLayout(props) {
+  return <StyledLayout>{props.children}</StyledLayout>;
 }
+
+export default BasicLayout;

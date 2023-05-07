@@ -1,5 +1,8 @@
+import Info from "../../components/Info";
+import BasicLayout from "../../components/common/BasicLayout";
+
 function RentPage() {
-  return <>Rent입니다.</>;
+  return <BasicLayout children={<Info></Info>}></BasicLayout>;
 }
 
 export default RentPage;

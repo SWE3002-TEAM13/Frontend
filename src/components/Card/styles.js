@@ -59,7 +59,7 @@ export const PostDateContainer = styled.div`
 export const StateAndPriceContainer = styled.div`
   display: flex;
   justify-content: end;
-  align-items: end;
+  align-items: center;
   column-gap: 10px;
   bottom: 0px;
 `;

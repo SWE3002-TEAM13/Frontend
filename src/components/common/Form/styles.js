@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const FormContainer = styled.div`
-  width: 100%;
   height: 100%;
+  min-width: 800px;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 10px;

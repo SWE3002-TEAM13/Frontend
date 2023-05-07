@@ -37,4 +37,5 @@ export const NavBarMenuContainer = styled.ul`
 export const NavBarMenuText = styled.li`
   font-weight: 400;
   font-size: 12px;
+  min-width: max-content;
 `;

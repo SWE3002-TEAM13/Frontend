@@ -17,7 +17,7 @@ export const ImgContainer = styled.div`
   min-width: 120px;
   font-size: 12px;
   justify-content: center;
-  align-items: centerl;
+  align-items: center;
   background-color: ${({ theme }) => theme.color.gray};
 `;
 
@@ -59,7 +59,7 @@ export const PostDateContainer = styled.div`
 export const StateAndPriceContainer = styled.div`
   display: flex;
   justify-content: end;
-  align-items: end;
+  align-items: center;
   column-gap: 10px;
   bottom: 0px;
 `;

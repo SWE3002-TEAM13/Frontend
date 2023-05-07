@@ -1,9 +1,9 @@
 import { StyledButton, ButtonContainer } from "./styles";
 
-function Button() {
+function Button(props) {
   return (
     <StyledButton>
-      <ButtonContainer>POST +</ButtonContainer>
+      <ButtonContainer>{props.text}</ButtonContainer>
     </StyledButton>
   );
 }

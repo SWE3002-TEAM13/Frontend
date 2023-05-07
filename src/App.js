@@ -29,7 +29,9 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const ContentBox = styled.div``;
+const ContentBox = styled.div`
+  padding: 50px 0px;
+`;
 
 function App() {
   return (

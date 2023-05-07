@@ -1,4 +1,4 @@
-import { StyledState, StateContainer } from "./styles";
+import { StateContainer } from "./styles";
 
 function StateTag() {
   return <StateContainer>거래 가능</StateContainer>;

@@ -1,5 +1,15 @@
+import MainPicture from "../../assets/main_picture.png";
+import { MainPictureContainer } from "./styles";
+
 function MainPage() {
-  return <>메인입니다.</>;
+  return (
+    <>
+      <MainPictureContainer
+        src={MainPicture}
+        alt="main_picture"
+      ></MainPictureContainer>
+    </>
+  );
 }
 
 export default MainPage;

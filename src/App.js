@@ -21,6 +21,7 @@ import RentPage from "./pages/Rent";
 import SharePage from "./pages/Share";
 import ChatPage from "./pages/Chat";
 import ProfilePage from "./pages/Profile";
+import PostPage from "./pages/Post";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/share" exact={true} element={<SharePage />} />
                 <Route path="/chat" exact={true} element={<ChatPage />} />
                 <Route path="/profile" exact={true} element={<ProfilePage />} />
+                <Route path="/post" exact={true} element={<PostPage />} />
                 <Route path="*" exact={true} element={<NotFound />} />
               </Routes>
             </ContentBox>

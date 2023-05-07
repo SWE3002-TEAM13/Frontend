@@ -29,7 +29,7 @@ import ChatButton from "../common/ChatButton";
 function Info() {
   return (
     <Form
-      info={
+      children={
         <>
           <NavigationContainer>
             <NavigationBack src={Back} alt="back" />

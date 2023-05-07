@@ -13,9 +13,9 @@ export const ButtonContainer = styled.button`
   width: 100%;
   height: 100%;
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
   color: ${({ theme }) => theme.color.white};
   background-color: ${({ theme }) => theme.color.lightGreen};

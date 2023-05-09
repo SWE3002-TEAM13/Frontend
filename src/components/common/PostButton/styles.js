@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const StyledButton = styled.div`
   width: 120px;
   min-width: max-content;
-  height: 30px;
+  height: 40px;
 `;
 
 export const ButtonContainer = styled.button`

@@ -1,7 +1,7 @@
 import { StateContainer } from "./styles";
 
-function StateTag() {
-  return <StateContainer>거래 가능</StateContainer>;
+function StateTag(props) {
+  return <StateContainer>{props.text}</StateContainer>;
 }
 
 export default StateTag;

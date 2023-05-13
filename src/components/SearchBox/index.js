@@ -2,12 +2,25 @@ import Title from "../common/Title";
 import Search from "../common/Search";
 import Button from "../common/PostButton";
 import { SearchBoxContainer } from "./styles";
-function SearchBox() {
+import { useNavigate } from "react-router-dom";
+
+function SearchBox(props) {
+  const movePage = useNavigate();
+  const handleClickPostButton = (e) => {
+    movePage("/post");
+    console.log(e.target.value);
+  };
   return (
     <SearchBoxContainer>
-      <Title></Title>
-      <Search></Search>
-      <Button></Button>
+      <Title text1={props.text1} text2={props.text2}></Title>
+      <Search onClick={props.onClick}></Search>
+      <Button
+        type="button"
+        value={props.type}
+        className="basic"
+        text="POST +"
+        onClick={handleClickPostButton}
+      ></Button>
     </SearchBoxContainer>
   );
 }

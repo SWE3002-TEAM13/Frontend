@@ -23,4 +23,7 @@ export const ButtonContainer = styled.button`
   &.active {
     background-color: ${({ theme }) => theme.color.green};
   }
+  &.basic {
+    background-color: ${({ theme }) => theme.color.lightGreen};
+  }
 `;

@@ -20,11 +20,10 @@ import {
 import Button from "../common/PostButton";
 import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-function Post() {
-  // 나중에 버튼을 어디에서 누르느냐에 따라 default 값 달라지게 해야 함
-  const [selectedType, setSelectedType] = useState("0");
+function Post(props) {
+  const [selectedType, setSelectedType] = useState(props.type);
   const [selectedState, setSelectedState] = useState("able");
 
   const handleClickTypeButton = (e) => {
@@ -46,22 +45,22 @@ function Post() {
             <Button
               type="button"
               text="대여원해요"
-              id="0"
-              className={"type" + ("0" === selectedType ? " active" : "")}
+              id="rent"
+              className={"type" + (this.id === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="대여합니다"
-              id="1"
-              className={"type" + ("1" === selectedType ? " active" : "")}
+              id="lend"
+              className={"type" + (this.id === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="나눔합시다"
-              id="2"
-              className={"type" + ("2" === selectedType ? " active" : "")}
+              id="share"
+              className={"type" + (this.id === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
           </InputCategoryContainer>
@@ -75,20 +74,20 @@ function Post() {
           <StatesContainer>
             <StateTag
               text="거래가능"
-              id="able"
-              className={"state" + ("able" === selectedState ? " active" : "")}
+              id="possible"
+              className={"state" + (this.id === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
             />
             <StateTag
               text="거래 중"
-              id="ing"
-              className={"state" + ("ing" === selectedState ? " active" : "")}
+              id="progress"
+              className={"state" + (this.id === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
             />
             <StateTag
               text="거래완료"
               id="done"
-              className={"state" + ("done" === selectedState ? " active" : "")}
+              className={"state" + (this.id === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
             />
           </StatesContainer>
@@ -110,7 +109,7 @@ function Post() {
             <TextArea placeholder="글의 내용을 작성해주세요." />
           </TextAreaContainer>
           <SaveButtonContainer>
-            <Button type="submit" text="저장하기" />
+            <Button type="submit" className="submit basic" text="저장하기" />
           </SaveButtonContainer>
         </InputForm>
       }

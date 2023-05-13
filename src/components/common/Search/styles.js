@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const StyledSearch = styled.div`
   width: 100%;
-  height: 30px;
+  height: 40px;
   display: flex;
   border: 2px solid;
   border-radius: 5px;
@@ -11,7 +11,7 @@ export const StyledSearch = styled.div`
 
 export const SearchContainer = styled.input`
   ::placeholder {
-    font-size: 10px;
+    font-size: 16px;
     color: ${({ theme }) => theme.color.darkGray};
   }
   :focus {
@@ -20,15 +20,20 @@ export const SearchContainer = styled.input`
   background-color: transparent;
   width: 100%;
   height: 100%;
-  padding: 5px;
+  padding: 10px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: none;
-  font-size: 12px;
+  font-size: 16px;
+`;
+export const SearchButton = styled.div`
+  :focus-within {
+    cursor: pointer;
+  }
 `;
 
 export const SearchIconContainer = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
 `;

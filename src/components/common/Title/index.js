@@ -1,10 +1,10 @@
 import { StyledTitle, LightGreenText, GreenText } from "./styles";
 
-function Title() {
+function Title(props) {
   return (
     <StyledTitle>
-      <LightGreenText>대여:</LightGreenText>
-      <GreenText>합니다</GreenText>
+      <LightGreenText>{props.text1}</LightGreenText>
+      <GreenText>{props.text2}</GreenText>
     </StyledTitle>
   );
 }

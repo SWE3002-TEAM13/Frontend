@@ -20,8 +20,12 @@ import MainPage from "./pages/Main";
 import RentPage from "./pages/Rent";
 import SharePage from "./pages/Share";
 import ChatPage from "./pages/Chat";
-import ProfilePage from "./pages/Profile";
+import MyProfilePage from "./pages/MyProfile";
 import PostPage from "./pages/Post";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import ProfileEditPage from "./pages/ProfileEdit";
+import ProfilePage from "./pages/Profile";
 
 const Container = styled.div`
   display: flex;
@@ -40,22 +44,24 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Router>
-          <Container>
-            <NavBar />
-            <ContentBox>
-              <Routes>
-                <Route path="/" exact={true} element={<MainPage />} />
-                <Route path="/rent" exact={true} element={<RentPage />} />
-                <Route path="/lend" exact={true} element={<LendPage />} />
-                <Route path="/share" exact={true} element={<SharePage />} />
-                <Route path="/chat" exact={true} element={<ChatPage />} />
-                <Route path="/profile" exact={true} element={<ProfilePage />} />
-                <Route path="/post" exact={true} element={<PostPage />} />
-                <Route path="*" exact={true} element={<NotFound />} />
-              </Routes>
-            </ContentBox>
-            <Footer />
-          </Container>
+          <Routes>
+            {/* 렌더링에 NavBar와 Footer 포함 */}
+            <Route path="/" element={<Container><NavBar /><ContentBox><MainPage /></ContentBox><Footer /></Container>} />
+            <Route path="/rent" element={<Container><NavBar /><ContentBox><RentPage /></ContentBox><Footer /></Container>} />
+            <Route path="/lend" element={<Container><NavBar /><ContentBox><LendPage /></ContentBox><Footer /></Container>} />
+            <Route path="/share" element={<Container><NavBar /><ContentBox><SharePage /></ContentBox><Footer /></Container>} />
+            <Route path="/chat" element={<Container><NavBar /><ContentBox><ChatPage /></ContentBox><Footer /></Container>} />
+            <Route path="/myprofile" element={<Container><NavBar /><ContentBox><MyProfilePage /></ContentBox><Footer /></Container>} />
+            <Route path="/post" element={<Container><NavBar /><ContentBox><PostPage /></ContentBox><Footer /></Container>} />
+            <Route path="/register" element={<Container><NavBar /><ContentBox><RegisterPage /></ContentBox><Footer /></Container>} />
+            <Route path="/profileedit" element={<Container><NavBar /><ContentBox><ProfileEditPage /></ContentBox><Footer /></Container>} />
+            <Route path="/profile/:id" element={<Container><NavBar /><ContentBox><ProfilePage /></ContentBox><Footer /></Container>} />
+            {/* 렌더링에 NavBar와 Footer 제외 */}
+            <Route path="/login" exact={true} element={<LoginPage />} />
+
+            {/* NotFound 페이지 */}
+            <Route path="*" exact={true} element={<NotFound />} />
+          </Routes>
         </Router>
       </ThemeProvider>
     </MuiThemeProvider>

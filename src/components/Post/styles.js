@@ -4,7 +4,7 @@ export const InputForm = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px;
-  row-gap: 10px;
+  background-color: aliceblue;
 `;
 
 export const InputTitleContainer = styled.input`
@@ -17,7 +17,7 @@ export const InputTitleContainer = styled.input`
   }
   background-color: ${({ theme }) => theme.color.gray};
   width: 100%;
-  height: 55px;
+  height: 65px;
   padding: 20px;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -139,6 +139,8 @@ export const TextArea = styled.textarea`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.color.lightGray};
 `;
+
+export const InputTypeContainer = styled.div``;
 
 export const SaveButtonContainer = styled.div`
   display: flex;

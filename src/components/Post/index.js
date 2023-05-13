@@ -36,7 +36,9 @@ function Post() {
     setSelectedState(e.target.id);
     console.log(selectedState);
   };
+}
 
+function Post() {
   return (
     <Form
       children={

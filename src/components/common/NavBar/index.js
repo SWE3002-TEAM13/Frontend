@@ -14,7 +14,11 @@ function NavBar(props) {
       <NavBarContainer>
         <Link to="/">
           <NavBarLogoContainer>
+<<<<<<< HEAD
             <Logo variant="small" />
+=======
+            <Logo variant="small"/>
+>>>>>>> processing
           </NavBarLogoContainer>
         </Link>
         <NavBarMenuContainer>
@@ -30,7 +34,11 @@ function NavBar(props) {
           <Link to="/chat">
             <NavBarMenuText>채팅해요</NavBarMenuText>
           </Link>
+<<<<<<< HEAD
           <Link to="/profile">
+=======
+          <Link to="/myprofile">
+>>>>>>> processing
             <NavBarMenuText>프로필</NavBarMenuText>
           </Link>
           <NavBarMenuText>로그아웃</NavBarMenuText>

@@ -3,10 +3,10 @@ import styled from "styled-components";
 import BannedUser from "../../components/BannedUser/index.js";
 import emblem from "../../assets/emblem.png";
 import Card from "../../components/Card/index.js";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function ProfilePage() {
-  const { id } = useParams(); // 추후 userId값을 가져오기 위함
+function MyProfilePage() {
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -21,6 +21,27 @@ function ProfilePage() {
           <CampusName>자연과학캠퍼스(율전)</CampusName>
         </ProfileDiv>
       </ProfileBox>
+      <Button
+        width="600px"
+        onClick={() => navigate("/profileedit")}
+      >
+        프로필수정
+      </Button>
+      <BannedUserTitle>유저 차단 목록</BannedUserTitle>
+      <BannedUserBox>
+        <BannedUser img={emblem} name="닉네임" />
+        <BannedUser img={emblem} name="닉네임" />
+        <BannedUser img={emblem} name="닉네임" />
+        <BannedUser img={emblem} name="닉네임" />
+      </BannedUserBox>
+      <LikedTitleBox>
+        <Liked>좋아요</Liked>
+        <SubTitle>목록</SubTitle>
+      </LikedTitleBox>
+      <Gap height={35} />
+      <Card liked={true} />
+      <Gap height={32} />
+      <Card liked={true} />
       <TitleBox>
         <Title>대여원해요</Title>
         <SubTitle>이력</SubTitle>
@@ -49,7 +70,7 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default MyProfilePage;
 
 const Container = styled.div`
   margin-top: 84px;

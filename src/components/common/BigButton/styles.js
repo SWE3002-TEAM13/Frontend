@@ -1,37 +1,23 @@
 import styled from "@emotion/styled";
 
 export const StyledButton = styled.div`
-  width: 120px;
+  width: 520px;
   min-width: max-content;
-<<<<<<< HEAD
-  height: 40px;
-=======
-  height: 30px;
->>>>>>> processing
+  height: 50px;
 `;
 
 export const ButtonContainer = styled.button`
   :focus {
     cursor: pointer;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> processing
   width: 100%;
   height: 100%;
   padding: 5px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: medium;
   border-radius: 10px;
-  border: none;
+  border: 1px solid black;
   color: ${({ theme }) => theme.color.white};
-<<<<<<< HEAD
-  background-color: ${({ theme }) => theme.color.gray};
-  &.active {
-    background-color: ${({ theme }) => theme.color.green};
-  }
-=======
   background-color: ${({ theme }) => theme.color.lightGreen};
->>>>>>> processing
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;

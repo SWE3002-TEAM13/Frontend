@@ -10,6 +10,7 @@ export const ButtonContainer = styled.button`
   :focus {
     cursor: pointer;
   }
+
   width: 100%;
   height: 100%;
   padding: 5px;
@@ -18,5 +19,8 @@ export const ButtonContainer = styled.button`
   border-radius: 10px;
   border: none;
   color: ${({ theme }) => theme.color.white};
-  background-color: ${({ theme }) => theme.color.lightGreen};
+  background-color: ${({ theme }) => theme.color.gray};
+  &.active {
+    background-color: ${({ theme }) => theme.color.green};
+  }
 `;

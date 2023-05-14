@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 
 export const StyledButton = styled.div`
-  width: 120px;
+  width: 520px;
   min-width: max-content;
-  height: 40px;
-
+  height: 50px;
 `;
 
 export const ButtonContainer = styled.button`
@@ -14,17 +13,11 @@ export const ButtonContainer = styled.button`
   width: 100%;
   height: 100%;
   padding: 5px;
-  font-size: 14px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: medium;
   border-radius: 10px;
-  border: none;
+  border: 1px solid black;
   color: ${({ theme }) => theme.color.white};
-  background-color: ${({ theme }) => theme.color.gray};
-  &.active {
-    background-color: ${({ theme }) => theme.color.green};
-  }
-  &.basic {
-    background-color: ${({ theme }) => theme.color.lightGreen};
-  }
-
+  background-color: ${({ theme }) => theme.color.lightGreen};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;

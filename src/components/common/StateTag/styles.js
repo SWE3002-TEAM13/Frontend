@@ -10,4 +10,15 @@ export const StateContainer = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.color.heart};
   color: ${({ theme }) => theme.color.white};
+
+  &.possible {
+    background-color: ${({ theme }) => theme.color.heart};
+  }
+  &.progress {
+    background-color: ${({ theme }) => theme.color.lightGreen};
+  }
+  &.done {
+    background-color: ${({ theme }) => theme.color.darkGray};
+  }
+
 `;

@@ -1,0 +1,32 @@
+{
+  "post": [
+    {
+      "id": 1,
+      "type": "rent",
+      "title": "test입니다.",
+      "status": "possible",
+      "price": 2000,
+      "photo": null,
+      "content": "test의 내용입니다.",
+      "like_count": 3,
+      "created_at": "2020-12-23",
+      "updated_at": "2023-12-31",
+      "category": "Clothes",
+      "author_id": 2
+    },
+    {
+      "id": 2,
+      "type": "rent",
+      "title": "test입니다.2",
+      "status": "possible",
+      "price": 2000,
+      "photo": null,
+      "content": "test의 내용입니다.2",
+      "like_count": 3,
+      "created_at": "2020-12-23",
+      "updated_at": "2023-12-31",
+      "category": "Clothes",
+      "author_id": 4
+    }
+  ]
+}

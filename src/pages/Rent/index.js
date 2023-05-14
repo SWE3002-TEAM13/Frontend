@@ -1,8 +1,33 @@
+import axios from "axios";
 import CardList from "../../components/CardList";
 import SearchBox from "../../components/SearchBox";
 import BasicLayout from "../../components/common/BasicLayout";
+import { useEffect, useState } from "react";
 
 function RentPage() {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/post", {
+        withCredentials: true,
+        params: {
+          type: "lend",
+          search: null,
+        },
+      })
+      .then(function (response) {
+        setCards(response.data);
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(Array.isArray(cards));
+  console.log(cards);
+
   const onSearch = (e) => {};
   return (
     <BasicLayout
@@ -14,7 +39,7 @@ function RentPage() {
             value="rent"
             onClick={onSearch}
           />
-          <CardList />
+          <CardList data={cards} />
         </>
       }
     ></BasicLayout>

@@ -8,24 +8,36 @@ import {
   PostDateContainer,
   StateAndPriceContainer,
   PriceTextContainer,
+  ImageShow,
 } from "./styles";
 import Like from "../common/Like";
 import StateTag from "../common/StateTag";
 
-function Card({ liked }) {
+function Card({ data }) {
+  const statusText = (status) => {
+    if (status === "possible") return "거래가능";
+    else if (status === "progress") return "거래 중";
+    else if (status === "done") return "거래 완료";
+  };
+
   return (
-    <CardContainer>
-      <ImgContainer></ImgContainer>
+    <CardContainer id={"card " + data.id}>
+      <ImgContainer>
+        <ImageShow src={data.photo} alt="photo" />
+      </ImgContainer>
       <ContentContainer>
         <PostTitleAndLikeContainer>
-          <PostTitleContainer>제목입니다.</PostTitleContainer>
-          <Like liked={liked}></Like>
+          <PostTitleContainer>{data.title}</PostTitleContainer>
+          <Like count={data.like_count}></Like>
         </PostTitleAndLikeContainer>
-        <PostAuthorContainer>작성자입니다.</PostAuthorContainer>
-        <PostDateContainer>작성일 : 2020-33-12</PostDateContainer>
+        <PostAuthorContainer>{data.author_id}</PostAuthorContainer>
+        <PostDateContainer>작성일 : {data.created_at}</PostDateContainer>
         <StateAndPriceContainer>
-          <StateTag></StateTag>
-          <PriceTextContainer>1000원</PriceTextContainer>
+          <StateTag
+            className={data.status}
+            text={statusText(data.status)}
+          ></StateTag>
+          <PriceTextContainer>{data.price}원</PriceTextContainer>
         </StateAndPriceContainer>
       </ContentContainer>
     </CardContainer>

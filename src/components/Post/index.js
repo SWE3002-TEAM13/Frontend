@@ -22,7 +22,7 @@ import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
 import { useState } from "react";
 
-function Post(props) {
+function Post() {
   const [selectedType, setSelectedType] = useState("rent");
   const [selectedState, setSelectedState] = useState("possible");
 
@@ -35,9 +35,7 @@ function Post(props) {
     setSelectedState(e.target.id);
     console.log(selectedState);
   };
-}
 
-function Post() {
   return (
     <Form
       children={

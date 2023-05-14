@@ -3,7 +3,6 @@ import { StyledButton, ButtonContainer } from "./styles";
 function Button(props) {
   return (
     <StyledButton>
-<<<<<<< HEAD
       <ButtonContainer
         type={props.type}
         id={props.id}
@@ -13,9 +12,6 @@ function Button(props) {
       >
         {props.text}
       </ButtonContainer>
-=======
-      <ButtonContainer>{props.text}</ButtonContainer>
->>>>>>> processing
     </StyledButton>
   );
 }

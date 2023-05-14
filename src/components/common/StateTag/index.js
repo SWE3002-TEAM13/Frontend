@@ -1,6 +1,5 @@
 import { StateContainer } from "./styles";
 
-<<<<<<< HEAD
 function StateTag(props) {
   return (
     <StateContainer
@@ -12,10 +11,6 @@ function StateTag(props) {
       {props.text}
     </StateContainer>
   );
-=======
-function StateTag() {
-  return <StateContainer>거래 가능</StateContainer>;
->>>>>>> processing
 }
 
 export default StateTag;

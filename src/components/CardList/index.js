@@ -8,22 +8,18 @@ import {
 
 import Card from "../Card";
 
-function CardList() {
+function CardList({ data }) {
   return (
     <CardListAndMoreContainer>
       <CardListContainer>
-        <SingleCardContainer>
-          <Card></Card>
-        </SingleCardContainer>
-        <SingleCardContainer>
-          <Card></Card>
-        </SingleCardContainer>
-        <SingleCardContainer>
-          <Card></Card>
-        </SingleCardContainer>
-        <SingleCardContainer>
-          <Card></Card>
-        </SingleCardContainer>
+        {data &&
+          data.map((item, index) => {
+            return (
+              <SingleCardContainer key={index}>
+                <Card data={item} />
+              </SingleCardContainer>
+            );
+          })}
       </CardListContainer>
       <MoreButtonContainer>
         <MoreButton>+ 더 불러오기</MoreButton>

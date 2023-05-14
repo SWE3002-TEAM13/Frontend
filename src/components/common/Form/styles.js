@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 
-<<<<<<< HEAD
-export const FormContainer = styled.form`
-=======
 export const FormContainer = styled.div`
->>>>>>> processing
   height: 100%;
   min-width: 800px;
   min-height: 100vh;

@@ -16,7 +16,7 @@ function SearchBox(props) {
       <Search onClick={props.onClick}></Search>
       <Button
         type="button"
-        value={props.type}
+        value={props.value}
         className="basic"
         text="POST +"
         onClick={handleClickPostButton}

@@ -1,3 +1,4 @@
+import CardList from "../../components/CardList";
 import SearchBox from "../../components/SearchBox";
 import BasicLayout from "../../components/common/BasicLayout";
 
@@ -10,9 +11,10 @@ function RentPage() {
           <SearchBox
             text1="대여:"
             text2="합니다"
-            type="rent"
+            value="rent"
             onClick={onSearch}
           />
+          <CardList />
         </>
       }
     ></BasicLayout>

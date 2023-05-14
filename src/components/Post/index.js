@@ -23,8 +23,8 @@ import PhotoIcon from "../../assets/image.svg";
 import { useState } from "react";
 
 function Post(props) {
-  const [selectedType, setSelectedType] = useState(props.type);
-  const [selectedState, setSelectedState] = useState("able");
+  const [selectedType, setSelectedType] = useState("rent");
+  const [selectedState, setSelectedState] = useState("possible");
 
   const handleClickTypeButton = (e) => {
     setSelectedType(e.target.id);
@@ -46,21 +46,21 @@ function Post(props) {
               type="button"
               text="대여원해요"
               id="rent"
-              className={"type" + (this.id === selectedType ? " active" : "")}
+              className={"type" + ("rent" === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="대여합니다"
               id="lend"
-              className={"type" + (this.id === selectedType ? " active" : "")}
+              className={"type" + ("lend" === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="나눔합시다"
               id="share"
-              className={"type" + (this.id === selectedType ? " active" : "")}
+              className={"type" + ("share" === selectedType ? " active" : "")}
               onClick={handleClickTypeButton}
             />
           </InputCategoryContainer>
@@ -75,19 +75,23 @@ function Post(props) {
             <StateTag
               text="거래가능"
               id="possible"
-              className={"state" + (this.id === selectedState ? " active" : "")}
+              className={
+                "state" + ("possible" === selectedState ? " active" : "")
+              }
               onClick={handleClickStateButton}
             />
             <StateTag
               text="거래 중"
               id="progress"
-              className={"state" + (this.id === selectedState ? " active" : "")}
+              className={
+                "state" + ("progress" === selectedState ? " active" : "")
+              }
               onClick={handleClickStateButton}
             />
             <StateTag
               text="거래완료"
               id="done"
-              className={"state" + (this.id === selectedState ? " active" : "")}
+              className={"state" + ("done" === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
             />
           </StatesContainer>

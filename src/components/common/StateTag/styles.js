@@ -20,4 +20,5 @@ export const StateContainer = styled.div`
   &.done {
     background-color: ${({ theme }) => theme.color.darkGray};
   }
+
 `;

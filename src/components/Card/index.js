@@ -48,7 +48,7 @@ function Card({ data }) {
           작성일 : {data.created_at.substr(0, 10)}
         </PostDateContainer>
         <StateAndPriceContainer>
-          <StateTag className={data.status}></StateTag>
+          <StateTag className={data.status} text={data.status}></StateTag>
           <PriceTextContainer>{data.price}원</PriceTextContainer>
         </StateAndPriceContainer>
       </ContentContainer>

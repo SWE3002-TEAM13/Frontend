@@ -80,7 +80,7 @@ function Info({ data }) {
                 </InfoDateContainer>
               </OtherTextContainer>
               <InfoStateAndPriceContainer>
-                <StateTag className={data.status}></StateTag>
+                <StateTag className={data.status} text={data.status}></StateTag>
                 <InfoPriceTextContainer>{data.price}원</InfoPriceTextContainer>
               </InfoStateAndPriceContainer>
             </OtherInfoContainer>

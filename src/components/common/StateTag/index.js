@@ -13,7 +13,7 @@ function StateTag(props) {
       className={props.className}
       onClick={props.onClick}
     >
-      {statusText(props.className)}
+      {statusText(props.text)}
     </StateContainer>
   );
 }

@@ -23,9 +23,9 @@ import PhotoIcon from "../../assets/image.svg";
 import { useState } from "react";
 
 function Post(props) {
-  console.log(props.type);
   const [selectedType, setSelectedType] = useState(props.type);
   const [selectedState, setSelectedState] = useState("possible");
+  const [filename, setFilename] = useState("선택된 파일 없음");
 
   const handleClickTypeButton = (e) => {
     setSelectedType(e.target.id);
@@ -35,6 +35,11 @@ function Post(props) {
   const handleClickStateButton = (e) => {
     setSelectedState(e.target.id);
     console.log(selectedState);
+  };
+
+  const handleUploadPhoto = (e) => {
+    setFilename(e.target.files[0].name);
+    console.log(e.target.files[0].name);
   };
 
   return (
@@ -74,7 +79,7 @@ function Post(props) {
           </InputPriceContainer>
           <StatesContainer>
             <StateTag
-              text="거래가능"
+              text="possible"
               id="possible"
               className={
                 "state" + ("possible" === selectedState ? " active" : "")
@@ -82,7 +87,7 @@ function Post(props) {
               onClick={handleClickStateButton}
             />
             <StateTag
-              text="거래 중"
+              text="progress"
               id="progress"
               className={
                 "state" + ("progress" === selectedState ? " active" : "")
@@ -90,7 +95,7 @@ function Post(props) {
               onClick={handleClickStateButton}
             />
             <StateTag
-              text="거래완료"
+              text="done"
               id="done"
               className={"state" + ("done" === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
@@ -105,10 +110,9 @@ function Post(props) {
               type="file"
               name="uploadPhoto"
               accept="image/*"
+              onChange={handleUploadPhoto}
             />
-            <UploadedPhotoInfoContainer>
-              선택된 파일 없음
-            </UploadedPhotoInfoContainer>
+            <UploadedPhotoInfoContainer>{filename}</UploadedPhotoInfoContainer>
           </UploadPhotoContainer>
           <TextAreaContainer>
             <TextArea placeholder="글의 내용을 작성해주세요." />

@@ -13,7 +13,7 @@ function SearchBox(props) {
   return (
     <SearchBoxContainer>
       <Title text1={props.text1} text2={props.text2}></Title>
-      <Search onClick={props.onClick}></Search>
+      <Search setValue={props.setValue}></Search>
       <Button
         type="button"
         value={props.value}

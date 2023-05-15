@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const StyledSearch = styled.div`
+export const StyledSearch = styled.form`
   width: 100%;
   height: 40px;
   display: flex;
@@ -27,10 +27,14 @@ export const SearchContainer = styled.input`
   border: none;
   font-size: 16px;
 `;
-export const SearchButton = styled.div`
-  :focus-within {
+export const SearchButton = styled.button`
+  width: 45px;
+  height: 35px;
+  :focus {
     cursor: pointer;
   }
+  border: none;
+  background-color: transparent;
 `;
 
 export const SearchIconContainer = styled.img`

@@ -22,8 +22,9 @@ import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
 import { useState } from "react";
 
-function Post() {
-  const [selectedType, setSelectedType] = useState("rent");
+function Post(props) {
+  console.log(props.type);
+  const [selectedType, setSelectedType] = useState(props.type);
   const [selectedState, setSelectedState] = useState("possible");
 
   const handleClickTypeButton = (e) => {

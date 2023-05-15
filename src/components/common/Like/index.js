@@ -14,7 +14,14 @@ function Like({ liked, ...props }) {
       <LikeNumber>{props.count}</LikeNumber>
       <LikeIconContainer
         src={isLiked ? FillLikeIcon : NotFillLikeIcon}
-        onClick={handleClick}
+        onClick={() => {
+          handleClick();
+          if (isLiked) {
+            props.onClickDislike();
+          } else {
+            props.onClickLike();
+          }
+        }}
         alt="like"
       ></LikeIconContainer>
     </LikeContainer>

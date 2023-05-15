@@ -11,7 +11,8 @@ function RentPage() {
   useEffect(() => {
     console.log(search);
     axios
-      .get("http://localhost:8000/post", {
+      // eslint-disable-next-line
+      .get(`${process.env.REACT_APP_API_ENDPOINT}` + "/post", {
         withCredentials: true,
         params: {
           type: "lend",

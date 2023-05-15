@@ -23,16 +23,28 @@ function Card({ data }) {
 
   const handleLike = (e) => {
     // eslint-disable-next-line
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT}` + "/post", {
-      id: data.id,
-    });
+    axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}` +
+        "/post/" +
+        `${data.id}` +
+        "/like",
+      {
+        id: data.id,
+      }
+    );
   };
 
   const handleDislike = (e) => {
     // eslint-disable-next-line
-    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}` + "/post", {
-      id: data.id,
-    });
+    axios.delete(
+      `${process.env.REACT_APP_API_ENDPOINT}` +
+        "/post/" +
+        `${data.id}` +
+        "/like",
+      {
+        id: data.id,
+      }
+    );
   };
 
   return (

@@ -15,38 +15,19 @@ import StateTag from "../common/StateTag";
 import axios from "axios";
 
 function Card({ data }) {
-  const statusText = (status) => {
-    if (status === "possible") return "거래가능";
-    else if (status === "progress") return "거래 중";
-    else if (status === "done") return "거래 완료";
-  };
-
   const handleLike = (e) => {
     // eslint-disable-next-line
-    axios.post(
-      `${process.env.REACT_APP_API_ENDPOINT}` +
-        "/post/" +
-        `${data.id}` +
-        "/like",
-      {
-        id: data.id,
-      }
-    );
+    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+      id: data.id,
+    });
   };
 
   const handleDislike = (e) => {
     // eslint-disable-next-line
-    axios.delete(
-      `${process.env.REACT_APP_API_ENDPOINT}` +
-        "/post/" +
-        `${data.id}` +
-        "/like",
-      {
-        id: data.id,
-      }
-    );
+    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+      id: data.id,
+    });
   };
-  console.log(typeof data.created_at);
 
   return (
     <CardContainer id={"card " + data.id}>
@@ -62,15 +43,12 @@ function Card({ data }) {
             onClickDislike={handleDislike}
           ></Like>
         </PostTitleAndLikeContainer>
-        <PostAuthorContainer>{data.author_id}</PostAuthorContainer>
+        <PostAuthorContainer>{data.nickname}</PostAuthorContainer>
         <PostDateContainer>
           작성일 : {data.created_at.substr(0, 10)}
         </PostDateContainer>
         <StateAndPriceContainer>
-          <StateTag
-            className={data.status}
-            text={statusText(data.status)}
-          ></StateTag>
+          <StateTag className={data.status}></StateTag>
           <PriceTextContainer>{data.price}원</PriceTextContainer>
         </StateAndPriceContainer>
       </ContentContainer>

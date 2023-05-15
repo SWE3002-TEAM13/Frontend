@@ -1,6 +1,11 @@
 import { StateContainer } from "./styles";
 
 function StateTag(props) {
+  const statusText = (status) => {
+    if (status === "possible") return "거래가능";
+    else if (status === "progress") return "거래 중";
+    else if (status === "done") return "거래 완료";
+  };
   return (
     <StateContainer
       type="button"
@@ -8,7 +13,7 @@ function StateTag(props) {
       className={props.className}
       onClick={props.onClick}
     >
-      {props.text}
+      {statusText(props.className)}
     </StateContainer>
   );
 }

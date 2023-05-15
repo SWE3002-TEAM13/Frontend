@@ -9,13 +9,12 @@ function RentPage() {
   const [search, setSearch] = useState(null);
 
   useEffect(() => {
-    console.log(search);
     axios
       // eslint-disable-next-line
       .get(`${process.env.REACT_APP_API_ENDPOINT}` + "/post", {
         withCredentials: true,
         params: {
-          type: "lend",
+          type: "rent",
           search: search,
         },
       })

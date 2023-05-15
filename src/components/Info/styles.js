@@ -5,6 +5,15 @@ export const NavigationContainer = styled.div`
   width: 100%;
 `;
 
+export const IconBtn = styled.button`
+  :focus {
+    cursor: pointer;
+  }
+  border: none;
+  background-color: transparent;
+  width: max-content;
+  height: max-content;
+`;
 export const NavigationBack = styled.img`
   width: 25px;
   height: 25px;
@@ -21,6 +30,11 @@ export const PhotoContainer = styled.div`
   width: 100%;
   min-height: 500px;
   background-color: ${({ theme }) => theme.color.gray};
+`;
+
+export const Photo = styled.img`
+  width: 100%;
+  min-height: 100%;
 `;
 
 export const ConetentsContainer = styled.div`

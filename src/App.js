@@ -26,6 +26,7 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import ProfileEditPage from "./pages/ProfileEdit";
 import ProfilePage from "./pages/Profile";
+import InfoPage from "./pages/PostInfo";
 
 const Container = styled.div`
   display: flex;
@@ -46,16 +47,138 @@ function App() {
         <Router>
           <Routes>
             {/* 렌더링에 NavBar와 Footer 포함 */}
-            <Route path="/" element={<Container><NavBar /><ContentBox><MainPage /></ContentBox><Footer /></Container>} />
-            <Route path="/rent" element={<Container><NavBar /><ContentBox><RentPage /></ContentBox><Footer /></Container>} />
-            <Route path="/lend" element={<Container><NavBar /><ContentBox><LendPage /></ContentBox><Footer /></Container>} />
-            <Route path="/share" element={<Container><NavBar /><ContentBox><SharePage /></ContentBox><Footer /></Container>} />
-            <Route path="/chat" element={<Container><NavBar /><ContentBox><ChatPage /></ContentBox><Footer /></Container>} />
-            <Route path="/myprofile" element={<Container><NavBar /><ContentBox><MyProfilePage /></ContentBox><Footer /></Container>} />
-            <Route path="/post" element={<Container><NavBar /><ContentBox><PostPage /></ContentBox><Footer /></Container>} />
-            <Route path="/register" element={<Container><NavBar /><ContentBox><RegisterPage /></ContentBox><Footer /></Container>} />
-            <Route path="/profileedit" element={<Container><NavBar /><ContentBox><ProfileEditPage /></ContentBox><Footer /></Container>} />
-            <Route path="/profile/:id" element={<Container><NavBar /><ContentBox><ProfilePage /></ContentBox><Footer /></Container>} />
+            <Route
+              path="/"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <MainPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/rent"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <RentPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/lend"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <LendPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/share"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <SharePage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/info/:id"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <InfoPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/chat"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <ChatPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/myprofile"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <MyProfilePage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/post"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <PostPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <RegisterPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/profileedit"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <ProfileEditPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/profile/:id"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <ProfilePage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
             {/* 렌더링에 NavBar와 Footer 제외 */}
             <Route path="/login" exact={true} element={<LoginPage />} />
 

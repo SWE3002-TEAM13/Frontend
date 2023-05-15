@@ -19,41 +19,77 @@ import {
   OtherContentContainer,
   DeleteIconContainer,
   ChatButtonContainer,
+  Photo,
+  IconBtn,
 } from "./styles";
 import Back from "../../assets/arrow.svg";
 import StateTag from "../common/StateTag";
 import EditIcon from "../../assets/edit.svg";
 import DeleteIcon from "../../assets/delete.svg";
 import ChatButton from "../common/ChatButton";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function Info() {
+function Info({ data }) {
+  let date = data.created_at + "";
+  const movePage = useNavigate();
+
+  const goBack = () => {
+    movePage(`/${data.type}`);
+  };
+
+  const handleLike = (e) => {
+    // eslint-disable-next-line
+    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+      id: data.id,
+    });
+  };
+
+  const handleDislike = (e) => {
+    // eslint-disable-next-line
+    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+      id: data.id,
+    });
+  };
+
   return (
     <Form
       children={
         <>
           <NavigationContainer>
-            <NavigationBack src={Back} alt="back" />
+            <IconBtn type="button" onClick={goBack}>
+              <NavigationBack src={Back} alt="back" />
+            </IconBtn>
           </NavigationContainer>
           <InfoContainer>
             <InfoTitleAndLikeContainer>
-              <InfoTitleContainer>제목입니다</InfoTitleContainer>
-              <Like></Like>
+              <InfoTitleContainer>{data.title}</InfoTitleContainer>
+              <Like
+                count={data.like_count}
+                onClickLike={handleLike}
+                onClickDislike={handleDislike}
+              ></Like>
             </InfoTitleAndLikeContainer>
             <OtherInfoContainer>
               <OtherTextContainer>
-                <InfoAuthorContainer>작성자입니다</InfoAuthorContainer>
+                <InfoAuthorContainer>{data.nickname}</InfoAuthorContainer>
                 <>|</>
-                <InfoDateContainer>작성일 : 2020-12-32</InfoDateContainer>
+                <InfoDateContainer>
+                  작성일 : {date.substr(0, 10)}
+                </InfoDateContainer>
               </OtherTextContainer>
               <InfoStateAndPriceContainer>
-                <StateTag></StateTag>
-                <InfoPriceTextContainer>1000원</InfoPriceTextContainer>
+                <StateTag className={data.status}></StateTag>
+                <InfoPriceTextContainer>{data.price}원</InfoPriceTextContainer>
               </InfoStateAndPriceContainer>
             </OtherInfoContainer>
           </InfoContainer>
-          <PhotoContainer></PhotoContainer>
+          <PhotoContainer>
+            <Photo src={data.photo} alt="photo" />
+          </PhotoContainer>
           <ConetentsContainer>
-            <InfoContentContainer>글 내용입니다</InfoContentContainer>
+            <InfoContentContainer>{data.content}</InfoContentContainer>
             <OtherContentContainer>
               <EditIconContainer src={EditIcon} alt="edit" />
               <DeleteIconContainer src={DeleteIcon} alt="delete" />

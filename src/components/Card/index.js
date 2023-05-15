@@ -46,6 +46,7 @@ function Card({ data }) {
       }
     );
   };
+  console.log(typeof data.created_at);
 
   return (
     <CardContainer id={"card " + data.id}>
@@ -62,7 +63,9 @@ function Card({ data }) {
           ></Like>
         </PostTitleAndLikeContainer>
         <PostAuthorContainer>{data.author_id}</PostAuthorContainer>
-        <PostDateContainer>작성일 : {data.created_at}</PostDateContainer>
+        <PostDateContainer>
+          작성일 : {data.created_at.substr(0, 10)}
+        </PostDateContainer>
         <StateAndPriceContainer>
           <StateTag
             className={data.status}

@@ -50,13 +50,9 @@ function Post(props) {
     console.log(selectedState);
   };
 
-  const handleUploadPhoto = (e) => {
-    setFilename(e.target.files[0].name);
-    console.log(e.target.files[0].name);
-  };
-
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
+    console.log(e.target.value);
   };
 
   const handleChangePrice = (e) => {
@@ -65,6 +61,7 @@ function Post(props) {
 
   const handleChangeFile = (e) => {
     setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
   };
 
   const handleChangeContent = (e) => {
@@ -175,10 +172,7 @@ function Post(props) {
               type="file"
               name="uploadPhoto"
               accept="image/*"
-              onChange={() => {
-                handleUploadPhoto();
-                handleChangeFile();
-              }}
+              onChange={handleChangeFile}
             />
             <UploadedPhotoInfoContainer>{filename}</UploadedPhotoInfoContainer>
           </UploadPhotoContainer>

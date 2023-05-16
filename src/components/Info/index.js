@@ -29,7 +29,6 @@ import DeleteIcon from "../../assets/delete.svg";
 import ChatButton from "../common/ChatButton";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 function Info({ data }) {
   let date = data.created_at + "";

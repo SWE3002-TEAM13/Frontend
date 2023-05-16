@@ -10,8 +10,7 @@ function RentPage() {
 
   useEffect(() => {
     axios
-      // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_API_ENDPOINT}` + "/post", {
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
         withCredentials: true,
         params: {
           type: "rent",

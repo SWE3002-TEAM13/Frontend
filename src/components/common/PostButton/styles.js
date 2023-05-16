@@ -4,7 +4,6 @@ export const StyledButton = styled.div`
   width: 120px;
   min-width: max-content;
   height: 40px;
-
 `;
 
 export const ButtonContainer = styled.button`
@@ -26,5 +25,7 @@ export const ButtonContainer = styled.button`
   &.basic {
     background-color: ${({ theme }) => theme.color.lightGreen};
   }
-
+  :disabled {
+    background-color: ${({ theme }) => theme.color.darkGray};
+  }
 `;

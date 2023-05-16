@@ -71,7 +71,12 @@ export const OtherTextContainer = styled.div`
   align-items: center;
   column-gap: 20px;
 `;
-export const InfoAuthorContainer = styled.div`
+export const InfoAuthorContainer = styled.button`
+  :focus {
+    cursor: pointer;
+  }
+  border: none;
+  background-color: transparent;
   font-size: 15px;
   font-weight: lighter;
   align-items: center;

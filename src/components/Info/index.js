@@ -89,7 +89,11 @@ function Info({ data }) {
             </InfoTitleAndLikeContainer>
             <OtherInfoContainer>
               <OtherTextContainer>
-                <InfoAuthorContainer>{data.nickname}</InfoAuthorContainer>
+                <Link to={`/profile/${data.author_id}`}>
+                  <InfoAuthorContainer type="button">
+                    {data.nickname}
+                  </InfoAuthorContainer>
+                </Link>
                 <>|</>
                 <InfoDateContainer>
                   작성일 : {date.substr(0, 10)}
@@ -128,7 +132,9 @@ function Info({ data }) {
               )}
             </OtherContentContainer>
             <ChatButtonContainer>
-              <ChatButton></ChatButton>
+              <Link to={`/chat/${data.author_id}`}>
+                <ChatButton></ChatButton>
+              </Link>
             </ChatButtonContainer>
           </ConetentsContainer>
         </>

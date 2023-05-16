@@ -20,7 +20,7 @@ import {
 import Button from "../common/PostButton";
 import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -33,6 +33,13 @@ function Post(props) {
   const [content, setContent] = useState("");
   const [filename, setFilename] = useState("선택된 파일 없음");
   const [disabled, setDisabled] = useState(false);
+
+  const edit = props.edit ? true : false;
+
+  useEffect(() => {
+    setSelectedType(props?.edit?.type);
+    setSelectedState(props?.edit?.status);
+  }, [props]);
 
   const movePage = useNavigate();
 
@@ -52,7 +59,6 @@ function Post(props) {
 
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleChangePrice = (e) => {
@@ -107,6 +113,7 @@ function Post(props) {
         <InputForm>
           <InputTitleContainer
             placeholder="글의 제목을 작성해주세요."
+            defaultValue={edit ? props.edit.title : null}
             onChange={handleChangeTitle}
           />
           <InputCategoryContainer>
@@ -135,7 +142,10 @@ function Post(props) {
           <InputPriceContainer>
             <PriceText> 희망 가격 </PriceText>
             <PriceContainer>
-              <InputPrice onChange={handleChangePrice}></InputPrice>
+              <InputPrice
+                defaultValue={edit ? props.edit.price : null}
+                onChange={handleChangePrice}
+              ></InputPrice>
               <p>원</p>
             </PriceContainer>
           </InputPriceContainer>
@@ -174,12 +184,15 @@ function Post(props) {
               accept="image/*"
               onChange={handleChangeFile}
             />
-            <UploadedPhotoInfoContainer>{filename}</UploadedPhotoInfoContainer>
+            <UploadedPhotoInfoContainer>
+              {edit ? props.edit.photo : filename}
+            </UploadedPhotoInfoContainer>
           </UploadPhotoContainer>
           <TextAreaContainer>
             <TextArea
               placeholder="글의 내용을 작성해주세요."
               onChange={handleChangeContent}
+              defaultValue={edit ? props.edit.content : null}
             />
           </TextAreaContainer>
           <SaveButtonContainer>

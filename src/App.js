@@ -27,6 +27,7 @@ import RegisterPage from "./pages/Register";
 import ProfileEditPage from "./pages/ProfileEdit";
 import ProfilePage from "./pages/Profile";
 import InfoPage from "./pages/PostInfo";
+import EditPage from "./pages/EditInfo";
 
 const Container = styled.div`
   display: flex;
@@ -138,6 +139,18 @@ function App() {
                   <NavBar />
                   <ContentBox>
                     <PostPage />
+                  </ContentBox>
+                  <Footer />
+                </Container>
+              }
+            />
+            <Route
+              path="/edit/:id"
+              element={
+                <Container>
+                  <NavBar />
+                  <ContentBox>
+                    <EditPage />
                   </ContentBox>
                   <Footer />
                 </Container>

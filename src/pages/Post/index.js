@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import Post from "../../components/Post";
 import BasicLayout from "../../components/common/BasicLayout";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function PostPage() {
   const location = useLocation();

@@ -80,6 +80,7 @@ export const InputPrice = styled.input`
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  text-align: right;
 `;
 
 export const StatesContainer = styled.div`

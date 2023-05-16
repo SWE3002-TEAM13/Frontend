@@ -26,13 +26,16 @@ import Back from "../../assets/arrow.svg";
 import StateTag from "../common/StateTag";
 import EditIcon from "../../assets/edit.svg";
 import DeleteIcon from "../../assets/delete.svg";
+import BlockIcon from "../../assets/block.svg";
+import ReportIcon from "../../assets/report.svg";
 import ChatButton from "../common/ChatButton";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Info({ data }) {
   let date = data.created_at + "";
   const movePage = useNavigate();
+  const user_id = 1; // 나중에 들어올 로그인한 유저 아이디 값
 
   const goBack = () => {
     movePage(`/${data.type}`);
@@ -50,6 +53,20 @@ function Info({ data }) {
     axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
       id: data.id,
     });
+  };
+
+  const handleClickDeleteButton = (e) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}`, {
+        withCredentials: true,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    goBack();
   };
 
   return (
@@ -90,8 +107,25 @@ function Info({ data }) {
           <ConetentsContainer>
             <InfoContentContainer>{data.content}</InfoContentContainer>
             <OtherContentContainer>
-              <EditIconContainer src={EditIcon} alt="edit" />
-              <DeleteIconContainer src={DeleteIcon} alt="delete" />
+              {data.author_id === user_id ? (
+                <>
+                  <Link to={`/edit/${data.id}`}>
+                    <EditIconContainer src={EditIcon} alt="edit" />
+                  </Link>
+                  <IconBtn type="button" onClick={handleClickDeleteButton}>
+                    <DeleteIconContainer src={DeleteIcon} alt="delete" />
+                  </IconBtn>
+                </>
+              ) : (
+                <>
+                  <IconBtn type="button">
+                    <DeleteIconContainer src={BlockIcon} alt="block" />
+                  </IconBtn>
+                  <IconBtn type="button">
+                    <DeleteIconContainer src={ReportIcon} alt="report" />
+                  </IconBtn>
+                </>
+              )}
             </OtherContentContainer>
             <ChatButtonContainer>
               <ChatButton></ChatButton>

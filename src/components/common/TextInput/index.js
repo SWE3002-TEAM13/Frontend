@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-function TextInput({ placeholder, width, onChange, value }) {
+function TextInput({ type, placeholder, width, onChange, value }) {
   return (
     <StyledInput
-      type="text"
+      type={type}
       placeholder={placeholder}
       width={width}
       onChange={onChange}

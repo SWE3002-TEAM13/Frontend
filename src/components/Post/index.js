@@ -22,7 +22,7 @@ import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
 import { useState } from "react";
 
-function Post() {
+function Post(props) {
   const [selectedType, setSelectedType] = useState("rent");
   const [selectedState, setSelectedState] = useState("possible");
 

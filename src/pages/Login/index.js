@@ -1,20 +1,55 @@
+import React, { useState } from "react";
 import Logo from "../../components/common/Logo";
 import Button from "../../components/common/BigButton";
 import TextInput from "../../components/common/TextInput";
 import styled from "styled-components";
 import Link from "../../components/common/Link";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+
+  const handleLogin = () => {
+    const requestBody = new URLSearchParams({
+      password: "test1234",
+      username: "teamlizzie"
+    });
+
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: requestBody.toString()
+    })
+      .then(async response => {
+        if (response.ok) {
+          console.log("Login successful!");
+          const json = await response.json();
+          document.cookie = `access_token=${json.access_token}; path=/`;
+          navigate("/");
+        } else if (response.status !== 200) {
+          alert("Login failed!");
+        }
+      })
+      .catch(error => {
+        alert("Error occurred during login:", error);
+      });
+  };
+
   return (
     <LoginContainer>
       <LoginBox>
         <Logo variant="big" />
         <Gap height={24} />
-        <TextInput width="520px" placeholder="아이디" />
+        <TextInput width="520px" value={username} placeholder="아이디" onChange={event => setUsername(event.target.value)} />
         <Gap height={8} />
-        <TextInput width="520px" placeholder="비밀번호" />
+        <TextInput width="520px" value={password} placeholder="비밀번호" type="password" onChange={event => setPassword(event.target.value)} />
         <Gap height={11} />
-        <Button text="로그인" />
+        <Button text="로그인" onClick={handleLogin} />
         <Gap height={24} />
         <LinksContainer>
           <Link text="회원 가입" to="/register" />

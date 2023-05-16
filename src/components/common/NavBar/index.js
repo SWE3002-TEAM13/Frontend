@@ -8,7 +8,17 @@ import {
 import Logo from "../Logo";
 import { Link } from "react-router-dom";
 
-function NavBar(props) {
+function NavBar() {
+
+  const handleLogout = () => {
+    // access_token 쿠키 삭제
+    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // 페이지 새로고침
+    window.location.reload();
+  };
+
+  const isLoggedIn = document.cookie.includes("access_token");
+
   return (
     <StyledNavBar>
       <NavBarContainer>
@@ -33,7 +43,13 @@ function NavBar(props) {
           <Link to="/myprofile">
             <NavBarMenuText>프로필</NavBarMenuText>
           </Link>
-          <NavBarMenuText>로그아웃</NavBarMenuText>
+          {isLoggedIn ? (
+            <NavBarMenuText onClick={handleLogout}>로그아웃</NavBarMenuText>
+          ) : (
+            <Link to="/login">
+              <NavBarMenuText>로그인</NavBarMenuText>
+            </Link>
+          )}
         </NavBarMenuContainer>
       </NavBarContainer>
     </StyledNavBar>

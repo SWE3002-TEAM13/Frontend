@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BannedUser from "../../components/BannedUser/index.js";
 import emblem from "../../assets/emblem.png";
@@ -7,65 +7,95 @@ import { useNavigate } from "react-router-dom";
 
 function MyProfilePage() {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    // 페이지가 로드되었을 때 실행되는 코드
+    const access_token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+
+    fetch("http://localhost:8000/user/profile/me", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${access_token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setProfile(data);
+      })
+      .catch(error => {
+        // 오류 처리 로직 작성
+        console.error("Error occurred:", error);
+      });
+  }, []);
 
   return (
     <Container>
-      <ProfileTitleBox>
-        <ProfileTitleName>성균나누Re님</ProfileTitleName>
-        <ProfileTitleText>프로필</ProfileTitleText>
-      </ProfileTitleBox>
-      <ProfileBox>
-        <ImgUploadDiv imgUrl={emblem} />
-        <ProfileDiv>
-          <ProfileName>성규나누Re</ProfileName>
-          <CampusName>자연과학캠퍼스(율전)</CampusName>
-        </ProfileDiv>
-      </ProfileBox>
-      <Button
-        width="600px"
-        onClick={() => navigate("/profileedit")}
-      >
-        프로필수정
-      </Button>
-      <BannedUserTitle>유저 차단 목록</BannedUserTitle>
-      <BannedUserBox>
-        <BannedUser img={emblem} name="닉네임" />
-        <BannedUser img={emblem} name="닉네임" />
-        <BannedUser img={emblem} name="닉네임" />
-        <BannedUser img={emblem} name="닉네임" />
-      </BannedUserBox>
-      <LikedTitleBox>
-        <Liked>좋아요</Liked>
-        <SubTitle>목록</SubTitle>
-      </LikedTitleBox>
-      <Gap height={35} />
-      <Card liked={true} />
-      <Gap height={32} />
-      <Card liked={true} />
-      <TitleBox>
-        <Title>대여원해요</Title>
-        <SubTitle>이력</SubTitle>
-      </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
-      <Gap height={32} />
-      <Card liked={false} />
-      <TitleBox>
-        <Title>대여합니다</Title>
-        <SubTitle>이력</SubTitle>
-      </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
-      <Gap height={32} />
-      <Card liked={false} />
-      <TitleBox>
-        <Title>나눔합시다</Title>
-        <SubTitle>이력</SubTitle>
-      </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
-      <Gap height={32} />
-      <Card liked={false} />
+      {profile.profile && profile.profile.nickname && (
+        <>
+          <ProfileTitleBox>
+            <ProfileTitleName>{profile.profile.nickname}</ProfileTitleName>
+            <ProfileTitleText>프로필</ProfileTitleText>
+          </ProfileTitleBox>
+          <ProfileBox>
+            <ImgUploadDiv imgUrl={profile.profile.thumbnail} />
+            <ProfileDiv>
+              <ProfileName>{profile.profile.nickname}</ProfileName>
+              <CampusName>{profile.profile.loc_str}</CampusName>
+            </ProfileDiv>
+          </ProfileBox>
+          <Button
+            width="600px"
+            onClick={() => navigate("/profileedit")}
+          >
+            프로필수정
+          </Button>
+          <BannedUserTitle>유저 차단 목록</BannedUserTitle>
+          <BannedUserBox>
+            <BannedUser img={emblem} name="닉네임" />
+            <BannedUser img={emblem} name="닉네임" />
+            <BannedUser img={emblem} name="닉네임" />
+            <BannedUser img={emblem} name="닉네임" />
+          </BannedUserBox>
+          <LikedTitleBox>
+            <Liked>좋아요</Liked>
+            <SubTitle>목록</SubTitle>
+          </LikedTitleBox>
+          <Gap height={35} />
+          <Card liked={true} />
+          <Gap height={32} />
+          <Card liked={true} />
+          <TitleBox>
+            <Title>대여원해요</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
+          <Gap height={35} />
+          <Card liked={false} />
+          <Gap height={32} />
+          <Card liked={false} />
+          <TitleBox>
+            <Title>대여합니다</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
+          <Gap height={35} />
+          <Card liked={false} />
+          <Gap height={32} />
+          <Card liked={false} />
+          <TitleBox>
+            <Title>나눔합시다</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
+          <Gap height={35} />
+          <Card liked={false} />
+          <Gap height={32} />
+          <Card liked={false} />
+        </>
+      )}
+
     </Container>
   );
 }

@@ -8,7 +8,7 @@ export const StateContainer = styled.div`
   line-height: 20px;
   text-align: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.color.heart};
+  background-color: ${({ theme }) => theme.color.darkGray};
   color: ${({ theme }) => theme.color.white};
 
   &.possible {
@@ -20,5 +20,7 @@ export const StateContainer = styled.div`
   &.done {
     background-color: ${({ theme }) => theme.color.darkGray};
   }
-
+  &.active {
+    background-color: ${({ theme }) => theme.color.heart};
+  }
 `;

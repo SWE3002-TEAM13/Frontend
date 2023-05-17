@@ -20,11 +20,32 @@ import {
 import Button from "../common/PostButton";
 import StateTag from "../common/StateTag";
 import PhotoIcon from "../../assets/image.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Post(props) {
-  const [selectedType, setSelectedType] = useState("rent");
+  const [title, setTitle] = useState("");
+  const [selectedType, setSelectedType] = useState(props.type);
+  const [price, setPrice] = useState(-1);
   const [selectedState, setSelectedState] = useState("possible");
+  const [file, setFile] = useState("");
+  const [content, setContent] = useState("");
+  const [filename, setFilename] = useState("선택된 파일 없음");
+  const [disabled, setDisabled] = useState(false);
+
+  const edit = props.edit ? true : false;
+
+  useEffect(() => {
+    setSelectedType(props?.edit?.type);
+    setSelectedState(props?.edit?.status);
+  }, [props]);
+
+  const movePage = useNavigate();
+
+  const goBack = () => {
+    movePage(`/${props.type}`);
+  };
 
   const handleClickTypeButton = (e) => {
     setSelectedType(e.target.id);
@@ -36,11 +57,65 @@ function Post(props) {
     console.log(selectedState);
   };
 
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangePrice = (e) => {
+    setPrice(e.target.value);
+  };
+
+  const handleChangeFile = (e) => {
+    setFile(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+  };
+
+  const handleChangeContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    setDisabled(true);
+    e.preventDefault();
+    axios
+      .post(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
+        withCredentials: true,
+        params: {
+          type: selectedType,
+          title: title,
+          status: selectedState,
+          price: price,
+          photo: file,
+          content: content,
+          category: "Book",
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    await new Promise((r) => setTimeout(r, 1000));
+    if (title.length < 1 || price < -1 || content.length < 1) {
+      alert("형식에 맞게 글을 작성해주세요.");
+    } else {
+      alert("글이 작성되었습니다.");
+      goBack();
+    }
+    setDisabled(false);
+  };
+
   return (
     <Form
+      onSubmit={handleSubmit}
       children={
         <InputForm>
-          <InputTitleContainer placeholder="글의 제목을 작성해주세요." />
+          <InputTitleContainer
+            placeholder="글의 제목을 작성해주세요."
+            defaultValue={edit ? props.edit.title : null}
+            onChange={handleChangeTitle}
+          />
           <InputCategoryContainer>
             <Button
               type="button"
@@ -67,13 +142,16 @@ function Post(props) {
           <InputPriceContainer>
             <PriceText> 희망 가격 </PriceText>
             <PriceContainer>
-              <InputPrice></InputPrice>
+              <InputPrice
+                defaultValue={edit ? props.edit.price : null}
+                onChange={handleChangePrice}
+              ></InputPrice>
               <p>원</p>
             </PriceContainer>
           </InputPriceContainer>
           <StatesContainer>
             <StateTag
-              text="거래가능"
+              text="possible"
               id="possible"
               className={
                 "state" + ("possible" === selectedState ? " active" : "")
@@ -81,7 +159,7 @@ function Post(props) {
               onClick={handleClickStateButton}
             />
             <StateTag
-              text="거래 중"
+              text="progress"
               id="progress"
               className={
                 "state" + ("progress" === selectedState ? " active" : "")
@@ -89,7 +167,7 @@ function Post(props) {
               onClick={handleClickStateButton}
             />
             <StateTag
-              text="거래완료"
+              text="done"
               id="done"
               className={"state" + ("done" === selectedState ? " active" : "")}
               onClick={handleClickStateButton}
@@ -104,16 +182,26 @@ function Post(props) {
               type="file"
               name="uploadPhoto"
               accept="image/*"
+              onChange={handleChangeFile}
             />
             <UploadedPhotoInfoContainer>
-              선택된 파일 없음
+              {edit ? props.edit.photo : filename}
             </UploadedPhotoInfoContainer>
           </UploadPhotoContainer>
           <TextAreaContainer>
-            <TextArea placeholder="글의 내용을 작성해주세요." />
+            <TextArea
+              placeholder="글의 내용을 작성해주세요."
+              onChange={handleChangeContent}
+              defaultValue={edit ? props.edit.content : null}
+            />
           </TextAreaContainer>
           <SaveButtonContainer>
-            <Button type="submit" className="submit basic" text="저장하기" />
+            <Button
+              type="submit"
+              className="submit basic"
+              text="저장하기"
+              disabled={disabled}
+            />
           </SaveButtonContainer>
         </InputForm>
       }

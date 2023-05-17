@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 
-export const StyledChatButton = styled.div`
+export const StyledChatButton = styled.button`
+  :focus {
+    cursor: pointer;
+  }
+  border: none;
   width: 80px;
   height: 80px;
   border-radius: 50%;

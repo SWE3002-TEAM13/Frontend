@@ -6,14 +6,15 @@ import { useEffect, useState } from "react";
 
 function RentPage() {
   const [cards, setCards] = useState([]);
+  const [search, setSearch] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/post", {
+      .get(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
         withCredentials: true,
         params: {
-          type: "lend",
-          search: null,
+          type: "rent",
+          search: search,
         },
       })
       .then(function (response) {
@@ -23,12 +24,8 @@ function RentPage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [search]);
 
-  console.log(Array.isArray(cards));
-  console.log(cards);
-
-  const onSearch = (e) => {};
   return (
     <BasicLayout
       children={
@@ -37,7 +34,7 @@ function RentPage() {
             text1="대여:"
             text2="합니다"
             value="rent"
-            onClick={onSearch}
+            setValue={setSearch}
           />
           <CardList data={cards} />
         </>

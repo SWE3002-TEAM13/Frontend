@@ -4,7 +4,7 @@ import ChatIcon from "../../../assets/send_chat.svg";
 function ChatButton() {
   return (
     <StyledChatButton>
-      <ChatIconContainer src={ChatIcon} alt="send_chat" />
+      <ChatIconContainer type="button" src={ChatIcon} alt="send_chat" />
     </StyledChatButton>
   );
 }

@@ -8,14 +8,17 @@ import {
 import Logo from '../Logo';
 import { Link } from 'react-router-dom';
 import { getCookie } from '../../../utils/getCookie';
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     // access_token 쿠키 삭제
     document.cookie =
       'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // 페이지 새로고침
-    window.location.reload();
+
+    navigate('/');
   };
 
   const isLoggedIn = getCookie('access_token') !== null;

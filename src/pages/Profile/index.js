@@ -1,16 +1,23 @@
-import React from "react";
-import styled from "styled-components";
-import BannedUser from "../../components/BannedUser/index.js";
-import emblem from "../../assets/emblem.png";
-import Card from "../../components/Card/index.js";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import BannedUser from '../../components/BannedUser/index.js';
+import emblem from '../../assets/emblem.png';
+import Card from '../../components/Card/index.js';
+import { useParams } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios.js';
 
 function ProfilePage() {
   const { id } = useParams(); // 추후 userId값을 가져오기 위함
 
+  useEffect(() => {
+    commonAxios.get(`/user/profile/me`).then(res => {
+      console.log(res);
+    });
+  }, []);
+
   return (
     <Container>
-      <ProfileTitleBox>
+      {/* <ProfileTitleBox>
         <ProfileTitleName>성균나누Re님</ProfileTitleName>
         <ProfileTitleText>프로필</ProfileTitleText>
       </ProfileTitleBox>
@@ -44,7 +51,7 @@ function ProfilePage() {
       <Gap height={35} />
       <Card liked={false} />
       <Gap height={32} />
-      <Card liked={false} />
+      <Card liked={false} /> */}
     </Container>
   );
 }
@@ -76,13 +83,13 @@ const ProfileTitleBox = styled.div`
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5B756C;
+  color: #5b756c;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const ProfileBox = styled.div`
@@ -108,7 +115,7 @@ const ImgUploadDiv = styled.div`
 
 const ProfileName = styled.div`
   font-size: 40px;
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: bold;
 `;
 
@@ -123,7 +130,7 @@ const Button = styled.button`
   border: none;
   width: 600px;
   height: 50px;
-  background: #8DC63F;
+  background: #8dc63f;
   color: white;
   font-size: 23px;
   margin-bottom: 40px;
@@ -138,7 +145,7 @@ const Button = styled.button`
 const BannedUserTitle = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #FF6C0F;
+  color: #ff6c0f;
   margin-bottom: 35px;
 `;
 
@@ -159,7 +166,7 @@ const LikedTitleBox = styled.div`
 const Liked = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const SubTitle = styled.div`
@@ -176,8 +183,7 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  color: #5B756C;
+  color: #5b756c;
   font-size: 60px;
   font-weight: bold;
 `;
-

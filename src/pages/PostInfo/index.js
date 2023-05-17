@@ -1,27 +1,25 @@
-import Info from "../../components/Info";
-import BasicLayout from "../../components/common/BasicLayout";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import Info from '../../components/Info';
+import BasicLayout from '../../components/common/BasicLayout';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
 
 function InfoPage() {
   const [info, setInfo] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/post/${id}`, {
-        withCredentials: true,
+    commonAxios
+      .get(`/post/${id}`, {
         params: {
           id: id,
         },
       })
-      .then(function (response) {
+      .then(response => {
         setInfo(response.data);
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
   }, []);

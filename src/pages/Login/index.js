@@ -5,6 +5,7 @@ import TextInput from '../../components/common/TextInput';
 import styled from 'styled-components';
 import Link from '../../components/common/Link';
 import { useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -15,27 +16,21 @@ function LoginPage() {
     const requestBody = new URLSearchParams({
       password,
       username,
-    });
+    }).toString();
 
-    fetch('http://localhost:8000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: requestBody.toString(),
-    })
-      .then(async response => {
-        if (response.ok) {
+    commonAxios
+      .post('/login', requestBody)
+      .then(res => {
+        if (res.status === 200) {
           console.log('Login successful!');
-          const json = await response.json();
-          document.cookie = `access_token=${json.access_token}; path=/`;
           navigate('/');
-        } else if (response.status !== 200) {
+        } else {
           alert('Login failed!');
         }
       })
       .catch(error => {
-        alert('Error occurred during login:', error);
+        console.error(error);
+        alert('Error occurred during login:');
       });
   };
 

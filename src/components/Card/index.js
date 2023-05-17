@@ -9,28 +9,26 @@ import {
   StateAndPriceContainer,
   PriceTextContainer,
   ImageShow,
-} from "./styles";
-import Like from "../common/Like";
-import StateTag from "../common/StateTag";
-import axios from "axios";
+} from './styles';
+import Like from '../common/Like';
+import StateTag from '../common/StateTag';
+import { commonAxios } from '../../utils/commonAxios';
 
 function Card({ data }) {
-  const handleLike = (e) => {
-    // eslint-disable-next-line
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+  const handleLike = e => {
+    commonAxios.post(`/post/${data.id}/like`, {
       id: data.id,
     });
   };
 
-  const handleDislike = (e) => {
-    // eslint-disable-next-line
-    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+  const handleDislike = e => {
+    commonAxios.delete(`/post/${data.id}/like`, {
       id: data.id,
     });
   };
 
   return (
-    <CardContainer id={"card " + data.id}>
+    <CardContainer id={'card ' + data.id}>
       <ImgContainer>
         <ImageShow src={data.photo} alt="photo" />
       </ImgContainer>

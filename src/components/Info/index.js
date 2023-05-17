@@ -1,5 +1,5 @@
-import Form from "../common/Form";
-import Like from "../common/Like";
+import Form from '../common/Form';
+import Like from '../common/Like';
 import {
   NavigationContainer,
   InfoContainer,
@@ -21,19 +21,19 @@ import {
   ChatButtonContainer,
   Photo,
   IconBtn,
-} from "./styles";
-import Back from "../../assets/arrow.svg";
-import StateTag from "../common/StateTag";
-import EditIcon from "../../assets/edit.svg";
-import DeleteIcon from "../../assets/delete.svg";
-import BlockIcon from "../../assets/block.svg";
-import ReportIcon from "../../assets/report.svg";
-import ChatButton from "../common/ChatButton";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+} from './styles';
+import Back from '../../assets/arrow.svg';
+import StateTag from '../common/StateTag';
+import EditIcon from '../../assets/edit.svg';
+import DeleteIcon from '../../assets/delete.svg';
+import BlockIcon from '../../assets/block.svg';
+import ReportIcon from '../../assets/report.svg';
+import ChatButton from '../common/ChatButton';
+import { Link, useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
 
 function Info({ data }) {
-  let date = data.created_at + "";
+  let date = data.created_at + '';
   const movePage = useNavigate();
   const user_id = 1; // 나중에 들어올 로그인한 유저 아이디 값
 
@@ -41,62 +41,49 @@ function Info({ data }) {
     movePage(`/${data.type}`);
   };
 
-  const handleLike = (e) => {
-    // eslint-disable-next-line
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+  const handleLike = e => {
+    commonAxios.post(`/post/${data.id}/like`, {
       id: data.id,
     });
   };
 
-  const handleDislike = (e) => {
-    // eslint-disable-next-line
-    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
+  const handleDislike = e => {
+    commonAxios.delete(`/post/${data.id}/like`, {
       id: data.id,
     });
   };
 
-  const handleClickDeleteButton = (e) => {
-    axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}`, {
-        withCredentials: true,
-      })
-      .then(function (response) {
+  const handleClickDeleteButton = e => {
+    commonAxios
+      .delete(`/post/${data.id}`)
+      .then(response => {
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
+
     goBack();
   };
 
-  const handleClickBlockButton = (e) => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_ENDPOINT}/user/block/${data.author_id}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then(function (response) {
+  const handleClickBlockButton = e => {
+    commonAxios
+      .post(`/user/block/${data.author_id}`)
+      .then(response => {
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
   };
 
-  const handleClickReportButton = (e) => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_ENDPOINT}/user/report/${data.author_id}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then(function (response) {
+  const handleClickReportButton = e => {
+    commonAxios
+      .post(`/user/report/${data.author_id}`)
+      .then(response => {
         console.log(response);
       })
-      .catch(function (error) {
+      .catch(error => {
         console.log(error);
       });
   };

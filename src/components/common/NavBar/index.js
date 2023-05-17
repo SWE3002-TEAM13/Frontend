@@ -4,20 +4,21 @@ import {
   NavBarMenuContainer,
   NavBarMenuText,
   StyledNavBar,
-} from "./styles";
-import Logo from "../Logo";
-import { Link } from "react-router-dom";
+} from './styles';
+import Logo from '../Logo';
+import { Link } from 'react-router-dom';
+import { getCookie } from '../../../utils/getCookie';
 
 function NavBar() {
-
   const handleLogout = () => {
     // access_token 쿠키 삭제
-    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie =
+      'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     // 페이지 새로고침
     window.location.reload();
   };
 
-  const isLoggedIn = document.cookie.includes("access_token");
+  const isLoggedIn = getCookie('access_token') !== null;
 
   return (
     <StyledNavBar>
@@ -40,9 +41,11 @@ function NavBar() {
           <Link to="/chat">
             <NavBarMenuText>채팅해요</NavBarMenuText>
           </Link>
-          <Link to="/myprofile">
-            <NavBarMenuText>프로필</NavBarMenuText>
-          </Link>
+          {isLoggedIn && (
+            <Link to="/myprofile">
+              <NavBarMenuText>프로필</NavBarMenuText>
+            </Link>
+          )}
           {isLoggedIn ? (
             <NavBarMenuText onClick={handleLogout}>로그아웃</NavBarMenuText>
           ) : (

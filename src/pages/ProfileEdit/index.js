@@ -1,46 +1,165 @@
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import emblem from "../../assets/emblem.png";
 import TextInput from "../../components/common/TextInput";
 
+
 function ProfileEditPage() {
+  const [profile, setProfile] = useState({});
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [newProfilePicture, setNewProfilePicture] = useState(null);
+  const [nickname, setNickname] = useState('');
+  const [loc, setLoc] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleClickFileInput = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleProfilePictureUpload = () => {
+    const file = fileInputRef.current.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setNewProfilePicture(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleProfilePictureDelete = () => {
+    setNewProfilePicture(null);
+  };
+
+  const handleNicknameChange = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const handleLocChange = () => {
+    setLoc(!loc);
+  }
+
+  useEffect(() => {
+    // 페이지가 로드되었을 때 실행되는 코드
+    const access_token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+
+    fetch("http://localhost:8000/user/profile/me", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${access_token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setProfile(data);
+        setProfilePicture(data.profile.thumbnail);
+        setLoc(data.profile.loc);
+      })
+      .catch(error => {
+        // 오류 처리 로직 작성
+        console.error("Error occurred:", error);
+      });
+  }, []);
+
+  const handleUpdateProfile = () => {
+    const access_token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    // FormData 객체를 생성합니다.
+    const formData = new FormData();
+    // nickname 값을 추가합니다.
+    formData.append('nickname', nickname);
+    // loc 값을 추가합니다.
+    formData.append('loc', loc);
+    // newProfilePicture가 있는 경우에만 thumbnail 값을 추가합니다.
+    if (newProfilePicture) {
+      formData.append('thumbnail', newProfilePicture);
+    }
+
+    fetch("http://localhost:8000/user/profile", {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${access_token}`
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(data => {
+        alert("프로필 수정이 완료되었습니다");
+        window.location.reload();
+      })
+      .catch(error => {
+        // 오류 처리 로직 작성
+        console.error("Error occurred:", error);
+      });
+  };
+
   return (
     <Container>
-      <ProfileTitleBox>
-        <ProfileTitleName>성균나누Re님</ProfileTitleName>
-        <ProfileTitleText>프로필</ProfileTitleText>
-      </ProfileTitleBox>
-      <ProfileBox>
-        <ImgUploadDiv imgUrl={emblem} />
-        <ProfileDiv>
-          <ProfileName>성규나누Re</ProfileName>
-          <CampusName>자연과학캠퍼스(율전)</CampusName>
-        </ProfileDiv>
-      </ProfileBox>
-      <ProfileEditTitle>프로필 수정</ProfileEditTitle>
-      <ImgContainer>
-        <ImgTextDiv>
-          <InputTitle>프로필 사진</InputTitle>
-          <NicknameExplain>
-            자신을 대표할 <br /> 사진을 설정하세요!
-          </NicknameExplain>
-          <SmallButton background="#8DC63F">업로드</SmallButton>
-          <SmallButton background="#C4C4C4">삭제</SmallButton>
-        </ImgTextDiv>
-        <ImgUploadDiv imgUrl={emblem} />
-      </ImgContainer>
-      <InputDiv>
-          <InputTitle>닉네임</InputTitle>
-          <NicknameExplain>다른 사람들에게 보여줄 닉네임을 설정하세요!</NicknameExplain>
-          <TextInput width="530px" value="성균나누리"></TextInput>
-        </InputDiv>
-        <CheckBoxDiv>
-          <CheckBoxTitle>위치</CheckBoxTitle>
-          <CheckBoxText>자연과학캠퍼스(율전)</CheckBoxText>
-          <input type="checkbox" checked={true}/>
-          <CheckBoxText>인문사회과학캠퍼스(명륜)</CheckBoxText>
-          <input type="checkbox" />
-        </CheckBoxDiv>
-        <Button>수정하기</Button>
+      {profile.profile && profile.profile.nickname && (
+        <>
+          <ProfileTitleBox>
+            <ProfileTitleName>{profile.profile.nickname}</ProfileTitleName>
+            <ProfileTitleText>프로필</ProfileTitleText>
+          </ProfileTitleBox>
+          <ProfileBox>
+            <ImgUploadDiv imgUrl={profile.profile.thumbnail} />
+            <ProfileDiv>
+              <ProfileName>{profile.profile.nickname}</ProfileName>
+              <CampusName>{profile.profile.loc_str}</CampusName>
+            </ProfileDiv>
+          </ProfileBox>
+          <ProfileEditTitle>프로필 수정</ProfileEditTitle>
+          <ImgContainer>
+            <ImgTextDiv>
+              <InputTitle>프로필 사진</InputTitle>
+              <NicknameExplain>자신을 대표할 <br /> 사진을 설정하세요! </NicknameExplain>
+              <SmallButton background="#8DC63F" onClick={handleClickFileInput}>
+                업로드
+                <StyledFileInput
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={handleProfilePictureUpload}
+                />
+              </SmallButton>
+              <SmallButton background="#C4C4C4" onClick={handleProfilePictureDelete}>
+                삭제
+              </SmallButton>
+            </ImgTextDiv>
+            <ImgUploadDiv profilePicture={newProfilePicture ?? profilePicture} />
+          </ImgContainer>
+          <InputDiv>
+            <InputTitle>닉네임</InputTitle>
+            <NicknameExplain>다른 사람들에게 보여줄 닉네임을 설정하세요!</NicknameExplain>
+            <TextInput width="530px" value={nickname || (profile.profile && profile.profile.nickname) || ''} onChange={handleNicknameChange}></TextInput>
+          </InputDiv>
+          <CheckBoxDiv>
+            <CheckBoxTitle>위치</CheckBoxTitle>
+            <CheckBoxText>
+              자연과학캠퍼스(율전)
+              <Checkbox
+                type="checkbox"
+                checked={loc}
+                onChange={handleLocChange}
+              />
+            </CheckBoxText>
+            <CheckBoxText>
+              인문사회과학캠퍼스(명륜)
+              <Checkbox
+                type="checkbox"
+                checked={!loc}
+                onChange={handleLocChange}
+              />
+            </CheckBoxText>
+          </CheckBoxDiv>
+          <Button onClick={handleUpdateProfile}>수정하기</Button>
+        </>)}
     </Container>
   );
 }
@@ -89,6 +208,10 @@ const ImgUploadDiv = styled.div`
   border-radius: 30px;
   height: 180px;
   width: 180px;
+  background-image: ${({ profilePicture }) =>
+    profilePicture ? `url(${profilePicture})` : null};
+  background-size: cover;
+  background-position: center;
 `;
 
 const ProfileDiv = styled.div`
@@ -144,6 +267,12 @@ const SmallButton = styled.button`
   }
 `;
 
+const StyledFileInput = styled.input`
+  display: none;
+  width: 100%;
+  height: 100%;
+`;
+
 const Button = styled.button`
   border: none;
   width: 530px;
@@ -194,4 +323,8 @@ const CheckBoxDiv = styled.div`
   margin-top: 30px;
   margin-bottom: 60px;
   width: 530px;
+`;
+
+const Checkbox = styled.input`
+  margin-left: 8px;
 `;

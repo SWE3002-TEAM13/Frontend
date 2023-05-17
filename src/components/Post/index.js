@@ -70,6 +70,15 @@ function Post(props) {
     setFilename(e.target.files[0].name);
   };
 
+  const handleFilename = (e) => {
+    if (edit) {
+      let ptr = props.edit.photo.lastIndexOf("/");
+      return props.edit.photo.substr(ptr + 1);
+    } else {
+      return filename;
+    }
+  };
+
   const handleChangeContent = (e) => {
     setContent(e.target.value);
   };
@@ -185,7 +194,7 @@ function Post(props) {
               onChange={handleChangeFile}
             />
             <UploadedPhotoInfoContainer>
-              {edit ? props.edit.photo : filename}
+              {handleFilename()}
             </UploadedPhotoInfoContainer>
           </UploadPhotoContainer>
           <TextAreaContainer>

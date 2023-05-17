@@ -22,6 +22,7 @@ function RentPage() {
         console.log(response);
       })
       .catch(function (error) {
+        alert("검색 결과가 존재하지 않습니다.");
         console.log(error);
       });
   }, [search]);

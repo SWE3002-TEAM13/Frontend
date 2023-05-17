@@ -69,6 +69,38 @@ function Info({ data }) {
     goBack();
   };
 
+  const handleClickBlockButton = (e) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}/user/block/${data.author_id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const handleClickReportButton = (e) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_ENDPOINT}/user/report/${data.author_id}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <Form
       children={
@@ -122,10 +154,10 @@ function Info({ data }) {
                 </>
               ) : (
                 <>
-                  <IconBtn type="button">
-                    <DeleteIconContainer src={BlockIcon} alt="block" />
+                  <IconBtn type="button" onClick={handleClickBlockButton}>
+                    <EditIconContainer src={BlockIcon} alt="block" />
                   </IconBtn>
-                  <IconBtn type="button">
+                  <IconBtn type="button" onClick={handleClickReportButton}>
                     <DeleteIconContainer src={ReportIcon} alt="report" />
                   </IconBtn>
                 </>

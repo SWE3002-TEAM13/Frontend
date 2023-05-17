@@ -23,6 +23,7 @@ function LoginPage() {
       .then(res => {
         if (res.status === 200) {
           console.log('Login successful!');
+          document.cookie = `access_token=${res.data.access_token}; path=/`;
           navigate('/');
         } else {
           alert('Login failed!');

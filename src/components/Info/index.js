@@ -42,25 +42,33 @@ function Info({ data }) {
   };
 
   const handleLike = e => {
-    commonAxios.post(`/post/${data.id}/like`, {
-      id: data.id,
-    });
+    commonAxios
+      .post(`/post/${data.id}/like`, {
+        id: data.id,
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const handleDislike = e => {
-    commonAxios.delete(`/post/${data.id}/like`, {
-      id: data.id,
-    });
+    commonAxios
+      .delete(`/post/${data.id}/like`, {
+        id: data.id,
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const handleClickDeleteButton = e => {
     commonAxios
       .delete(`/post/${data.id}`)
-      .then(response => {
-        console.log(response);
+      .then(res => {
+        console.log(res);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
 
     goBack();
@@ -69,22 +77,22 @@ function Info({ data }) {
   const handleClickBlockButton = e => {
     commonAxios
       .post(`/user/block/${data.author_id}`)
-      .then(response => {
-        console.log(response);
+      .then(res => {
+        console.log(res);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
   };
 
   const handleClickReportButton = e => {
     commonAxios
       .post(`/user/report/${data.author_id}`)
-      .then(response => {
-        console.log(response);
+      .then(res => {
+        console.log(res);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
   };
 

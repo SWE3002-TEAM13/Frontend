@@ -15,12 +15,12 @@ function EditPage() {
           id: id,
         },
       })
-      .then(response => {
-        setInfo(response.data);
-        console.log(response);
+      .then(res => {
+        setInfo(res.data);
+        console.log(res);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 

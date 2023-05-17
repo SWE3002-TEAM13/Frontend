@@ -53,9 +53,8 @@ function ProfileEditPage() {
         setProfilePicture(res.data.profile.thumbnail);
         setLoc(res.data.profile.loc);
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error('Error occurred:', error);
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 
@@ -81,9 +80,8 @@ function ProfileEditPage() {
         alert('프로필 수정이 완료되었습니다');
         window.location.reload();
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error('Error occurred:', error);
+      .catch(err => {
+        console.error(err);
       });
   };
 

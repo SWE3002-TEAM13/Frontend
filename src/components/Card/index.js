@@ -16,15 +16,23 @@ import { commonAxios } from '../../utils/commonAxios';
 
 function Card({ data }) {
   const handleLike = e => {
-    commonAxios.post(`/post/${data.id}/like`, {
-      id: data.id,
-    });
+    commonAxios
+      .post(`/post/${data.id}/like`, {
+        id: data.id,
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const handleDislike = e => {
-    commonAxios.delete(`/post/${data.id}/like`, {
-      id: data.id,
-    });
+    commonAxios
+      .delete(`/post/${data.id}/like`, {
+        id: data.id,
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   return (

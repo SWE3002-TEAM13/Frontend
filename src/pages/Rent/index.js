@@ -16,13 +16,13 @@ function RentPage() {
           search: search,
         },
       })
-      .then(response => {
-        setCards(response.data);
-        console.log(response);
+      .then(res => {
+        setCards(res.data);
+        console.log(res);
       })
-      .catch(error => {
+      .catch(err => {
         alert('검색 결과가 존재하지 않습니다.');
-        console.log(error);
+        console.log(err);
       });
   }, [search]);
 

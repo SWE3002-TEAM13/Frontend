@@ -29,9 +29,8 @@ function LoginPage() {
           alert('Login failed!');
         }
       })
-      .catch(error => {
-        console.error(error);
-        alert('Error occurred during login:');
+      .catch(err => {
+        console.error(err);
       });
   };
 

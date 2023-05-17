@@ -10,9 +10,14 @@ function ProfilePage() {
   const { id } = useParams(); // 추후 userId값을 가져오기 위함
 
   useEffect(() => {
-    commonAxios.get(`/user/profile/me`).then(res => {
-      console.log(res);
-    });
+    commonAxios
+      .get(`/user/profile/me`)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
 
   return (

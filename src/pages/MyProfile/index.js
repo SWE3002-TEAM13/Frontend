@@ -22,9 +22,8 @@ function MyProfilePage() {
       .then(res => {
         setProfile(res.data);
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error('Error occurred:', error);
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 

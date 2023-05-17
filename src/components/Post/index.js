@@ -98,12 +98,13 @@ function Post(props) {
           category: 'Book',
         },
       })
-      .then(response => {
-        console.log(response);
+      .then(res => {
+        console.log(res);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
+
     await new Promise(r => setTimeout(r, 1000));
     if (title.length < 1 || price < -1 || content.length < 1) {
       alert('형식에 맞게 글을 작성해주세요.');

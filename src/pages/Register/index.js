@@ -116,8 +116,8 @@ function RegisterPage() {
           }
           navigate('/');
         })
-        .catch(error => {
-          console.error('회원가입 실패', error);
+        .catch(err => {
+          console.error(err);
         });
     }
   };

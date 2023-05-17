@@ -37,14 +37,21 @@ function Post(props) {
   const edit = props.edit ? true : false;
 
   useEffect(() => {
-    setSelectedType(props?.edit?.type);
-    setSelectedState(props?.edit?.status);
+    if (edit) {
+      setTitle(props?.edit?.title);
+      setSelectedType(props?.edit?.type);
+      setPrice(props?.edit?.price);
+      setSelectedState(props?.edit?.status);
+      setFile(props?.eidt?.photo);
+      setContent(props?.edit?.content);
+      console.log(props.edit.photo);
+    }
   }, [props]);
 
   const movePage = useNavigate();
 
   const goBack = () => {
-    movePage(`/${props.type}`);
+    movePage(`/${selectedType}`);
   };
 
   const handleClickTypeButton = (e) => {
@@ -86,32 +93,71 @@ function Post(props) {
   const handleSubmit = async (e) => {
     setDisabled(true);
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
-        withCredentials: true,
-        params: {
-          type: selectedType,
-          title: title,
-          status: selectedState,
-          price: price,
-          photo: file,
-          content: content,
-          category: "Book",
-        },
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    await new Promise((r) => setTimeout(r, 1000));
-    if (title.length < 1 || price < -1 || content.length < 1) {
-      alert("형식에 맞게 글을 작성해주세요.");
+    if (edit) {
+      axios
+        .put(`${process.env.REACT_APP_API_ENDPOINT}/post/${props.edit.id}`, {
+          withCredentials: true,
+          params: {
+            type: selectedType,
+            title: title,
+            status: selectedState,
+            price: price,
+            photo: file,
+            content: content,
+            category: "Book",
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+          console.log(file);
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log([
+            title,
+            file,
+            price,
+            selectedState,
+            selectedType,
+            content,
+          ]);
+        });
+      await new Promise((r) => setTimeout(r, 1000));
+      if (title.length < 1 || price < -1 || content.length < 1) {
+        alert("형식에 맞게 글을 작성해주세요.");
+      } else {
+        alert("글이 수정되었습니다.");
+        goBack();
+      }
     } else {
-      alert("글이 작성되었습니다.");
-      goBack();
+      axios
+        .post(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
+          withCredentials: true,
+          params: {
+            type: selectedType,
+            title: title,
+            status: selectedState,
+            price: price,
+            photo: file,
+            content: content,
+            category: "Book",
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      await new Promise((r) => setTimeout(r, 1000));
+      if (title.length < 1 || price < -1 || content.length < 1) {
+        alert("형식에 맞게 글을 작성해주세요.");
+      } else {
+        alert("글이 작성되었습니다.");
+        goBack();
+      }
     }
+
     setDisabled(false);
   };
 

@@ -13,7 +13,7 @@ function LendPage() {
       .get(`/post`, {
         params: {
           type: 'lend',
-          search: search,
+          search,
         },
       })
       .then(res => {

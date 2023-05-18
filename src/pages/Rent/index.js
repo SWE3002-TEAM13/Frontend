@@ -13,7 +13,7 @@ function RentPage() {
       .get('/post', {
         params: {
           type: 'rent',
-          search: null,
+          search,
         },
       })
       .then(res => {
@@ -22,11 +22,10 @@ function RentPage() {
       })
       .catch(err => {
         alert('검색 결과가 존재하지 않습니다.');
-        console.log(err);
+        console.error(err);
       });
   }, [search]);
 
-  const onSearch = e => {};
   return (
     <BasicLayout
       children={
@@ -35,7 +34,6 @@ function RentPage() {
             text1="대여:"
             text2="합니다"
             value="rent"
-            onClick={onSearch}
             setValue={setSearch}
           />
           <CardList data={cards} more />

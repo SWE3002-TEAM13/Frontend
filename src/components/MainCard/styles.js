@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
   border-radius: 30px;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+  cursor: pointer;
 `;
 
 export const Img = styled.img`
@@ -17,7 +18,7 @@ export const Img = styled.img`
   object-fit: cover;
   `;
 
-    
+
 export const PostTitleContainer = styled.div`
   font-weight: 500;
   font-size: 30px;

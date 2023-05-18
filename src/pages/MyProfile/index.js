@@ -17,11 +17,7 @@ function MyProfilePage() {
 
   const onClickUnblock = id => {
     commonAxios
-      .delete(`/user/block/${id}`, {
-        headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
-        },
-      })
+      .delete(`/user/block/${id}`)
       .then(res => {
         if (res.status === 200) {
           alert('차단해제가 완료되었습니다.');
@@ -43,7 +39,6 @@ function MyProfilePage() {
         },
       })
       .then(res => {
-        console.log(res);
         setProfile(res.data.profile);
         setBlockList(res.data.blocklist);
         setLikeList(res.data.likelist);
@@ -84,6 +79,7 @@ function MyProfilePage() {
                     name={user.nickname}
                     onClickUnblock={() => onClickUnblock(user.id)}
                     key={index}
+                    onClick={() => navigate(`/profile/${user.id}`)}
                   />
                 ))}
               </BannedUserBox>

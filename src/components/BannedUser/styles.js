@@ -10,6 +10,7 @@ export const CardDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 export const ProfileImg = styled.div`

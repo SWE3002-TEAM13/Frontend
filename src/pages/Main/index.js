@@ -5,6 +5,7 @@ import Announcement from '../../components/Announcement';
 import styled from 'styled-components';
 import MainCard from '../../components/MainCard';
 import { commonAxios } from '../../utils/commonAxios';
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
   const [announcementList, setAnnouncementList] = useState([]);
@@ -12,11 +13,13 @@ function MainPage() {
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
 
+  const navigate = useNavigate();
+
   const getAnnouncement = () => {
     commonAxios
       .get(`/announcement`)
       .then(res => {
-        setAnnouncementList(res.data);
+        // setAnnouncementList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -27,7 +30,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=rent`)
       .then(res => {
-        setRentList(res.data);
+        // setRentList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -38,7 +41,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=lend`)
       .then(res => {
-        setLendList(res.data);
+        // setLendList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -49,7 +52,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=share`)
       .then(res => {
-        setShareList(res.data);
+        // setShareList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -72,12 +75,14 @@ function MainPage() {
       <Container>
         <AnnouncementTitle>공지사항</AnnouncementTitle>
         <AnnouncementContainer>
-          {announcementList.map(announcement => (
-            <>
-              <Announcement data={announcement} />
-              <Gap height={16} />
-            </>
-          ))}
+          {announcementList.length > 0 ? (
+            announcementList.map(announcement => (
+              <>
+                <Announcement data={announcement} />
+                <Gap height={16} />
+              </>
+            ))) : ''
+          }
         </AnnouncementContainer>
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
@@ -85,12 +90,14 @@ function MainPage() {
         </TitleBox>
         <Explain>성균관대생이 최근에 필요하다고 원한 상품!</Explain>
         <CardContainer>
-          {rentList.map(rent => (
-            <>
-              <MainCard data={rent} />
-              <Gap width={30} />
-            </>
-          ))}
+          {rentList.length > 0 ? (
+            rentList.map(rent => (
+              <>
+                <MainCard data={rent} onClick={() => navigate(`/info/${rent.id}`)} />
+                <Gap width={30} />
+              </>
+            ))) : ''
+          }
         </CardContainer>
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
@@ -98,12 +105,14 @@ function MainPage() {
         </TitleBox>
         <Explain>물건을 사지 말고 대여해서 돈을 아껴보자</Explain>
         <CardContainer>
-          {lendList.map(lend => (
-            <>
-              <MainCard data={lend} />
-              <Gap width={30} />
-            </>
-          ))}
+          {lendList.length > 0 ? (
+            lendList.map(lend => (
+              <>
+                <MainCard data={lend} onClick={() => navigate(`/info/${lend.id}`)} />
+                <Gap width={30} />
+              </>
+            ))) : ''
+          }
         </CardContainer>
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
@@ -111,12 +120,14 @@ function MainPage() {
         </TitleBox>
         <Explain>대충 설명 적기....</Explain>
         <CardContainer>
-          {shareList.map(share => (
-            <>
-              <MainCard data={share} />
-              <Gap width={30} />
-            </>
-          ))}
+          {shareList.length > 0 ? (
+            shareList.map(share => (
+              <>
+                <MainCard data={share} onClick={() => navigate(`/info/${share.id}`)} />
+                <Gap width={30} />
+              </>
+            ))) : ''
+          }
         </CardContainer>
       </Container>
     </>

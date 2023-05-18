@@ -1,4 +1,4 @@
-import { 
+import {
     CardContainer,
     Img,
     PostTitleContainer,
@@ -16,21 +16,27 @@ import FillLikeIcon from "../../assets/fill_like.svg";
 import NotFillLikeIcon from "../../assets/not_fill_like.svg";
 import { useState } from "react";
 
-function MainCard ({data}) {
-    const [isLiked, setIsLiked] = useState(false)
-    const handleLikeClick = () => {
+function MainCard({ data, onClick }) {
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleLikeClick = (event) => {
+        event.stopPropagation(); // 클릭 이벤트 전파 중지
         setIsLiked(!isLiked);
-      };
+    };
 
     const statusText = (status) => {
         if (status === "possible") return "거래가능";
         else if (status === "progress") return "거래 중";
         else if (status === "done") return "거래 완료";
-      };
+    };
+
+    const handleCardClick = () => {
+        onClick();
+    };
 
     return (
-        <CardContainer>
-            <Img src={data.photo} alt="photo"/>
+        <CardContainer onClick={handleCardClick}>
+            <Img src={data.photo} alt="photo" />
             <PostTitleContainer>{data.title}</PostTitleContainer>
             <PostAuthorContainer>
                 <Author>작성자</Author>
@@ -44,9 +50,9 @@ function MainCard ({data}) {
                 ></StateTag>
             </StatusContainer>
             <LikePriceContainer>
-                {isLiked ? 
-                    <Like src={FillLikeIcon} onClick={handleLikeClick}/> : 
-                    <Like src={NotFillLikeIcon} onClick={handleLikeClick}/>
+                {isLiked ?
+                    <Like src={FillLikeIcon} onClick={handleLikeClick} /> :
+                    <Like src={NotFillLikeIcon} onClick={handleLikeClick} />
                 }
                 <Price>{data.price + '원'}</Price>
             </LikePriceContainer>

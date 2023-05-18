@@ -19,7 +19,7 @@ function MainPage() {
     commonAxios
       .get(`/announcement`)
       .then(res => {
-        // setAnnouncementList(res.data);
+        setAnnouncementList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -30,7 +30,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=rent`)
       .then(res => {
-        // setRentList(res.data);
+        setRentList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -41,7 +41,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=lend`)
       .then(res => {
-        // setLendList(res.data);
+        setLendList(res.data);
       })
       .catch(err => {
         console.error(err);
@@ -52,7 +52,7 @@ function MainPage() {
     commonAxios
       .get(`/post/?type=share`)
       .then(res => {
-        // setShareList(res.data);
+        setShareList(res.data);
       })
       .catch(err => {
         console.error(err);

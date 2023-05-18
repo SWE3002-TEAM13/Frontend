@@ -1,30 +1,28 @@
-import { useLocation, useParams } from "react-router-dom";
-import Post from "../../components/Post";
-import BasicLayout from "../../components/common/BasicLayout";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useParams } from 'react-router-dom';
+import Post from '../../components/Post';
+import BasicLayout from '../../components/common/BasicLayout';
+import { useEffect, useState } from 'react';
+import { commonAxios } from '../../utils/commonAxios';
 
 function EditPage() {
   const [info, setInfo] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      // eslint-disable-next-line
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/post/${id}`, {
-        withCredentials: true,
+    commonAxios
+      .get(`/post/${id}`, {
         params: {
           id: id,
         },
       })
-      .then(function (response) {
-        setInfo(response.data);
-        console.log(response);
+      .then(res => {
+        setInfo(res.data);
+        console.log(res);
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch(err => {
+        console.error(err);
       });
-  }, []);
+  }, [id]);
 
   return <BasicLayout children={<Post edit={info}></Post>} />;
 }

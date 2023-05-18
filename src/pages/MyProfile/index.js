@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import BannedUser from "../../components/BannedUser/index.js";
-import { useNavigate } from "react-router-dom";
-import CardList from "../../components/CardList/index.js";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import BannedUser from '../../components/BannedUser/index.js';
+import { useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios.js';
+import { getCookie } from '../../utils/getCookie.js';
+import CardList from '../../components/CardList/index.js';
 
 function MyProfilePage() {
   const navigate = useNavigate();
@@ -12,52 +14,40 @@ function MyProfilePage() {
   const [rentList, setRentList] = useState([]);
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
-  const [accessToken, setAccessToken] = useState();
 
-  const onClickUnblock = (id) => {
-    fetch(`http://localhost:8000/user/block/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${accessToken}`
-      }
-    }).then(async response => {
-      if (response.ok) {
-        console.log("Unblock successful!");
-        const json = await response.json();
-        alert('차단해제가 완료되었습니다.');
-        window.location.reload();
-      } else if (response.status !== 200) {
-        alert("Unblock failed!");
-      }
-    });
+  const onClickUnblock = id => {
+    commonAxios
+      .delete(`/user/block/${id}`)
+      .then(res => {
+        if (res.status === 200) {
+          alert('차단해제가 완료되었습니다.');
+          window.location.reload();
+        } else {
+          alert('Unblock failed!');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   useEffect(() => {
-    const access_token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    setAccessToken(access_token);
-
-    fetch("http://localhost:8000/user/profile/me", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${access_token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setProfile(data.profile);
-        setBlockList(data.blocklist);
-        setLikeList(data.likelist);
-        setRentList(data.rentlist);
-        setLendList(data.lendlist);
-        setShareList(data.sharelist);
+    commonAxios
+      .get(`/user/profile/me`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .then(res => {
+        setProfile(res.data.profile);
+        setBlockList(res.data.blocklist);
+        setLikeList(res.data.likelist);
+        setRentList(res.data.rentlist);
+        setLendList(res.data.lendlist);
+        setShareList(res.data.sharelist);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 
@@ -76,63 +66,77 @@ function MyProfilePage() {
               <CampusName>{profile.loc_str}</CampusName>
             </ProfileDiv>
           </ProfileBox>
-          <Button
-            width="600px"
-            onClick={() => navigate("/profileedit")}
-          >
+          <Button width="600px" onClick={() => navigate('/profileedit')}>
             프로필수정
           </Button>
-          {blockList.length > 0 ? <>
-            <BannedUserTitle>유저 차단 목록</BannedUserTitle>
-            <BannedUserBox>
-              {blockList.map((user) => (
-                <BannedUser
-                  img={user.thumbnail}
-                  name={user.nickname}
-                  onClickUnblock={() => onClickUnblock(user.id)} />
-              ))}
-            </BannedUserBox>
-          </> : ''
-          }
-          {likeList.length > 0 ? <>
-            <LikedTitleBox>
-              <Liked>좋아요</Liked>
-              <SubTitle>목록</SubTitle>
-            </LikedTitleBox>
-            <Gap height={35} />
-            <CardList data={likeList} />
-          </> : ''
-          }
-          {rentList.length > 0 ? <>
-            <TitleBox>
-              <Title>대여원해요</Title>
-              <SubTitle>이력</SubTitle>
-            </TitleBox>
-            <Gap height={35} />
-            <CardList data={rentList} />
-            <Gap height={32} />
-          </> : ''
-          }
-          {lendList.length > 0 ? <>
-            <TitleBox>
-              <Title>대여합니다</Title>
-              <SubTitle>이력</SubTitle>
-            </TitleBox>
-            <Gap height={35} />
-            <CardList data={lendList} />
-            <Gap height={32} />
-          </> : ''
-          }
-          {shareList.length > 0 ? <>
-            <TitleBox>
-              <Title>나눔합시다</Title>
-              <SubTitle>이력</SubTitle>
-            </TitleBox>
-            <Gap height={35} />
-            <CardList data={shareList} />
-            <Gap height={32} />
-          </> : ''
-          }
+          {blockList.length > 0 ? (
+            <>
+              <BannedUserTitle>유저 차단 목록</BannedUserTitle>
+              <BannedUserBox>
+                {blockList.map((user, index) => (
+                  <BannedUser
+                    img={user.thumbnail}
+                    name={user.nickname}
+                    onClickUnblock={() => onClickUnblock(user.id)}
+                    key={index}
+                  />
+                ))}
+              </BannedUserBox>
+            </>
+          ) : (
+            ''
+          )}
+          {likeList.length > 0 ? (
+            <>
+              <LikedTitleBox>
+                <Liked>좋아요</Liked>
+                <SubTitle>목록</SubTitle>
+              </LikedTitleBox>
+              <Gap height={35} />
+              <CardList data={likeList} />
+            </>
+          ) : (
+            ''
+          )}
+          {rentList.length > 0 ? (
+            <>
+              <TitleBox>
+                <Title>대여원해요</Title>
+                <SubTitle>이력</SubTitle>
+              </TitleBox>
+              <Gap height={35} />
+              <CardList data={rentList} />
+              <Gap height={32} />
+            </>
+          ) : (
+            ''
+          )}
+          {lendList.length > 0 ? (
+            <>
+              <TitleBox>
+                <Title>대여합니다</Title>
+                <SubTitle>이력</SubTitle>
+              </TitleBox>
+              <Gap height={35} />
+              <CardList data={lendList} />
+              <Gap height={32} />
+            </>
+          ) : (
+            ''
+          )}
+          {shareList.length > 0 ? (
+            <>
+              <TitleBox>
+                <Title>나눔합시다</Title>
+                <SubTitle>이력</SubTitle>
+              </TitleBox>
+              <Gap height={35} />
+              <CardList data={shareList} />
+              <Gap height={32} />
+            </>
+          ) : (
+            ''
+          )}
         </>
       )}
     </Container>
@@ -165,14 +169,14 @@ const ProfileTitleBox = styled.div`
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5B756C;
+  color: #5b756c;
   margin-right: 10px;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const ProfileBox = styled.div`
@@ -198,7 +202,7 @@ const ImgUploadDiv = styled.div`
 
 const ProfileName = styled.div`
   font-size: 40px;
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: bold;
 `;
 
@@ -213,7 +217,7 @@ const Button = styled.button`
   border: none;
   width: 600px;
   height: 50px;
-  background: #8DC63F;
+  background: #8dc63f;
   color: white;
   font-size: 23px;
   margin-bottom: 40px;
@@ -228,7 +232,7 @@ const Button = styled.button`
 const BannedUserTitle = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #FF6C0F;
+  color: #ff6c0f;
   margin-bottom: 35px;
 `;
 
@@ -251,7 +255,7 @@ const LikedTitleBox = styled.div`
 const Liked = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const SubTitle = styled.div`
@@ -268,8 +272,7 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  color: #5B756C;
+  color: #5b756c;
   font-size: 60px;
   font-weight: bold;
 `;
-

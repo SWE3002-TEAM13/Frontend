@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import CardList from "../../components/CardList";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios.js';
+import CardList from '../../components/CardList';
 
 function ProfilePage() {
   const { id } = useParams();
@@ -11,24 +12,18 @@ function ProfilePage() {
   const [shareList, setShareList] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/profile/${id}`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setProfile(data.profile);
-        setRentList(data.rentlist);
-        setLendList(data.lendlist);
-        setShareList(data.sharelist);
+    commonAxios
+      .get(`/user/profile/${id}`)
+      .then(res => {
+        setProfile(res.data.profile);
+        setRentList(res.data.rentlist);
+        setLendList(res.data.lendlist);
+        setShareList(res.data.sharelist);
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
   }, [id]);
-
 
   return (
     <Container>
@@ -53,7 +48,9 @@ function ProfilePage() {
           <CardList data={rentList} />
           <Gap height={32} />
         </>
-      ) : ''}
+      ) : (
+        ''
+      )}
       {lendList.length > 0 ? (
         <>
           <TitleBox>
@@ -64,7 +61,9 @@ function ProfilePage() {
           <CardList data={lendList} />
           <Gap height={32} />
         </>
-      ) : ''}
+      ) : (
+        ''
+      )}
       {shareList.length > 0 ? (
         <>
           <TitleBox>
@@ -75,7 +74,9 @@ function ProfilePage() {
           <CardList data={shareList} />
           <Gap height={32} />
         </>
-      ) : ''}
+      ) : (
+        ''
+      )}
     </Container>
   );
 }
@@ -106,13 +107,13 @@ const ProfileTitleBox = styled.div`
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5B756C;
+  color: #5b756c;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const ProfileBox = styled.div`
@@ -138,7 +139,7 @@ const ImgUploadDiv = styled.div`
 
 const ProfileName = styled.div`
   font-size: 40px;
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: bold;
 `;
 
@@ -162,8 +163,7 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  color: #5B756C;
+  color: #5b756c;
   font-size: 60px;
   font-weight: bold;
 `;
-

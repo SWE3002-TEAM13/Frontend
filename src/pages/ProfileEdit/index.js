@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TextInput from '../../components/common/TextInput';
 import { commonAxios } from '../../utils/commonAxios';
 import { getCookie } from '../../utils/getCookie';
+import { useMe } from '../../utils/useMe';
 
 function ProfileEditPage() {
   const [profile, setProfile] = useState({});
@@ -50,6 +51,7 @@ function ProfileEditPage() {
       .then(res => {
         setProfile(res.data);
         setProfilePicture(res.data.profile.thumbnail);
+        setNickname(res.data.profile.nickname);
         setLoc(res.data.profile.loc);
       })
       .catch(err => {

@@ -13,13 +13,22 @@ import {
 import Like from '../common/Like';
 import StateTag from '../common/StateTag';
 import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
 
 function Card({ data }) {
   const handleLike = e => {
     commonAxios
-      .post(`/post/${data.id}/like`, {
-        id: data.id,
-      })
+      .post(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
       .catch(err => {
         console.error(err);
       });
@@ -27,9 +36,17 @@ function Card({ data }) {
 
   const handleDislike = e => {
     commonAxios
-      .delete(`/post/${data.id}/like`, {
-        id: data.id,
-      })
+      .delete(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
       .catch(err => {
         console.error(err);
       });

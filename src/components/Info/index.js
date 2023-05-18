@@ -31,6 +31,7 @@ import ReportIcon from '../../assets/report.svg';
 import ChatButton from '../common/ChatButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
 
 function Info({ data }) {
   let date = data.created_at + '';
@@ -43,9 +44,17 @@ function Info({ data }) {
 
   const handleLike = e => {
     commonAxios
-      .post(`/post/${data.id}/like`, {
-        id: data.id,
-      })
+      .post(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
       .catch(err => {
         console.error(err);
       });
@@ -53,9 +62,18 @@ function Info({ data }) {
 
   const handleDislike = e => {
     commonAxios
-      .delete(`/post/${data.id}/like`, {
-        id: data.id,
-      })
+      .delete(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
       .catch(err => {
         console.error(err);
       });
@@ -63,7 +81,11 @@ function Info({ data }) {
 
   const handleClickDeleteButton = e => {
     commonAxios
-      .delete(`/post/${data.id}`)
+      .delete(`/post/${data.id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
       .then(res => {
         console.log(res);
       })
@@ -76,7 +98,11 @@ function Info({ data }) {
 
   const handleClickBlockButton = e => {
     commonAxios
-      .post(`/user/block/${data.author_id}`)
+      .post(`/user/block/${data.author_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
       .then(res => {
         console.log(res);
       })
@@ -87,7 +113,11 @@ function Info({ data }) {
 
   const handleClickReportButton = e => {
     commonAxios
-      .post(`/user/report/${data.author_id}`)
+      .post(`/user/report/${data.author_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
       .then(res => {
         console.log(res);
       })

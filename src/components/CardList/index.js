@@ -8,7 +8,7 @@ import {
 
 import Card from "../Card";
 
-function CardList({ data }) {
+function CardList({ data, more }) {
   return (
     <CardListAndMoreContainer>
       <CardListContainer>
@@ -21,9 +21,11 @@ function CardList({ data }) {
             );
           })}
       </CardListContainer>
-      <MoreButtonContainer>
-        <MoreButton>+ 더 불러오기</MoreButton>
-      </MoreButtonContainer>
+      {more ?
+        <MoreButtonContainer>
+          <MoreButton>+ 더 불러오기</MoreButton>
+        </MoreButtonContainer> : ''
+      }
     </CardListAndMoreContainer>
   );
 }

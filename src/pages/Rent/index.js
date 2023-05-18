@@ -28,7 +28,7 @@ function RentPage() {
   console.log(Array.isArray(cards));
   console.log(cards);
 
-  const onSearch = (e) => {};
+  const onSearch = (e) => { };
   return (
     <BasicLayout
       children={
@@ -39,7 +39,7 @@ function RentPage() {
             value="rent"
             onClick={onSearch}
           />
-          <CardList data={cards} />
+          <CardList data={cards} more />
         </>
       }
     ></BasicLayout>

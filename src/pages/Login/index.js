@@ -14,8 +14,8 @@ function LoginPage() {
 
   const handleLogin = () => {
     const requestBody = new URLSearchParams({
-      password: "test1234",
-      username: "teamlizzie"
+      password,
+      username,
     });
 
     fetch("http://localhost:8000/login", {

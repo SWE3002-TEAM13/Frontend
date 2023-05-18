@@ -1,20 +1,44 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BannedUser from "../../components/BannedUser/index.js";
-import emblem from "../../assets/emblem.png";
-import Card from "../../components/Card/index.js";
 import { useNavigate } from "react-router-dom";
+import CardList from "../../components/CardList/index.js";
 
 function MyProfilePage() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
+  const [blockList, setBlockList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
+  const [rentList, setRentList] = useState([]);
+  const [lendList, setLendList] = useState([]);
+  const [shareList, setShareList] = useState([]);
+  const [accessToken, setAccessToken] = useState();
+
+  const onClickUnblock = (id) => {
+    fetch(`http://localhost:8000/user/block/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Accept": "application/json",
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }).then(async response => {
+      if (response.ok) {
+        console.log("Unblock successful!");
+        const json = await response.json();
+        alert('차단해제가 완료되었습니다.');
+        window.location.reload();
+      } else if (response.status !== 200) {
+        alert("Unblock failed!");
+      }
+    });
+  };
 
   useEffect(() => {
-    // 페이지가 로드되었을 때 실행되는 코드
     const access_token = document.cookie.replace(
       /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
+    setAccessToken(access_token);
 
     fetch("http://localhost:8000/user/profile/me", {
       method: "GET",
@@ -25,27 +49,31 @@ function MyProfilePage() {
     })
       .then(response => response.json())
       .then(data => {
-        setProfile(data);
+        setProfile(data.profile);
+        setBlockList(data.blocklist);
+        setLikeList(data.likelist);
+        setRentList(data.rentlist);
+        setLendList(data.lendlist);
+        setShareList(data.sharelist);
       })
       .catch(error => {
-        // 오류 처리 로직 작성
         console.error("Error occurred:", error);
       });
   }, []);
 
   return (
     <Container>
-      {profile.profile && profile.profile.nickname && (
+      {profile && profile.nickname && (
         <>
           <ProfileTitleBox>
-            <ProfileTitleName>{profile.profile.nickname}</ProfileTitleName>
+            <ProfileTitleName>{profile.nickname}</ProfileTitleName>
             <ProfileTitleText>프로필</ProfileTitleText>
           </ProfileTitleBox>
           <ProfileBox>
-            <ImgUploadDiv imgUrl={profile.profile.thumbnail} />
+            <ImgUploadDiv imgUrl={profile.thumbnail} />
             <ProfileDiv>
-              <ProfileName>{profile.profile.nickname}</ProfileName>
-              <CampusName>{profile.profile.loc_str}</CampusName>
+              <ProfileName>{profile.nickname}</ProfileName>
+              <CampusName>{profile.loc_str}</CampusName>
             </ProfileDiv>
           </ProfileBox>
           <Button
@@ -54,48 +82,59 @@ function MyProfilePage() {
           >
             프로필수정
           </Button>
-          <BannedUserTitle>유저 차단 목록</BannedUserTitle>
-          <BannedUserBox>
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-          </BannedUserBox>
-          <LikedTitleBox>
-            <Liked>좋아요</Liked>
-            <SubTitle>목록</SubTitle>
-          </LikedTitleBox>
-          <Gap height={35} />
-          <Card liked={true} />
-          <Gap height={32} />
-          <Card liked={true} />
-          <TitleBox>
-            <Title>대여원해요</Title>
-            <SubTitle>이력</SubTitle>
-          </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
-          <TitleBox>
-            <Title>대여합니다</Title>
-            <SubTitle>이력</SubTitle>
-          </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
-          <TitleBox>
-            <Title>나눔합시다</Title>
-            <SubTitle>이력</SubTitle>
-          </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
+          {blockList.length > 0 ? <>
+            <BannedUserTitle>유저 차단 목록</BannedUserTitle>
+            <BannedUserBox>
+              {blockList.map((user) => (
+                <BannedUser
+                  img={user.thumbnail}
+                  name={user.nickname}
+                  onClickUnblock={() => onClickUnblock(user.id)} />
+              ))}
+            </BannedUserBox>
+          </> : ''
+          }
+          {likeList.length > 0 ? <>
+            <LikedTitleBox>
+              <Liked>좋아요</Liked>
+              <SubTitle>목록</SubTitle>
+            </LikedTitleBox>
+            <Gap height={35} />
+            <CardList data={likeList} />
+          </> : ''
+          }
+          {rentList.length > 0 ? <>
+            <TitleBox>
+              <Title>대여원해요</Title>
+              <SubTitle>이력</SubTitle>
+            </TitleBox>
+            <Gap height={35} />
+            <CardList data={rentList} />
+            <Gap height={32} />
+          </> : ''
+          }
+          {lendList.length > 0 ? <>
+            <TitleBox>
+              <Title>대여합니다</Title>
+              <SubTitle>이력</SubTitle>
+            </TitleBox>
+            <Gap height={35} />
+            <CardList data={lendList} />
+            <Gap height={32} />
+          </> : ''
+          }
+          {shareList.length > 0 ? <>
+            <TitleBox>
+              <Title>나눔합시다</Title>
+              <SubTitle>이력</SubTitle>
+            </TitleBox>
+            <Gap height={35} />
+            <CardList data={shareList} />
+            <Gap height={32} />
+          </> : ''
+          }
         </>
       )}
-
     </Container>
   );
 }
@@ -120,7 +159,6 @@ const Gap = styled.div`
 const ProfileTitleBox = styled.div`
   display: flex;
   align-items: baseline;
-  width: 510px;
   justify-content: space-between;
 `;
 
@@ -128,6 +166,7 @@ const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
   color: #5B756C;
+  margin-right: 10px;
 `;
 
 const ProfileTitleText = styled.div`
@@ -196,6 +235,8 @@ const BannedUserTitle = styled.div`
 const BannedUserBox = styled.div`
   display: flex;
   width: 950px;
+  justify-content: center;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 

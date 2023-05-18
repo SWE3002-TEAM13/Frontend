@@ -180,20 +180,20 @@ const Container = styled.div`
 const ProfileTitleBox = styled.div`
   display: flex;
   align-items: baseline;
-  width: 510px;
   justify-content: space-between;
 `;
 
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5b756c;
+  color: #5B756C;
+  margin-right: 10px;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8dc63f;
+  color: #8DC63F;
 `;
 
 const ProfileBox = styled.div`

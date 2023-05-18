@@ -1,14 +1,27 @@
-import { useState, useEffect } from 'react';
-import { ChatMessageContainer, ChatMessageInput } from './styles';
+import { useState, useEffect, useRef } from 'react';
+import {
+  ChatContentContainer,
+  ChatMessageContainer,
+  ChatMessageInputContainer,
+  ChatMessage,
+} from './styles';
 import { commonAxios } from '../../../utils/commonAxios';
 import { getCookie } from '../../../utils/getCookie';
 import { useMe } from '../../../utils/useMe';
+import { ReactComponent as SendChatIcon } from '../../../assets/send_chat.svg';
 
 export default function ChatMessageList(props) {
   const [messages, setMessages] = useState([]);
   const [ws, setWs] = useState(null);
 
   const me = useMe();
+
+  const chatMessageContainer = useRef(null);
+  const chatMessageInput = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   useEffect(() => {
     if (props.selectedChatRoom) {
@@ -51,40 +64,74 @@ export default function ChatMessageList(props) {
     }
   }, [props.selectedChatRoom]);
 
-  const sendMessage = event => {
-    if (event.key === 'Enter' && event.target.value !== '') {
-      if (!ws || ws.readyState !== WebSocket.OPEN) {
-        console.error('not connected');
-        return;
-      }
+  const sendMessage = message => {
+    if (!ws || ws.readyState !== WebSocket.OPEN) {
+      console.error('not connected');
+      return;
+    }
 
+    ws.send(message);
+  };
+
+  const handleSendEnter = event => {
+    if (event.key === 'Enter' && event.target.value !== '') {
       event.preventDefault();
-      ws.send(event.target.value);
+
+      sendMessage(event.target.value);
+
       event.target.value = '';
     }
   };
 
+  const handleSendClick = () => {
+    if (chatMessageInput.current) {
+      if (chatMessageInput.current.value === '') return;
+
+      sendMessage(chatMessageInput.current.value);
+
+      chatMessageInput.current.value = '';
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (chatMessageContainer.current) {
+      chatMessageContainer.current.scrollTop =
+        chatMessageContainer.current.scrollHeight;
+    }
+  };
+
   return (
-    <ChatMessageContainer>
-      {messages.map(
-        (message, index) => (
-          // me.id === message.sender_id ? (
-          //   <div key={index}>
-          //     <div>{message.sender_profile.nickname}</div>
-          //     <div>{message.message}</div>
-          //     <div>{message.created_at}</div>
-          //   </div>
-          // ) : (
-          <div key={index}>
-            {/* <img src={message.sender_profile.thumbnail} key={index} alt="" /> */}
-            <div>{message.sender_profile.nickname}</div>
-            <div>{message.message}</div>
-            <div>{message.created_at}</div>
-          </div>
-        )
-        // )
-      )}
-      <ChatMessageInput onKeyDown={sendMessage} />
-    </ChatMessageContainer>
+    <ChatContentContainer>
+      <ChatMessageContainer ref={chatMessageContainer}>
+        {messages.map((message, index) =>
+          me.id === message.sender_id ? (
+            <ChatMessage key={index} me={true}>
+              <div>
+                <div className="messageText">{message.message}</div>
+                <div className="messageDate">
+                  {new Date(message.created_at).toLocaleString('ko-KR')}
+                </div>
+              </div>
+            </ChatMessage>
+          ) : (
+            <ChatMessage key={index}>
+              <img src={message.sender_profile.thumbnail} key={index} alt="" />
+              <div>
+                <div className="messageText">{message.message}</div>
+                <div className="messageDate">
+                  {new Date(message.created_at).toLocaleString('ko-KR')}
+                </div>
+              </div>
+            </ChatMessage>
+          )
+        )}
+      </ChatMessageContainer>
+      <ChatMessageInputContainer>
+        <input onKeyDown={handleSendEnter} ref={chatMessageInput} />
+        <button onClick={handleSendClick}>
+          <SendChatIcon />
+        </button>
+      </ChatMessageInputContainer>
+    </ChatContentContainer>
   );
 }

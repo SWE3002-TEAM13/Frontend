@@ -33,6 +33,7 @@ export default function ChatPage() {
       <ChatPageGrid>
         <ChatRoomList
           chatRooms={chatRooms}
+          selectedChatRoom={selectedChatRoom}
           setSelectedChatRoom={setSelectedChatRoom}
         />
         <ChatMessageList selectedChatRoom={selectedChatRoom} />

@@ -21,10 +21,20 @@ export default function ChatRoomList(props) {
           onClick={() => {
             handleSelectChatRoom(chatRoom);
           }}
+          selected={
+            props.selectedChatRoom && props.selectedChatRoom.id === chatRoom.id
+          }
         >
           <img src={chatRoom.profile.thumbnail} alt="" />
-          {chatRoom.profile.nickname}
-          {chatRoom.profile.recent_message}
+          <div>
+            <p className="chatNickname">{chatRoom.profile.nickname}</p>
+            {chatRoom.send_time && (
+              <p className="chatSendTime">
+                {new Date(chatRoom.send_time).toLocaleString('ko-KR')}
+              </p>
+            )}
+            <p className="chatRecentMessage">{chatRoom.recent_message}</p>
+          </div>
         </ChatRoomCard>
       ))}
     </ChatRoomCardContainer>

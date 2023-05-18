@@ -1,14 +1,14 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<mask id="mask0_84_410" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
-<rect width="48" height="48" fill="url(#pattern0)"/>
-</mask>
-<g mask="url(#mask0_84_410)">
-<rect x="-6" width="59" height="53" fill="white"/>
-</g>
-<defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_84_410" transform="scale(0.0208333)"/>
-</pattern>
-<image id="image0_84_410" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAMKADAAQAAAABAAAAMAAAAADbN2wMAAABw0lEQVRoBe2WO0oFMRSGr09stBDUQry9G3ADdmJjYyW6AN2AG7C7jQgWIuIGXIEL0MZGEEVRLGzEykYQX1/AQBhmcjOThxM8gY+ZO3nM/5+bOSedjjSJgERAIiAR+M8RGLKYP6fvHW7gwzKutV3fKFM8ww50IaumDeir+hdOYBEGcnCihZddrzCwCeNtNlImvPjsFQN7MN9GI0Wxtt9fGDiFFbAlhqQ+bYJtfY+o3IappGpLXmYT6dL3xprHsFCydpJHLiJdx6iasg5jSZT/vsRVXJ1xSWtKHWF1xyapKXVFNR3vVVNsKe+MrfQEozADgxCjqWy1BFswCw/wAkHbBKstQw8u4BOaRrzfvCQ1ZRIDqmjtwiWol/YT1qQ/WU2ZxsAq7MN1BDOVNSXUvh5B9DCobyqLk+ocQtfgAG6hyfZwmRNsC3URqSrpIdxFFKxMBfuIN1jsCO4jC9b/RPCjuV449tWrkBHcyhZTeLZHiWwPc1kepyuLT+WmDdzR9BsIlrt9/dQxECx3+4o257sYCJ67TQG+9zYD0XK3r2hzftFAktxtCvC91waS5m5f0eb8P8ndpgC5lwhIBCQCEgGJQL8I/ACGK/e4Ev5IIAAAAABJRU5ErkJggg=="/>
-</defs>
+<svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <mask id="mask0_84_410" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48">
+        <rect width="48" height="48" fill="url(#pattern0)"/>
+    </mask>
+    <g mask="url(#mask0_84_410)">
+        <rect x="-6" width="59" height="53" fill="white"/>
+    </g>
+    <defs>
+        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_84_410" transform="scale(0.0208333)"/>
+        </pattern>
+        <image id="image0_84_410" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAMKADAAQAAAABAAAAMAAAAADbN2wMAAABw0lEQVRoBe2WO0oFMRSGr09stBDUQry9G3ADdmJjYyW6AN2AG7C7jQgWIuIGXIEL0MZGEEVRLGzEykYQX1/AQBhmcjOThxM8gY+ZO3nM/5+bOSedjjSJgERAIiAR+M8RGLKYP6fvHW7gwzKutV3fKFM8ww50IaumDeir+hdOYBEGcnCihZddrzCwCeNtNlImvPjsFQN7MN9GI0Wxtt9fGDiFFbAlhqQ+bYJtfY+o3IappGpLXmYT6dL3xprHsFCydpJHLiJdx6iasg5jSZT/vsRVXJ1xSWtKHWF1xyapKXVFNR3vVVNsKe+MrfQEozADgxCjqWy1BFswCw/wAkHbBKstQw8u4BOaRrzfvCQ1ZRIDqmjtwiWol/YT1qQ/WU2ZxsAq7MN1BDOVNSXUvh5B9DCobyqLk+ocQtfgAG6hyfZwmRNsC3URqSrpIdxFFKxMBfuIN1jsCO4jC9b/RPCjuV449tWrkBHcyhZTeLZHiWwPc1kepyuLT+WmDdzR9BsIlrt9/dQxECx3+4o257sYCJ67TQG+9zYD0XK3r2hzftFAktxtCvC91waS5m5f0eb8P8ndpgC5lwhIBCQCEgGJQL8I/ACGK/e4Ev5IIAAAAABJRU5ErkJggg=="/>
+    </defs>
 </svg>

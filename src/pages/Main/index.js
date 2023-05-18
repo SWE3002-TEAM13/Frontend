@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import MainPicture from "../../assets/main_picture.png";
-import { MainPictureContainer } from "./styles";
-import Announcement from "../../components/Announcement";
-import styled from "styled-components";
-import MainCard from "../../components/MainCard";
+import React, { useEffect, useState } from 'react';
+import MainPicture from '../../assets/main_picture.png';
+import { MainPictureContainer } from './styles';
+import Announcement from '../../components/Announcement';
+import styled from 'styled-components';
+import MainCard from '../../components/MainCard';
+import { commonAxios } from '../../utils/commonAxios';
 
 function MainPage() {
   const [announcementList, setAnnouncementList] = useState([]);
@@ -12,72 +13,48 @@ function MainPage() {
   const [shareList, setShareList] = useState([]);
 
   const getAnnouncement = () => {
-    fetch(`http://localhost:8000/announcement`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setAnnouncementList(data);
+    commonAxios
+      .get(`/announcement`)
+      .then(res => {
+        setAnnouncementList(res.data);
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
-  }
+  };
 
   const getRent = () => {
-    fetch(`http://localhost:8000/post/?type=rent`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setRentList(data);
-        console.log(data);
+    commonAxios
+      .get(`/post/?type=rent`)
+      .then(res => {
+        setRentList(res.data);
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
-  }
+  };
 
   const getLend = () => {
-    fetch(`http://localhost:8000/post/?type=lend`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setLendList(data);
-        console.log(data);
+    commonAxios
+      .get(`/post/?type=lend`)
+      .then(res => {
+        setLendList(res.data);
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
-  }
+  };
 
   const getShare = () => {
-    fetch(`http://localhost:8000/post/?type=share`, {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setShareList(data);
-        console.log(data);
+    commonAxios
+      .get(`/post/?type=share`)
+      .then(res => {
+        setShareList(res.data);
       })
-      .catch(error => {
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
-  }
-
+  };
 
   useEffect(() => {
     getAnnouncement();
@@ -95,13 +72,12 @@ function MainPage() {
       <Container>
         <AnnouncementTitle>공지사항</AnnouncementTitle>
         <AnnouncementContainer>
-          {announcementList.map((announcement) => (
+          {announcementList.map(announcement => (
             <>
               <Announcement data={announcement} />
               <Gap height={16} />
             </>
-          ))
-          }
+          ))}
         </AnnouncementContainer>
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
@@ -109,12 +85,11 @@ function MainPage() {
         </TitleBox>
         <Explain>성균관대생이 최근에 필요하다고 원한 상품!</Explain>
         <CardContainer>
-          {rentList.map((rent) => (
+          {rentList.map(rent => (
             <>
               <MainCard data={rent} />
               <Gap width={30} />
             </>
-
           ))}
         </CardContainer>
         <TitleBox>
@@ -123,12 +98,11 @@ function MainPage() {
         </TitleBox>
         <Explain>물건을 사지 말고 대여해서 돈을 아껴보자</Explain>
         <CardContainer>
-          {lendList.map((lend) => (
+          {lendList.map(lend => (
             <>
               <MainCard data={lend} />
               <Gap width={30} />
             </>
-
           ))}
         </CardContainer>
         <TitleBox>
@@ -137,12 +111,11 @@ function MainPage() {
         </TitleBox>
         <Explain>대충 설명 적기....</Explain>
         <CardContainer>
-          {shareList.map((share) => (
+          {shareList.map(share => (
             <>
               <MainCard data={share} />
               <Gap width={30} />
             </>
-
           ))}
         </CardContainer>
       </Container>
@@ -164,7 +137,7 @@ const Container = styled.div`
 `;
 
 const AnnouncementTitle = styled.div`
-  color: #FF6C0F;
+  color: #ff6c0f;
   font-size: 60px;
   font-weight: bold;
 `;
@@ -182,7 +155,7 @@ const AnnouncementContainer = styled.div`
 const TitleBox = styled.div`
   display: flex;
   align-items: baseline;
-`
+`;
 const SubTitle = styled.div`
   margin-top: 37px;
   font-size: 60px;
@@ -190,7 +163,7 @@ const SubTitle = styled.div`
 `;
 
 const Title = styled.div`
-  color: #2B6653;
+  color: #2b6653;
   font-size: 60px;
   font-weight: bold;
 `;
@@ -198,7 +171,7 @@ const Title = styled.div`
 const Explain = styled.div`
   color: #737373;
   font-size: 30px;
-`
+`;
 
 const CardContainer = styled.div`
   margin-top: 16px;

@@ -1,4 +1,4 @@
-import Form from "../common/Form";
+import Form from '../common/Form';
 import {
   InputCategoryContainer,
   InputForm,
@@ -16,22 +16,23 @@ import {
   TextAreaContainer,
   UploadPhotoContainer,
   UploadedPhotoInfoContainer,
-} from "./styles";
-import Button from "../common/PostButton";
-import StateTag from "../common/StateTag";
-import PhotoIcon from "../../assets/image.svg";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+} from './styles';
+import Button from '../common/PostButton';
+import StateTag from '../common/StateTag';
+import PhotoIcon from '../../assets/image.svg';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
 
 function Post(props) {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [selectedType, setSelectedType] = useState(props.type);
   const [price, setPrice] = useState(-1);
-  const [selectedState, setSelectedState] = useState("possible");
-  const [file, setFile] = useState("");
-  const [content, setContent] = useState("");
-  const [filename, setFilename] = useState("선택된 파일 없음");
+  const [selectedState, setSelectedState] = useState('possible');
+  const [file, setFile] = useState('');
+  const [content, setContent] = useState('');
+  const [filename, setFilename] = useState('선택된 파일 없음');
   const [disabled, setDisabled] = useState(false);
 
   const edit = props.edit ? true : false;
@@ -54,49 +55,49 @@ function Post(props) {
     movePage(`/${selectedType}`);
   };
 
-  const handleClickTypeButton = (e) => {
+  const handleClickTypeButton = e => {
     setSelectedType(e.target.id);
     console.log(selectedType);
   };
 
-  const handleClickStateButton = (e) => {
+  const handleClickStateButton = e => {
     setSelectedState(e.target.id);
     console.log(selectedState);
   };
 
-  const handleChangeTitle = (e) => {
+  const handleChangeTitle = e => {
     setTitle(e.target.value);
   };
 
-  const handleChangePrice = (e) => {
+  const handleChangePrice = e => {
     setPrice(e.target.value);
   };
 
-  const handleChangeFile = (e) => {
+  const handleChangeFile = e => {
     setFile(e.target.files[0]);
     setFilename(e.target.files[0].name);
   };
 
-  const handleFilename = (e) => {
+  const handleFilename = e => {
     if (edit) {
-      let ptr = props.edit.photo.lastIndexOf("/");
+      let ptr = props.edit.photo.lastIndexOf('/');
       return props.edit.photo.substr(ptr + 1);
     } else {
       return filename;
     }
   };
 
-  const handleChangeContent = (e) => {
+  const handleChangeContent = e => {
     setContent(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     setDisabled(true);
     e.preventDefault();
-    if (edit) {
-      axios
-        .put(`${process.env.REACT_APP_API_ENDPOINT}/post/${props.edit.id}`, {
-          withCredentials: true,
+    commonAxios
+      .post(
+        `/post`,
+        {
           params: {
             type: selectedType,
             title: title,
@@ -104,58 +105,28 @@ function Post(props) {
             price: price,
             photo: file,
             content: content,
-            category: "Book",
+            category: 'Book',
           },
-        })
-        .then(function (response) {
-          console.log(response);
-          console.log(file);
-        })
-        .catch(function (error) {
-          console.log(error);
-          console.log([
-            title,
-            file,
-            price,
-            selectedState,
-            selectedType,
-            content,
-          ]);
-        });
-      await new Promise((r) => setTimeout(r, 1000));
-      if (title.length < 1 || price < -1 || content.length < 1) {
-        alert("형식에 맞게 글을 작성해주세요.");
-      } else {
-        alert("글이 수정되었습니다.");
-        goBack();
-      }
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    await new Promise(r => setTimeout(r, 1000));
+    if (title.length < 1 || price < -1 || content.length < 1) {
+      alert('형식에 맞게 글을 작성해주세요.');
     } else {
-      axios
-        .post(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
-          withCredentials: true,
-          params: {
-            type: selectedType,
-            title: title,
-            status: selectedState,
-            price: price,
-            photo: file,
-            content: content,
-            category: "Book",
-          },
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      await new Promise((r) => setTimeout(r, 1000));
-      if (title.length < 1 || price < -1 || content.length < 1) {
-        alert("형식에 맞게 글을 작성해주세요.");
-      } else {
-        alert("글이 작성되었습니다.");
-        goBack();
-      }
+      alert('글이 작성되었습니다.');
+      goBack();
     }
 
     setDisabled(false);
@@ -176,21 +147,21 @@ function Post(props) {
               type="button"
               text="대여원해요"
               id="rent"
-              className={"type" + ("rent" === selectedType ? " active" : "")}
+              className={'type' + ('rent' === selectedType ? ' active' : '')}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="대여합니다"
               id="lend"
-              className={"type" + ("lend" === selectedType ? " active" : "")}
+              className={'type' + ('lend' === selectedType ? ' active' : '')}
               onClick={handleClickTypeButton}
             />
             <Button
               type="button"
               text="나눔합시다"
               id="share"
-              className={"type" + ("share" === selectedType ? " active" : "")}
+              className={'type' + ('share' === selectedType ? ' active' : '')}
               onClick={handleClickTypeButton}
             />
           </InputCategoryContainer>
@@ -209,7 +180,7 @@ function Post(props) {
               text="possible"
               id="possible"
               className={
-                "state" + ("possible" === selectedState ? " active" : "")
+                'state' + ('possible' === selectedState ? ' active' : '')
               }
               onClick={handleClickStateButton}
             />
@@ -217,14 +188,14 @@ function Post(props) {
               text="progress"
               id="progress"
               className={
-                "state" + ("progress" === selectedState ? " active" : "")
+                'state' + ('progress' === selectedState ? ' active' : '')
               }
               onClick={handleClickStateButton}
             />
             <StateTag
               text="done"
               id="done"
-              className={"state" + ("done" === selectedState ? " active" : "")}
+              className={'state' + ('done' === selectedState ? ' active' : '')}
               onClick={handleClickStateButton}
             />
           </StatesContainer>

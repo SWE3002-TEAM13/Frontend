@@ -9,6 +9,8 @@ export const CardDiv = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 export const ProfileImg = styled.div`

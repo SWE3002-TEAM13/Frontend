@@ -1,29 +1,28 @@
-import axios from "axios";
-import CardList from "../../components/CardList";
-import SearchBox from "../../components/SearchBox";
-import BasicLayout from "../../components/common/BasicLayout";
-import { useEffect, useState } from "react";
+import CardList from '../../components/CardList';
+import SearchBox from '../../components/SearchBox';
+import BasicLayout from '../../components/common/BasicLayout';
+import { useEffect, useState } from 'react';
+import { commonAxios } from '../../utils/commonAxios';
 
 function RentPage() {
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/post`, {
-        withCredentials: true,
+    commonAxios
+      .get('/post', {
         params: {
-          type: "rent",
-          search: search,
+          type: 'rent',
+          search,
         },
       })
-      .then(function (response) {
-        setCards(response.data);
-        console.log(response);
+      .then(res => {
+        setCards(res.data);
+        console.log(res);
       })
-      .catch(function (error) {
-        alert("검색 결과가 존재하지 않습니다.");
-        console.log(error);
+      .catch(err => {
+        alert('검색 결과가 존재하지 않습니다.');
+        console.error(err);
       });
   }, [search]);
 
@@ -37,7 +36,7 @@ function RentPage() {
             value="rent"
             setValue={setSearch}
           />
-          <CardList data={cards} />
+          <CardList data={cards} more />
         </>
       }
     ></BasicLayout>

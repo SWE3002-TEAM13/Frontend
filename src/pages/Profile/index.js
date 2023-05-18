@@ -1,50 +1,75 @@
-import React from "react";
-import styled from "styled-components";
-import BannedUser from "../../components/BannedUser/index.js";
-import emblem from "../../assets/emblem.png";
-import Card from "../../components/Card/index.js";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios.js';
+import CardList from '../../components/CardList';
 
 function ProfilePage() {
-  const { id } = useParams(); // 추후 userId값을 가져오기 위함
+  const { id } = useParams();
+  const [profile, setProfile] = useState({});
+  const [rentList, setRentList] = useState([]);
+  const [lendList, setLendList] = useState([]);
+  const [shareList, setShareList] = useState([]);
+
+  useEffect(() => {
+    commonAxios
+      .get(`/user/profile/${id}`)
+      .then(res => {
+        setProfile(res.data.profile);
+        setRentList(res.data.rentlist);
+        setLendList(res.data.lendlist);
+        setShareList(res.data.sharelist);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }, [id]);
 
   return (
     <Container>
       <ProfileTitleBox>
-        <ProfileTitleName>성균나누Re님</ProfileTitleName>
+        <ProfileTitleName>{profile.nickname}</ProfileTitleName>
         <ProfileTitleText>프로필</ProfileTitleText>
       </ProfileTitleBox>
       <ProfileBox>
-        <ImgUploadDiv imgUrl={emblem} />
+        <ImgUploadDiv imgUrl={profile.thumbnail} />
         <ProfileDiv>
-          <ProfileName>성규나누Re</ProfileName>
-          <CampusName>자연과학캠퍼스(율전)</CampusName>
+          <ProfileName>{profile.nickname}</ProfileName>
+          <CampusName>{profile.loc_str}</CampusName>
         </ProfileDiv>
       </ProfileBox>
       <TitleBox>
         <Title>대여원해요</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
-      <Gap height={32} />
-      <Card liked={false} />
+      {rentList.length > 0 ? (
+        <>
+          <Gap height={35} />
+          <CardList data={rentList} />
+        </>) : (''
+      )}
       <TitleBox>
         <Title>대여합니다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
+      {lendList.length > 0 ? (
+        <>
+          <Gap height={35} />
+          <CardList data={lendList} />
+        </>) : (''
+      )}
       <Gap height={32} />
-      <Card liked={false} />
       <TitleBox>
         <Title>나눔합시다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      <Gap height={35} />
-      <Card liked={false} />
+      {shareList.length > 0 ? (
+        <>
+          <Gap height={35} />
+          <CardList data={shareList} />
+        </>) : (''
+      )}
       <Gap height={32} />
-      <Card liked={false} />
     </Container>
   );
 }
@@ -69,20 +94,19 @@ const Gap = styled.div`
 const ProfileTitleBox = styled.div`
   display: flex;
   align-items: baseline;
-  width: 510px;
   justify-content: space-between;
 `;
 
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5B756C;
+  color: #5b756c;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const ProfileBox = styled.div`
@@ -108,7 +132,7 @@ const ImgUploadDiv = styled.div`
 
 const ProfileName = styled.div`
   font-size: 40px;
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: bold;
 `;
 
@@ -116,50 +140,6 @@ const CampusName = styled.div`
   font-size: 25px;
   color: #808080;
   margin-top: 15px;
-`;
-
-const Button = styled.button`
-  margin-top: 37px;
-  border: none;
-  width: 600px;
-  height: 50px;
-  background: #8DC63F;
-  color: white;
-  font-size: 23px;
-  margin-bottom: 40px;
-  cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const BannedUserTitle = styled.div`
-  font-weight: bold;
-  font-size: 60px;
-  color: #FF6C0F;
-  margin-bottom: 35px;
-`;
-
-const BannedUserBox = styled.div`
-  display: flex;
-  width: 950px;
-  justify-content: space-between;
-`;
-
-const LikedTitleBox = styled.div`
-  margin-top: 100px;
-  display: flex;
-  align-items: baseline;
-  width: 306px;
-  justify-content: space-between;
-`;
-
-const Liked = styled.div`
-  font-weight: bold;
-  font-size: 60px;
-  color: #8DC63F;
 `;
 
 const SubTitle = styled.div`
@@ -176,8 +156,7 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  color: #5B756C;
+  color: #5b756c;
   font-size: 60px;
   font-weight: bold;
 `;
-

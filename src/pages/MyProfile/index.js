@@ -1,101 +1,133 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import BannedUser from "../../components/BannedUser/index.js";
-import emblem from "../../assets/emblem.png";
-import Card from "../../components/Card/index.js";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import BannedUser from '../../components/BannedUser/index.js';
+import { useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios.js';
+import { getCookie } from '../../utils/getCookie.js';
+import CardList from '../../components/CardList/index.js';
 
 function MyProfilePage() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
+  const [blockList, setBlockList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
+  const [rentList, setRentList] = useState([]);
+  const [lendList, setLendList] = useState([]);
+  const [shareList, setShareList] = useState([]);
+
+  const onClickUnblock = id => {
+    commonAxios
+      .delete(`/user/block/${id}`)
+      .then(res => {
+        if (res.status === 200) {
+          alert('차단해제가 완료되었습니다.');
+          window.location.reload();
+        } else {
+          alert('Unblock failed!');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
   useEffect(() => {
-    // 페이지가 로드되었을 때 실행되는 코드
-    const access_token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-
-    fetch("http://localhost:8000/user/profile/me", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${access_token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setProfile(data);
+    commonAxios
+      .get(`/user/profile/me`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error("Error occurred:", error);
+      .then(res => {
+        setProfile(res.data.profile);
+        setBlockList(res.data.blocklist);
+        setLikeList(res.data.likelist);
+        setRentList(res.data.rentlist);
+        setLendList(res.data.lendlist);
+        setShareList(res.data.sharelist);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 
   return (
     <Container>
-      {profile.profile && profile.profile.nickname && (
+      {profile && profile.nickname && (
         <>
           <ProfileTitleBox>
-            <ProfileTitleName>{profile.profile.nickname}</ProfileTitleName>
+            <ProfileTitleName>{profile.nickname}</ProfileTitleName>
             <ProfileTitleText>프로필</ProfileTitleText>
           </ProfileTitleBox>
           <ProfileBox>
-            <ImgUploadDiv imgUrl={profile.profile.thumbnail} />
+            <ImgUploadDiv imgUrl={profile.thumbnail} />
             <ProfileDiv>
-              <ProfileName>{profile.profile.nickname}</ProfileName>
-              <CampusName>{profile.profile.loc_str}</CampusName>
+              <ProfileName>{profile.nickname}</ProfileName>
+              <CampusName>{profile.loc_str}</CampusName>
             </ProfileDiv>
           </ProfileBox>
-          <Button
-            width="600px"
-            onClick={() => navigate("/profileedit")}
-          >
+          <Button width="600px" onClick={() => navigate('/profileedit')}>
             프로필수정
           </Button>
           <BannedUserTitle>유저 차단 목록</BannedUserTitle>
-          <BannedUserBox>
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-            <BannedUser img={emblem} name="닉네임" />
-          </BannedUserBox>
+          {blockList.length > 0 ? (
+            <BannedUserBox>
+              {blockList.map((user, index) => (
+                <BannedUser
+                  img={user.thumbnail}
+                  name={user.nickname}
+                  onClickUnblock={() => onClickUnblock(user.id)}
+                  key={index}
+                  onClick={() => navigate(`/profile/${user.id}`)}
+                />
+              ))}
+            </BannedUserBox>) : ''
+          }
           <LikedTitleBox>
             <Liked>좋아요</Liked>
             <SubTitle>목록</SubTitle>
           </LikedTitleBox>
-          <Gap height={35} />
-          <Card liked={true} />
-          <Gap height={32} />
-          <Card liked={true} />
+          {likeList.length > 0 ? (
+            <>
+              <Gap height={35} />
+              <CardList data={likeList} />
+            </>) : ''
+          }
           <TitleBox>
             <Title>대여원해요</Title>
             <SubTitle>이력</SubTitle>
           </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
+          {rentList.length > 0 ? (
+            <>
+              <Gap height={35} />
+              <CardList data={rentList} />
+              <Gap height={32} />
+            </>) : ''
+          }
           <TitleBox>
             <Title>대여합니다</Title>
             <SubTitle>이력</SubTitle>
           </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
+          {lendList.length > 0 ? (
+            <>
+              <Gap height={35} />
+              <CardList data={lendList} />
+              <Gap height={32} />
+            </>) : ''
+          }
           <TitleBox>
             <Title>나눔합시다</Title>
             <SubTitle>이력</SubTitle>
           </TitleBox>
-          <Gap height={35} />
-          <Card liked={false} />
-          <Gap height={32} />
-          <Card liked={false} />
+          {shareList.length > 0 ? (
+            <>
+              <Gap height={35} />
+              <CardList data={shareList} />
+              <Gap height={32} />
+            </>) : ''
+          }
         </>
       )}
-
     </Container>
   );
 }
@@ -120,20 +152,20 @@ const Gap = styled.div`
 const ProfileTitleBox = styled.div`
   display: flex;
   align-items: baseline;
-  width: 510px;
   justify-content: space-between;
 `;
 
 const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
-  color: #5B756C;
+  color: #5b756c;
+  margin-right: 10px;
 `;
 
 const ProfileTitleText = styled.div`
   font-size: 45px;
   font-weight: bold;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const ProfileBox = styled.div`
@@ -159,7 +191,7 @@ const ImgUploadDiv = styled.div`
 
 const ProfileName = styled.div`
   font-size: 40px;
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: bold;
 `;
 
@@ -174,7 +206,7 @@ const Button = styled.button`
   border: none;
   width: 600px;
   height: 50px;
-  background: #8DC63F;
+  background: #8dc63f;
   color: white;
   font-size: 23px;
   margin-bottom: 40px;
@@ -189,13 +221,15 @@ const Button = styled.button`
 const BannedUserTitle = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #FF6C0F;
+  color: #ff6c0f;
   margin-bottom: 35px;
 `;
 
 const BannedUserBox = styled.div`
   display: flex;
   width: 950px;
+  justify-content: center;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 
@@ -210,7 +244,7 @@ const LikedTitleBox = styled.div`
 const Liked = styled.div`
   font-weight: bold;
   font-size: 60px;
-  color: #8DC63F;
+  color: #8dc63f;
 `;
 
 const SubTitle = styled.div`
@@ -227,8 +261,7 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  color: #5B756C;
+  color: #5b756c;
   font-size: 60px;
   font-weight: bold;
 `;
-

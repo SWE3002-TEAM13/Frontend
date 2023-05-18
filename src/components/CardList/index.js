@@ -4,12 +4,11 @@ import {
   SingleCardContainer,
   MoreButtonContainer,
   MoreButton,
-} from "./styles";
+} from './styles';
+import Card from '../Card';
+import { Link } from 'react-router-dom';
 
-import Card from "../Card";
-import { Link } from "react-router-dom";
-
-function CardList({ data }) {
+function CardList({ data, more }) {
   return (
     <CardListAndMoreContainer>
       <CardListContainer>
@@ -17,7 +16,6 @@ function CardList({ data }) {
           data.map((item, index) => {
             return (
               <SingleCardContainer key={index}>
-                {/*eslint-disable-next-line*/}
                 <Link to={`/info/${item.id}`}>
                   <Card data={item} />
                 </Link>
@@ -25,9 +23,13 @@ function CardList({ data }) {
             );
           })}
       </CardListContainer>
-      <MoreButtonContainer>
-        <MoreButton>+ 더 불러오기</MoreButton>
-      </MoreButtonContainer>
+      {more ? (
+        <MoreButtonContainer>
+          <MoreButton>+ 더 불러오기</MoreButton>
+        </MoreButtonContainer>
+      ) : (
+        ''
+      )}
     </CardListAndMoreContainer>
   );
 }

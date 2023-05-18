@@ -1,33 +1,30 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { ThemeProvider } from "@emotion/react";
-import { theme } from "./styles/theme";
-import styled from "@emotion/styled/macro";
-import GlobalStyles from "./styles/GlobalStyles";
-import NavBar from "./components/common/NavBar";
-import Footer from "./components/common/Footer";
-import NotFound from "./components/common/NotFound";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from './styles/theme';
+import styled from '@emotion/styled/macro';
+import GlobalStyles from './styles/GlobalStyles';
+import NavBar from './components/common/NavBar';
+import Footer from './components/common/Footer';
+import NotFound from './components/common/NotFound';
 
 // Pages import
-import LendPage from "./pages/Lend";
-import MainPage from "./pages/Main";
-import RentPage from "./pages/Rent";
-import SharePage from "./pages/Share";
-import ChatPage from "./pages/Chat";
-import MyProfilePage from "./pages/MyProfile";
-import PostPage from "./pages/Post";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import ProfileEditPage from "./pages/ProfileEdit";
-import ProfilePage from "./pages/Profile";
-import InfoPage from "./pages/PostInfo";
-import EditPage from "./pages/EditInfo";
+import LendPage from './pages/Lend';
+import MainPage from './pages/Main';
+import RentPage from './pages/Rent';
+import SharePage from './pages/Share';
+import ChatPage from './pages/Chat';
+import MyProfilePage from './pages/MyProfile';
+import PostPage from './pages/Post';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
+import ProfileEditPage from './pages/ProfileEdit';
+import ProfilePage from './pages/Profile';
+import InfoPage from './pages/PostInfo';
+import EditPage from './pages/EditInfo';
+import { VerifyPage } from './pages/Verify';
+import { EmailSentPage } from './pages/EmailSent/EmailSentPage';
 
 const Container = styled.div`
   display: flex;
@@ -192,6 +189,9 @@ function App() {
                 </Container>
               }
             />
+            <Route path="/verify" element={<VerifyPage />} />
+            <Route path="/emailSent" element={<EmailSentPage />} />
+
             {/* 렌더링에 NavBar와 Footer 제외 */}
             <Route path="/login" exact={true} element={<LoginPage />} />
 

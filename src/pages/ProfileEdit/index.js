@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import styled from "styled-components";
-import emblem from "../../assets/emblem.png";
-import TextInput from "../../components/common/TextInput";
-
+import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
+import TextInput from '../../components/common/TextInput';
+import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
+import { useMe } from '../../utils/useMe';
 
 function ProfileEditPage() {
   const [profile, setProfile] = useState({});
@@ -31,45 +32,34 @@ function ProfileEditPage() {
     setNewProfilePicture(null);
   };
 
-  const handleNicknameChange = (event) => {
+  const handleNicknameChange = event => {
     setNickname(event.target.value);
   };
 
   const handleLocChange = () => {
     setLoc(!loc);
-  }
+  };
 
   useEffect(() => {
     // 페이지가 로드되었을 때 실행되는 코드
-    const access_token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-
-    fetch("http://localhost:8000/user/profile/me", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Authorization": `Bearer ${access_token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setProfile(data);
-        setProfilePicture(data.profile.thumbnail);
-        setLoc(data.profile.loc);
+    commonAxios
+      .get(`/user/profile/me`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error("Error occurred:", error);
+      .then(res => {
+        setProfile(res.data);
+        setProfilePicture(res.data.profile.thumbnail);
+        setNickname(res.data.profile.nickname);
+        setLoc(res.data.profile.loc);
+      })
+      .catch(err => {
+        console.error(err);
       });
   }, []);
 
   const handleUpdateProfile = () => {
-    const access_token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)access_token\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
     // FormData 객체를 생성합니다.
     const formData = new FormData();
     // nickname 값을 추가합니다.
@@ -81,21 +71,18 @@ function ProfileEditPage() {
       formData.append('thumbnail', newProfilePicture);
     }
 
-    fetch("http://localhost:8000/user/profile", {
-      method: "PUT",
-      headers: {
-        "Authorization": `Bearer ${access_token}`
-      },
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        alert("프로필 수정이 완료되었습니다");
+    commonAxios
+      .put(`/user/profile`, formData, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
+      .then(res => {
+        alert('프로필 수정이 완료되었습니다');
         window.location.reload();
       })
-      .catch(error => {
-        // 오류 처리 로직 작성
-        console.error("Error occurred:", error);
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -118,7 +105,9 @@ function ProfileEditPage() {
           <ImgContainer>
             <ImgTextDiv>
               <InputTitle>프로필 사진</InputTitle>
-              <NicknameExplain>자신을 대표할 <br /> 사진을 설정하세요! </NicknameExplain>
+              <NicknameExplain>
+                자신을 대표할 <br /> 사진을 설정하세요!{' '}
+              </NicknameExplain>
               <SmallButton background="#8DC63F" onClick={handleClickFileInput}>
                 업로드
                 <StyledFileInput
@@ -128,16 +117,29 @@ function ProfileEditPage() {
                   onChange={handleProfilePictureUpload}
                 />
               </SmallButton>
-              <SmallButton background="#C4C4C4" onClick={handleProfilePictureDelete}>
+              <SmallButton
+                background="#C4C4C4"
+                onClick={handleProfilePictureDelete}
+              >
                 삭제
               </SmallButton>
             </ImgTextDiv>
-            <ImgUploadDiv profilePicture={newProfilePicture ?? profilePicture} />
+            <ImgUploadDiv
+              profilePicture={newProfilePicture ?? profilePicture}
+            />
           </ImgContainer>
           <InputDiv>
             <InputTitle>닉네임</InputTitle>
-            <NicknameExplain>다른 사람들에게 보여줄 닉네임을 설정하세요!</NicknameExplain>
-            <TextInput width="530px" value={nickname || (profile.profile && profile.profile.nickname) || ''} onChange={handleNicknameChange}></TextInput>
+            <NicknameExplain>
+              다른 사람들에게 보여줄 닉네임을 설정하세요!
+            </NicknameExplain>
+            <TextInput
+              width="530px"
+              value={
+                nickname || (profile.profile && profile.profile.nickname) || ''
+              }
+              onChange={handleNicknameChange}
+            ></TextInput>
           </InputDiv>
           <CheckBoxDiv>
             <CheckBoxTitle>위치</CheckBoxTitle>
@@ -159,7 +161,8 @@ function ProfileEditPage() {
             </CheckBoxText>
           </CheckBoxDiv>
           <Button onClick={handleUpdateProfile}>수정하기</Button>
-        </>)}
+        </>
+      )}
     </Container>
   );
 }
@@ -180,7 +183,6 @@ const Container = styled.div`
 const ProfileTitleBox = styled.div`
   display: flex;
   align-items: baseline;
-  width: 510px;
   justify-content: space-between;
 `;
 
@@ -188,6 +190,7 @@ const ProfileTitleName = styled.div`
   font-size: 60px;
   font-weight: bold;
   color: #5b756c;
+  margin-right: 10px;
 `;
 
 const ProfileTitleText = styled.div`
@@ -311,7 +314,7 @@ const CheckBoxTitle = styled.div`
 `;
 
 const CheckBoxText = styled.div`
-  color: #6C757D;
+  color: #6c757d;
   font-size: 18px;
 `;
 

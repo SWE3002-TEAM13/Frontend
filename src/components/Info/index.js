@@ -1,5 +1,5 @@
-import Form from "../common/Form";
-import Like from "../common/Like";
+import Form from '../common/Form';
+import Like from '../common/Like';
 import {
   NavigationContainer,
   InfoContainer,
@@ -21,19 +21,20 @@ import {
   ChatButtonContainer,
   Photo,
   IconBtn,
-} from "./styles";
-import Back from "../../assets/arrow.svg";
-import StateTag from "../common/StateTag";
-import EditIcon from "../../assets/edit.svg";
-import DeleteIcon from "../../assets/delete.svg";
-import BlockIcon from "../../assets/block.svg";
-import ReportIcon from "../../assets/report.svg";
-import ChatButton from "../common/ChatButton";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+} from './styles';
+import Back from '../../assets/arrow.svg';
+import StateTag from '../common/StateTag';
+import EditIcon from '../../assets/edit.svg';
+import DeleteIcon from '../../assets/delete.svg';
+import BlockIcon from '../../assets/block.svg';
+import ReportIcon from '../../assets/report.svg';
+import ChatButton from '../common/ChatButton';
+import { Link, useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
 
 function Info({ data }) {
-  let date = data.created_at + "";
+  let date = data.created_at + '';
   const movePage = useNavigate();
   const user_id = 1; // 나중에 들어올 로그인한 유저 아이디 값
 
@@ -41,63 +42,87 @@ function Info({ data }) {
     movePage(`/${data.type}`);
   };
 
-  const handleLike = (e) => {
-    // eslint-disable-next-line
-    axios.post(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
-      id: data.id,
-    });
-  };
-
-  const handleDislike = (e) => {
-    // eslint-disable-next-line
-    axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}/like`, {
-      id: data.id,
-    });
-  };
-
-  const handleClickDeleteButton = (e) => {
-    axios
-      .delete(`${process.env.REACT_APP_API_ENDPOINT}/post/${data.id}`, {
-        withCredentials: true,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
+  const handleLike = e => {
+    commonAxios
+      .post(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
+      .catch(err => {
+        console.error(err);
       });
+  };
+
+  const handleDislike = e => {
+    commonAxios
+      .delete(
+        `/post/${data.id}/like`,
+        {
+          id: data.id,
+        },
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
+  const handleClickDeleteButton = e => {
+    commonAxios
+      .delete(`/post/${data.id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
     goBack();
   };
 
-  const handleClickBlockButton = (e) => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_ENDPOINT}/user/block/${data.author_id}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then(function (response) {
-        console.log(response);
+  const handleClickBlockButton = e => {
+    commonAxios
+      .post(`/user/block/${data.author_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch(function (error) {
-        console.log(error);
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
-  const handleClickReportButton = (e) => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_ENDPOINT}/user/report/${data.author_id}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then(function (response) {
-        console.log(response);
+  const handleClickReportButton = e => {
+    commonAxios
+      .post(`/user/report/${data.author_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch(function (error) {
-        console.log(error);
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 

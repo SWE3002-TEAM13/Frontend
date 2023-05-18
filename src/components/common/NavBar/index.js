@@ -9,14 +9,14 @@ import Logo from '../Logo';
 import { Link } from 'react-router-dom';
 import { getCookie } from '../../../utils/getCookie';
 import { useNavigate } from 'react-router-dom';
+import { deleteCookie } from '../../../utils/deleteCookie';
 
 function NavBar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     // access_token 쿠키 삭제
-    document.cookie =
-      'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    deleteCookie('access_token');
 
     navigate('/');
   };

@@ -1,5 +1,5 @@
-import styled from "@emotion/styled/macro";
-import { NAVBAR_HEIGHT } from "../../../constants/navbar";
+import styled from '@emotion/styled/macro';
+import { NAVBAR_HEIGHT } from '../../../constants/navbar';
 
 export const StyledNavBar = styled.header`
   position: fixed;
@@ -38,4 +38,5 @@ export const NavBarMenuText = styled.li`
   font-weight: 400;
   font-size: 12px;
   min-width: max-content;
+  cursor: pointer;
 `;

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const StyledButton = styled.div`
   width: 520px;
@@ -14,10 +14,10 @@ export const ButtonContainer = styled.button`
   height: 100%;
   padding: 5px;
   font-size: 25px;
-  font-weight: medium;
   border-radius: 10px;
-  border: 1px solid black;
+  border: 0;
   color: ${({ theme }) => theme.color.white};
   background-color: ${({ theme }) => theme.color.lightGreen};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;

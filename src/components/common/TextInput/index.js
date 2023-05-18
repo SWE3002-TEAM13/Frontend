@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "@emotion/styled";
+import React from 'react';
+import styled from '@emotion/styled';
 
-function TextInput({ type, placeholder, width, onChange, value }) {
+function TextInput({ type, placeholder, width, onChange, value, onKeyDown }) {
   return (
     <StyledInput
       type={type}
@@ -9,6 +9,7 @@ function TextInput({ type, placeholder, width, onChange, value }) {
       width={width}
       onChange={onChange}
       value={value}
+      onKeyDown={onKeyDown}
     />
   );
 }
@@ -21,7 +22,7 @@ const StyledInput = styled.input`
   display: flex;
   border: 2px solid;
   border-radius: 5px;
-  border-color: #C4C4C4;
+  border-color: #c4c4c4;
   padding: 5px;
   font-size: 25px;
 

@@ -34,6 +34,13 @@ function LoginPage() {
       });
   };
 
+  const handleLoginEnter = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleLogin();
+    }
+  };
+
   return (
     <LoginContainer>
       <LoginBox>
@@ -44,6 +51,7 @@ function LoginPage() {
           value={username}
           placeholder="아이디"
           onChange={event => setUsername(event.target.value)}
+          onKeyDown={handleLoginEnter}
         />
         <Gap height={8} />
         <TextInput
@@ -52,6 +60,7 @@ function LoginPage() {
           placeholder="비밀번호"
           type="password"
           onChange={event => setPassword(event.target.value)}
+          onKeyDown={handleLoginEnter}
         />
         <Gap height={11} />
         <Button text="로그인" onClick={handleLogin} />

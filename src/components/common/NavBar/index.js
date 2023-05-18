@@ -41,9 +41,11 @@ function NavBar() {
           <Link to="/share">
             <NavBarMenuText>나눔합시다</NavBarMenuText>
           </Link>
-          <Link to="/chat">
-            <NavBarMenuText>채팅해요</NavBarMenuText>
-          </Link>
+          {isLoggedIn && (
+            <Link to="/chat">
+              <NavBarMenuText>채팅해요</NavBarMenuText>
+            </Link>
+          )}
           {isLoggedIn && (
             <Link to="/myprofile">
               <NavBarMenuText>프로필</NavBarMenuText>

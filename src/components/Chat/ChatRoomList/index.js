@@ -17,6 +17,7 @@ export default function ChatRoomList(props) {
 
       {props.chatRooms.map((chatRoom, index) => (
         <ChatRoomCard
+          key={index}
           onClick={() => {
             handleSelectChatRoom(chatRoom);
           }}

@@ -5,3 +5,7 @@ export const ChatMessageContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 5px 5px -5px gray;
 `;
+
+export const ChatMessageInput = styled.input`
+  width: 100%;
+`;

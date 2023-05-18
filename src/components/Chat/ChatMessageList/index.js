@@ -126,12 +126,14 @@ export default function ChatMessageList(props) {
           )
         )}
       </ChatMessageContainer>
-      <ChatMessageInputContainer>
-        <input onKeyDown={handleSendEnter} ref={chatMessageInput} />
-        <button onClick={handleSendClick}>
-          <SendChatIcon />
-        </button>
-      </ChatMessageInputContainer>
+      {props.selectedChatRoom && (
+        <ChatMessageInputContainer>
+          <input onKeyDown={handleSendEnter} ref={chatMessageInput} />
+          <button onClick={handleSendClick}>
+            <SendChatIcon />
+          </button>
+        </ChatMessageInputContainer>
+      )}
     </ChatContentContainer>
   );
 }

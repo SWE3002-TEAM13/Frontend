@@ -39,6 +39,7 @@ function MyProfilePage() {
         },
       })
       .then(res => {
+        console.log(res);
         setProfile(res.data.profile);
         setBlockList(res.data.blocklist);
         setLikeList(res.data.likelist);

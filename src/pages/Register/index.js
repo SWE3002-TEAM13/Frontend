@@ -110,11 +110,11 @@ function RegisterPage() {
         .post('/user/register', formData)
         .then(res => {
           if (res.status === 200) {
-            alert('회원가입 성공');
+            navigate('/emailSent');
           } else {
             alert('회원가입 실패');
+            navigate('/');
           }
-          navigate('/');
         })
         .catch(err => {
           console.error(err);

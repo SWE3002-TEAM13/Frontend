@@ -38,6 +38,7 @@ function Card({ data }) {
         <PostTitleAndLikeContainer>
           <PostTitleContainer>{data.title}</PostTitleContainer>
           <Like
+            liked={data.islike}
             count={data.like_count}
             onClickLike={handleLike}
             onClickDislike={handleDislike}

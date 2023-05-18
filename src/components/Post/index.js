@@ -38,14 +38,21 @@ function Post(props) {
   const edit = props.edit ? true : false;
 
   useEffect(() => {
-    setSelectedType(props?.edit?.type);
-    setSelectedState(props?.edit?.status);
+    if (edit) {
+      setTitle(props?.edit?.title);
+      setSelectedType(props?.edit?.type);
+      setPrice(props?.edit?.price);
+      setSelectedState(props?.edit?.status);
+      setFile(props?.eidt?.photo);
+      setContent(props?.edit?.content);
+      console.log(props.edit.photo);
+    }
   }, [props]);
 
   const movePage = useNavigate();
 
   const goBack = () => {
-    movePage(`/${props.type}`);
+    movePage(`/${selectedType}`);
   };
 
   const handleClickTypeButton = e => {
@@ -121,6 +128,7 @@ function Post(props) {
       alert('글이 작성되었습니다.');
       goBack();
     }
+
     setDisabled(false);
   };
 

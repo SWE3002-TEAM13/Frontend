@@ -4,7 +4,6 @@ export const InputForm = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px;
-  background-color: aliceblue;
 `;
 
 export const InputTitleContainer = styled.input`
@@ -81,6 +80,7 @@ export const InputPrice = styled.input`
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  text-align: right;
 `;
 
 export const StatesContainer = styled.div`

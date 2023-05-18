@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 function SearchBox(props) {
   const movePage = useNavigate();
   const handleClickPostButton = (e) => {
-    movePage("/post");
-    console.log(e.target.value);
+    const type = e.target.value;
+    movePage("/post", { state: { value: type } });
+    console.log(type);
   };
   return (
     <SearchBoxContainer>
       <Title text1={props.text1} text2={props.text2}></Title>
-      <Search onClick={props.onClick}></Search>
+      <Search setValue={props.setValue}></Search>
       <Button
         type="button"
         value={props.value}

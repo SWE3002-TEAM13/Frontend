@@ -7,6 +7,7 @@ import {
 } from "./styles";
 
 import Card from "../Card";
+import { Link } from "react-router-dom";
 
 function CardList({ data, more }) {
   return (
@@ -16,7 +17,10 @@ function CardList({ data, more }) {
           data.map((item, index) => {
             return (
               <SingleCardContainer key={index}>
-                <Card data={item} />
+                {/*eslint-disable-next-line*/}
+                <Link to={`/info/${item.id}`}>
+                  <Card data={item} />
+                </Link>
               </SingleCardContainer>
             );
           })}

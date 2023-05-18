@@ -6,20 +6,20 @@ const commonAxios = axios.create({
   withCredentials: true,
 });
 
-commonAxios.interceptors.response.use(
-  response => response,
-  error => {
-    console.error(error);
-    if (error.response.status === 401) {
-      deleteCookie('access_token');
+// commonAxios.interceptors.response.use(
+//   response => response,
+//   error => {
+//     console.error(error);
+//     if (error.response.status === 401) {
+//       deleteCookie('access_token');
 
-      window.location.href = '/';
+//       window.location.href = '/';
 
-      return;
-    }
+//       return;
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export { commonAxios };

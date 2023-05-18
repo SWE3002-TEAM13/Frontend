@@ -23,6 +23,7 @@ import PhotoIcon from '../../assets/image.svg';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
 
 function Post(props) {
   const [title, setTitle] = useState('');
@@ -87,17 +88,25 @@ function Post(props) {
     setDisabled(true);
     e.preventDefault();
     commonAxios
-      .post(`/post`, {
-        params: {
-          type: selectedType,
-          title: title,
-          status: selectedState,
-          price: price,
-          photo: file,
-          content: content,
-          category: 'Book',
+      .post(
+        `/post`,
+        {
+          params: {
+            type: selectedType,
+            title: title,
+            status: selectedState,
+            price: price,
+            photo: file,
+            content: content,
+            category: 'Book',
+          },
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie('access_token')}`,
+          },
+        }
+      )
       .then(res => {
         console.log(res);
       })

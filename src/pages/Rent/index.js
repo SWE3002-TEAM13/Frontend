@@ -6,6 +6,7 @@ import { commonAxios } from '../../utils/commonAxios';
 
 function RentPage() {
   const [cards, setCards] = useState([]);
+  const [search, setSearch] = useState(null);
 
   useEffect(() => {
     commonAxios
@@ -23,7 +24,7 @@ function RentPage() {
         alert('검색 결과가 존재하지 않습니다.');
         console.log(err);
       });
-  }, []);
+  }, [search]);
 
   const onSearch = e => {};
   return (
@@ -35,6 +36,7 @@ function RentPage() {
             text2="합니다"
             value="rent"
             onClick={onSearch}
+            setValue={setSearch}
           />
           <CardList data={cards} more />
         </>

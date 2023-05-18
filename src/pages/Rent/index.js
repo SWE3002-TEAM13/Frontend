@@ -12,7 +12,7 @@ function RentPage() {
     commonAxios
       .get('/post', {
         params: {
-          type: 'lend',
+          type: 'rent',
           search: null,
         },
       })

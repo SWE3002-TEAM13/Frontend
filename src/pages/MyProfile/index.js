@@ -69,75 +69,63 @@ function MyProfilePage() {
           <Button width="600px" onClick={() => navigate('/profileedit')}>
             프로필수정
           </Button>
+          <BannedUserTitle>유저 차단 목록</BannedUserTitle>
           {blockList.length > 0 ? (
-            <>
-              <BannedUserTitle>유저 차단 목록</BannedUserTitle>
-              <BannedUserBox>
-                {blockList.map((user, index) => (
-                  <BannedUser
-                    img={user.thumbnail}
-                    name={user.nickname}
-                    onClickUnblock={() => onClickUnblock(user.id)}
-                    key={index}
-                    onClick={() => navigate(`/profile/${user.id}`)}
-                  />
-                ))}
-              </BannedUserBox>
-            </>
-          ) : (
-            ''
-          )}
+            <BannedUserBox>
+              {blockList.map((user, index) => (
+                <BannedUser
+                  img={user.thumbnail}
+                  name={user.nickname}
+                  onClickUnblock={() => onClickUnblock(user.id)}
+                  key={index}
+                  onClick={() => navigate(`/profile/${user.id}`)}
+                />
+              ))}
+            </BannedUserBox>) : ''
+          }
+          <LikedTitleBox>
+            <Liked>좋아요</Liked>
+            <SubTitle>목록</SubTitle>
+          </LikedTitleBox>
           {likeList.length > 0 ? (
             <>
-              <LikedTitleBox>
-                <Liked>좋아요</Liked>
-                <SubTitle>목록</SubTitle>
-              </LikedTitleBox>
               <Gap height={35} />
               <CardList data={likeList} />
-            </>
-          ) : (
-            ''
-          )}
+            </>) : ''
+          }
+          <TitleBox>
+            <Title>대여원해요</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
           {rentList.length > 0 ? (
             <>
-              <TitleBox>
-                <Title>대여원해요</Title>
-                <SubTitle>이력</SubTitle>
-              </TitleBox>
               <Gap height={35} />
               <CardList data={rentList} />
               <Gap height={32} />
-            </>
-          ) : (
-            ''
-          )}
+            </>) : ''
+          }
+          <TitleBox>
+            <Title>대여합니다</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
           {lendList.length > 0 ? (
             <>
-              <TitleBox>
-                <Title>대여합니다</Title>
-                <SubTitle>이력</SubTitle>
-              </TitleBox>
               <Gap height={35} />
               <CardList data={lendList} />
               <Gap height={32} />
-            </>
-          ) : (
-            ''
-          )}
+            </>) : ''
+          }
+          <TitleBox>
+            <Title>나눔합시다</Title>
+            <SubTitle>이력</SubTitle>
+          </TitleBox>
           {shareList.length > 0 ? (
             <>
-              <TitleBox>
-                <Title>나눔합시다</Title>
-                <SubTitle>이력</SubTitle>
-              </TitleBox>
               <Gap height={35} />
               <CardList data={shareList} />
               <Gap height={32} />
-            </>
-          ) : (
-            ''
-          )}
+            </>) : ''
+          }
         </>
       )}
     </Container>

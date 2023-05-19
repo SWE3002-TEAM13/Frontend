@@ -19,7 +19,7 @@ function SearchBox(props) {
         type="button"
         value={props.value}
         className="basic"
-        text="POST +"
+        text="POST"
         onClick={handleClickPostButton}
       ></Button>
     </SearchBoxContainer>

@@ -68,10 +68,16 @@ function MainPage() {
 
   return (
     <>
-      <MainPictureContainer
-        src={MainPicture}
-        alt="main_picture"
-      ></MainPictureContainer>
+      <WapperPicture>
+        <>성균관대생을 위한 공유경제 플랫폼</>
+        <>성균:나누Re</>
+        <MainPictureContainer
+          src={MainPicture}
+          alt="main_picture"
+        ></MainPictureContainer>
+        <WapperText></WapperText>
+      </WapperPicture>
+
       <Container>
         <AnnouncementTitle>공지사항</AnnouncementTitle>
         <AnnouncementContainer>
@@ -84,6 +90,7 @@ function MainPage() {
               ))
             : ""}
         </AnnouncementContainer>
+        <Gap height={50} />
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
           <Title>대여원해요</Title>
@@ -103,6 +110,7 @@ function MainPage() {
               ))
             : ""}
         </CardContainer>
+        <Gap height={50} />
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
           <Title>대여합니다</Title>
@@ -121,11 +129,12 @@ function MainPage() {
               ))
             : ""}
         </CardContainer>
+        <Gap height={50} />
         <TitleBox>
           <SubTitle>최근에 올라온&nbsp;</SubTitle>
-          <Title>나눔</Title>
+          <Title>나눔합시다</Title>
         </TitleBox>
-        <Explain>함께 나눔을 실천 해봐요</Explain>
+        <Explain>학우들과 함께 나눔을 실천해 지구를 지켜요</Explain>
         <CardContainer>
           {shareList.length > 0
             ? shareList.map((share) => (
@@ -158,9 +167,22 @@ const Container = styled.div`
   margin-right: auto;
 `;
 
+const WapperPicture = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+const WapperText = styled.div`
+  width: 100%;
+  top: 40%;
+  left: 50%;
+  position: absolute;
+  text-align: right;
+`;
+
 const AnnouncementTitle = styled.div`
   color: #ff6c0f;
-  font-size: 60px;
+  font-size: 40px;
   font-weight: bold;
 `;
 
@@ -180,13 +202,13 @@ const TitleBox = styled.div`
 `;
 const SubTitle = styled.div`
   margin-top: 37px;
-  font-size: 60px;
+  font-size: 40px;
   color: black;
 `;
 
 const Title = styled.div`
   color: #2b6653;
-  font-size: 60px;
+  font-size: 40px;
   font-weight: bold;
 `;
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MainPicture from "../../assets/main_picture.png";
-import { MainPictureContainer } from "./styles";
 import Announcement from "../../components/Announcement";
 import styled from "styled-components";
 import MainCard from "../../components/MainCard";
@@ -52,13 +51,14 @@ function MainPage() {
   return (
     <>
       <WapperPicture>
-        <>성균관대생을 위한 공유경제 플랫폼</>
-        <>성균:나누Re</>
         <MainPictureContainer
           src={MainPicture}
           alt="main_picture"
         ></MainPictureContainer>
-        <WapperText></WapperText>
+        <WapperText1>성균관대생을 위한 공유경제 플랫폼</WapperText1>
+        <WapperText2>
+          성균:<span style={{ color: "#2b6653" }}>나누Re</span>
+        </WapperText2>
       </WapperPicture>
 
       <Container>
@@ -150,17 +150,37 @@ const Container = styled.div`
   margin-right: auto;
 `;
 
+const MainPictureContainer = styled.img`
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+`;
+
 const WapperPicture = styled.div`
   width: 100%;
   position: relative;
 `;
 
-const WapperText = styled.div`
+const WapperText1 = styled.p`
   width: 100%;
-  top: 40%;
-  left: 50%;
+  top: 30%;
+  right: 10%;
   position: absolute;
   text-align: right;
+  color: #2b6653;
+  font-size: 30px;
+  font-weight: bold;
+`;
+
+const WapperText2 = styled.p`
+  width: 100%;
+  top: 40%;
+  right: 10%;
+  position: absolute;
+  text-align: right;
+  color: #8dc63f;
+  font-size: 60px;
+  font-weight: 1000;
 `;
 
 const AnnouncementTitle = styled.div`

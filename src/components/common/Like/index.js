@@ -10,13 +10,15 @@ function Like({ liked, ...props }) {
   const handleClick = () => {
     setIsLiked(!isLiked);
   };
+  console.log(props.error);
+
   return (
     <LikeContainer>
       <LikeNumber>{props.count}</LikeNumber>
       <LikeIconContainer
-        src={isLiked ? FillLikeIcon : NotFillLikeIcon}
+        src={!props.error && isLiked ? FillLikeIcon : NotFillLikeIcon}
         onClick={() => {
-          if (getCookie("access_token")) {
+          if (props.error == false && getCookie("access_token") != null) {
             if (isLiked) {
               props.onClickDislike();
             } else {

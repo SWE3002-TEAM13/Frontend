@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import TextInput from '../../components/common/TextInput';
 import { commonAxios } from '../../utils/commonAxios';
 import { getCookie } from '../../utils/getCookie';
-import { useMe } from '../../utils/useMe';
 
 function ProfileEditPage() {
   const [profile, setProfile] = useState({});
@@ -17,15 +16,8 @@ function ProfileEditPage() {
     fileInputRef.current.click();
   };
 
-  const handleProfilePictureUpload = () => {
-    const file = fileInputRef.current.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setNewProfilePicture(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleProfilePictureUpload = async () => {
+    setNewProfilePicture(fileInputRef.current.files[0]);
   };
 
   const handleProfilePictureDelete = () => {
@@ -125,7 +117,11 @@ function ProfileEditPage() {
               </SmallButton>
             </ImgTextDiv>
             <ImgUploadDiv
-              profilePicture={newProfilePicture ?? profilePicture}
+              profilePicture={
+                newProfilePicture
+                  ? URL.createObjectURL(newProfilePicture)
+                  : profilePicture
+              }
             />
           </ImgContainer>
           <InputDiv>

@@ -17,7 +17,11 @@ function MyProfilePage() {
 
   const onClickUnblock = id => {
     commonAxios
-      .delete(`/user/block/${id}`)
+      .delete(`/user/block/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
       .then(res => {
         if (res.status === 200) {
           alert('차단해제가 완료되었습니다.');

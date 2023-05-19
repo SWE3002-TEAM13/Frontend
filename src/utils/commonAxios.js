@@ -6,20 +6,21 @@ const commonAxios = axios.create({
   withCredentials: true,
 });
 
-// commonAxios.interceptors.response.use(
-//   response => response,
-//   error => {
-//     console.error(error);
-//     if (error.response.status === 401) {
-//       deleteCookie('access_token');
+// 401 에러 처리(로그인이 필요한 API인 경우 메인 페이지로 리다이렉트)
+commonAxios.interceptors.response.use(
+  response => response,
+  error => {
+    console.error(error);
+    if (error.response.status === 401) {
+      deleteCookie('access_token');
 
-//       window.location.href = '/';
+      window.location.href = '/';
 
-//       return;
-//     }
+      return;
+    }
 
-//     return Promise.reject(error);
-//   }
-// );
+    return Promise.reject(error);
+  }
+);
 
 export { commonAxios };

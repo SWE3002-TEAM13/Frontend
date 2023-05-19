@@ -3,6 +3,8 @@ import SearchBox from '../../components/SearchBox';
 import BasicLayout from '../../components/common/BasicLayout';
 import { useEffect, useState } from 'react';
 import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
+
 
 function LendPage() {
   const [cards, setCards] = useState([]);
@@ -14,6 +16,9 @@ function LendPage() {
         params: {
           type: 'lend',
           search,
+        },
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
       .then(res => {

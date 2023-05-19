@@ -10,11 +10,7 @@ function EditPage() {
 
   useEffect(() => {
     commonAxios
-      .get(`/post/${id}`, {
-        params: {
-          id: id,
-        },
-      })
+      .get(`/post/${id}`)
       .then(res => {
         setInfo(res.data);
         console.log(res);

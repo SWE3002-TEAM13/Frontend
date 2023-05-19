@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { commonAxios } from '../../utils/commonAxios.js';
 import CardList from '../../components/CardList';
+import { getCookie } from '../../utils/getCookie.js';
+
 
 function ProfilePage() {
   const { id } = useParams();
@@ -13,7 +15,11 @@ function ProfilePage() {
 
   useEffect(() => {
     commonAxios
-      .get(`/user/profile/${id}`)
+      .get(`/user/profile/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
       .then(res => {
         setProfile(res.data.profile);
         setRentList(res.data.rentlist);

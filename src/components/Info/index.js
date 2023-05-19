@@ -1,5 +1,5 @@
-import Form from "../common/Form";
-import Like from "../common/Like";
+import Form from '../common/Form';
+import Like from '../common/Like';
 import {
   NavigationContainer,
   InfoContainer,
@@ -21,21 +21,21 @@ import {
   ChatButtonContainer,
   Photo,
   IconBtn,
-} from "./styles";
-import Back from "../../assets/arrow.svg";
-import StateTag from "../common/StateTag";
-import EditIcon from "../../assets/edit.svg";
-import DeleteIcon from "../../assets/delete.svg";
-import BlockIcon from "../../assets/block.svg";
-import ReportIcon from "../../assets/report.svg";
-import ChatButton from "../common/ChatButton";
-import { Link, useNavigate } from "react-router-dom";
-import { commonAxios } from "../../utils/commonAxios";
-import { getCookie } from "../../utils/getCookie";
-import { useEffect, useState } from "react";
+} from './styles';
+import Back from '../../assets/arrow.svg';
+import StateTag from '../common/StateTag';
+import EditIcon from '../../assets/edit.svg';
+import DeleteIcon from '../../assets/delete.svg';
+import BlockIcon from '../../assets/block.svg';
+import ReportIcon from '../../assets/report.svg';
+import ChatButton from '../common/ChatButton';
+import { Link, useNavigate } from 'react-router-dom';
+import { commonAxios } from '../../utils/commonAxios';
+import { getCookie } from '../../utils/getCookie';
+import { useEffect, useState } from 'react';
 
 function Info({ data, islike, setIslike }) {
-  let date = data.created_at + "";
+  let date = data.created_at + '';
   const movePage = useNavigate();
   const [userInfo, setUserInfo] = useState(2); // 나중에 들어올 로그인한 유저 아이디 값
   const [error, setError] = useState(false);
@@ -60,21 +60,20 @@ function Info({ data, islike, setIslike }) {
       });
   }, []);
 
-  const handleUserId = (e) => {
+  const handleUserId = e => {
     commonAxios
-      .get(`/user/me`, null, {
+      .get(`/user/me`, {
         headers: {
-          Authorization: `Bearer ${getCookie("access_token")}`,
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
         setUserInfo(res.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         alert(err.response.data.detail);
-        setError(true);
       });
   };
 
@@ -82,60 +81,48 @@ function Info({ data, islike, setIslike }) {
     movePage(`/${data.type}`);
   };
 
-  console.log(getCookie("access_token"));
-  const handleLike = (e) => {
+  const handleLike = e => {
     setIslike(true);
-    commonAxios
-      .post(
-        `/post/${data.id}/like`,
-        {
-          id: data.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        }
-      )
-      .catch((err) => {
-        alert(err.response.data.detail);
-        console.error(err);
-      });
-  };
 
-  const handleDislike = (e) => {
-    setIslike(false);
     commonAxios
-      .delete(
-        `/post/${data.id}/like`,
-        {
-          id: data.id,
-        },
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        }
-      )
-      .catch((err) => {
-        alert(err.response.data.detail);
-        console.error(err);
-      });
-  };
-
-  const handleClickDeleteButton = (e) => {
-    commonAxios
-      .delete(`/post/${data.id}`, null, {
+      .post(`/post/${data.id}/like`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie("access_token")}`,
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
-      .then((res) => {
+      .catch(err => {
+        alert(err.response.data.detail);
+        console.error(err);
+      });
+  };
+
+  const handleDislike = e => {
+    setIslike(false);
+    console.log(data.id);
+    commonAxios
+      .delete(`/post/${data.id}/like`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
+      .catch(err => {
+        alert(err.response.data.detail);
+        console.error(err);
+      });
+  };
+
+  const handleClickDeleteButton = e => {
+    commonAxios
+      .delete(`/post/${data.id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
+      })
+      .then(res => {
         console.log(res);
         alert("해당 게시물을 삭제하였습니다.");
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         alert(err.response.data.detail);
       });
@@ -143,51 +130,51 @@ function Info({ data, islike, setIslike }) {
     goBack();
   };
 
-  const handleClickBlockButton = (e) => {
+  const handleClickBlockButton = e => {
     commonAxios
       .post(`/user/block/${data.author_id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie("access_token")}`,
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
         alert("해당 게시물의 작성자를 차단하였습니다.");
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         alert(err.response.data.detail);
       });
   };
 
-  const handleClickReportButton = (e) => {
+  const handleClickReportButton = e => {
     commonAxios
       .post(`/user/report/${data.author_id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie("access_token")}`,
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
         alert("해당 게시물을 신고하였습니다.");
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         alert(err.response.data.detail);
       });
   };
 
-  const handleClickChatButton = (e) => {
+  const handleClickChatButton = e => {
     commonAxios
       .post(`/chat/${data.author_id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie("access_token")}`,
+          Authorization: `Bearer ${getCookie('access_token')}`,
         },
       })
-      .then((res) => {
+      .then(res => {
         console.log(res);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
         alert(err.response.data.detail);
       });
@@ -258,7 +245,7 @@ function Info({ data, islike, setIslike }) {
               )}
             </OtherContentContainer>
             <ChatButtonContainer>
-              <Link to={"/chat"}>
+              <Link to={'/chat'}>
                 <ChatButton onClick={handleClickChatButton}></ChatButton>
               </Link>
             </ChatButtonContainer>

@@ -1,5 +1,5 @@
-import Form from '../common/Form';
-import Like from '../common/Like';
+import Form from "../common/Form";
+import Like from "../common/Like";
 import {
   NavigationContainer,
   InfoContainer,
@@ -21,28 +21,37 @@ import {
   ChatButtonContainer,
   Photo,
   IconBtn,
-} from './styles';
-import Back from '../../assets/arrow.svg';
-import StateTag from '../common/StateTag';
-import EditIcon from '../../assets/edit.svg';
-import DeleteIcon from '../../assets/delete.svg';
-import BlockIcon from '../../assets/block.svg';
-import ReportIcon from '../../assets/report.svg';
-import ChatButton from '../common/ChatButton';
-import { Link, useNavigate } from 'react-router-dom';
-import { commonAxios } from '../../utils/commonAxios';
-import { getCookie } from '../../utils/getCookie';
+} from "./styles";
+import Back from "../../assets/arrow.svg";
+import StateTag from "../common/StateTag";
+import EditIcon from "../../assets/edit.svg";
+import DeleteIcon from "../../assets/delete.svg";
+import BlockIcon from "../../assets/block.svg";
+import ReportIcon from "../../assets/report.svg";
+import ChatButton from "../common/ChatButton";
+import { Link, useNavigate } from "react-router-dom";
+import { commonAxios } from "../../utils/commonAxios";
+import { getCookie } from "../../utils/getCookie";
+import { useEffect, useState } from "react";
 
-function Info({ data }) {
-  let date = data.created_at + '';
+function Info({ data, ...props }) {
+  let date = data.created_at + "";
   const movePage = useNavigate();
   const user_id = 1; // 나중에 들어올 로그인한 유저 아이디 값
+
+  const [islike, setIslike] = useState(props.like);
+
+  useEffect(() => {
+    if (islike) {
+    }
+  }, [islike]);
 
   const goBack = () => {
     movePage(`/${data.type}`);
   };
 
-  const handleLike = e => {
+  const handleLike = (e) => {
+    props.islike(true);
     commonAxios
       .post(
         `/post/${data.id}/like`,
@@ -51,16 +60,17 @@ function Info({ data }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
+            Authorization: `Bearer ${getCookie("access_token")}`,
           },
         }
       )
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
 
-  const handleDislike = e => {
+  const handleDislike = (e) => {
+    props.islike(false);
     commonAxios
       .delete(
         `/post/${data.id}/like`,
@@ -70,58 +80,58 @@ function Info({ data }) {
         null,
         {
           headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
+            Authorization: `Bearer ${getCookie("access_token")}`,
           },
         }
       )
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
 
-  const handleClickDeleteButton = e => {
+  const handleClickDeleteButton = (e) => {
     commonAxios
       .delete(`/post/${data.id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
 
     goBack();
   };
 
-  const handleClickBlockButton = e => {
+  const handleClickBlockButton = (e) => {
     commonAxios
       .post(`/user/block/${data.author_id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
 
-  const handleClickReportButton = e => {
+  const handleClickReportButton = (e) => {
     commonAxios
       .post(`/user/report/${data.author_id}`, null, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -139,6 +149,7 @@ function Info({ data }) {
             <InfoTitleAndLikeContainer>
               <InfoTitleContainer>{data.title}</InfoTitleContainer>
               <Like
+                liked={islike}
                 count={data.like_count}
                 onClickLike={handleLike}
                 onClickDislike={handleDislike}

@@ -21,7 +21,10 @@ export const ImgContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray};
 `;
 
-export const ImageShow = styled.img``;
+export const ImageShow = styled.img`
+  width: 120px;
+  height: 120px;
+`;
 
 export const ContentContainer = styled.div`
   height: 120px;

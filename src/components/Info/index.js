@@ -38,26 +38,27 @@ function Info({ data, islike, setIslike }) {
   let date = data.created_at + "";
   const movePage = useNavigate();
   const [userInfo, setUserInfo] = useState(2); // 나중에 들어올 로그인한 유저 아이디 값
+  const [error, setError] = useState(false);
   //   console.log(islike);
 
   //   본인 아이디
 
-  //   useEffect(() => {
-  //     commonAxios
-  //       .get(`/user/me`, null, {
-  //         headers: {
-  //           Authorization: `Bearer ${getCookie("access_token")}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log(res);
-  //         setUserInfo(res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //         alert(err.response.data.detail);
-  //       });
-  //   }, [data.id]);
+  useEffect(() => {
+    commonAxios
+      .get(`/user/me`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err.response.data.detail);
+      });
+  }, []);
 
   const handleUserId = (e) => {
     commonAxios
@@ -73,6 +74,7 @@ function Info({ data, islike, setIslike }) {
       .catch((err) => {
         console.error(err);
         alert(err.response.data.detail);
+        setError(true);
       });
   };
 
@@ -205,6 +207,7 @@ function Info({ data, islike, setIslike }) {
               <InfoTitleContainer>{data.title}</InfoTitleContainer>
               <Like
                 liked={islike}
+                error={error}
                 count={data.like_count}
                 onClickLike={handleLike}
                 onClickDislike={handleDislike}

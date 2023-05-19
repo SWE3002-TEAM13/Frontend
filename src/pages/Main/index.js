@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MainCard from "../../components/MainCard";
 import { commonAxios } from "../../utils/commonAxios";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from '../../utils/getCookie';
 
 function MainPage() {
   const [announcementList, setAnnouncementList] = useState([]);
@@ -26,33 +27,17 @@ function MainPage() {
       });
   };
 
-  const getRent = () => {
+  const getLanding = () => {
     commonAxios
-      .get(`/post/?type=rent`)
-      .then((res) => {
-        setRentList(res.data);
+      .get(`/post/landing`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('access_token')}`,
+        },
       })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const getLend = () => {
-    commonAxios
-      .get(`/post/?type=lend`)
       .then((res) => {
-        setLendList(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const getShare = () => {
-    commonAxios
-      .get(`/post/?type=share`)
-      .then((res) => {
-        setShareList(res.data);
+        setRentList(res.data.rentList);
+        setLendList(res.data.lendList);
+        setShareList(res.data.shareList);
       })
       .catch((err) => {
         console.error(err);
@@ -61,9 +46,7 @@ function MainPage() {
 
   useEffect(() => {
     getAnnouncement();
-    getRent();
-    getLend();
-    getShare();
+    getLanding();
   }, []);
 
   return (

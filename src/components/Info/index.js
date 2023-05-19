@@ -38,7 +38,7 @@ function Info({ data, islike, setIslike }) {
   let date = data.created_at + "";
   const movePage = useNavigate();
   const [userInfo, setUserInfo] = useState(2); // 나중에 들어올 로그인한 유저 아이디 값
-  console.log(islike);
+  //   console.log(islike);
 
   //   본인 아이디
 
@@ -131,6 +131,7 @@ function Info({ data, islike, setIslike }) {
       })
       .then((res) => {
         console.log(res);
+        alert("해당 게시물을 삭제하였습니다.");
       })
       .catch((err) => {
         console.error(err);
@@ -149,6 +150,7 @@ function Info({ data, islike, setIslike }) {
       })
       .then((res) => {
         console.log(res);
+        alert("해당 게시물의 작성자를 차단하였습니다.");
       })
       .catch((err) => {
         console.error(err);
@@ -165,6 +167,7 @@ function Info({ data, islike, setIslike }) {
       })
       .then((res) => {
         console.log(res);
+        alert("해당 게시물을 신고하였습니다.");
       })
       .catch((err) => {
         console.error(err);

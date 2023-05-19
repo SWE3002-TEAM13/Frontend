@@ -20,6 +20,7 @@ function InfoPage() {
         setInfo(res.data);
         setIslike(res.data.islike);
         console.log(res);
+        console.log(res.data.islike);
       })
       .catch((err) => {
         console.error(err);

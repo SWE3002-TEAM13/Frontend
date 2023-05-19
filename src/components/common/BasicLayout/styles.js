@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 
+export const CoveredLayout = styled.div`
+  display: flex;
+`;
+
 export const StyledLayout = styled.div`
-  min-height: 50vh;
-  padding: 30px 33vh 20px 33vh;
+  background-color: red;
+  min-width: 100px;
+  max-width: 50vh;
 `;

@@ -134,6 +134,7 @@ function Info({ data, islike, setIslike }) {
       })
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
 
     goBack();
@@ -151,6 +152,7 @@ function Info({ data, islike, setIslike }) {
       })
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
 
@@ -166,6 +168,7 @@ function Info({ data, islike, setIslike }) {
       })
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
 
@@ -181,12 +184,12 @@ function Info({ data, islike, setIslike }) {
       })
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
 
   return (
     <Form
-      onSibmit={handleUserId}
       children={
         <>
           <NavigationContainer>

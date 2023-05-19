@@ -2,7 +2,9 @@ import { FormContainer } from "./styles";
 
 function Form(props) {
   return (
-    <FormContainer onSubmit={props.onSubmit}>{props.children}</FormContainer>
+    <FormContainer action={props.action} onSubmit={props.onSubmit}>
+      {props.children}
+    </FormContainer>
   );
 }
 

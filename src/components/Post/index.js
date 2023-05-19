@@ -142,7 +142,7 @@ function Post(props) {
       alert("형식에 맞게 글을 작성해주세요.");
     } else {
       alert("글이 작성되었습니다.");
-      goBack();
+      //   goBack();
     }
 
     setDisabled(false);
@@ -150,6 +150,7 @@ function Post(props) {
 
   return (
     <Form
+      acton={`/${selectedType}`}
       onSubmit={handleSubmit}
       children={
         <InputForm>

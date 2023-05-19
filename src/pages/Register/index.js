@@ -92,19 +92,19 @@ function RegisterPage() {
       loc !== null // 캠퍼스 선택 여부 확인
     ) {
       const formData = new FormData();
+
       formData.append('username', id);
       formData.append('password', password);
       formData.append('email', email);
       formData.append('nickname', nickname);
       formData.append('loc', loc);
+
       if (profilePicture !== null) {
         const file = new File([profilePicture], 'profile.jpg', {
           type: profilePicture.type,
         });
         formData.append('thumbnail', file);
       }
-
-      console.log(formData);
 
       commonAxios
         .post('/user/register', formData)

@@ -42,7 +42,24 @@ function Info({ data, islike, setIslike }) {
 
   //   본인 아이디
 
-  const handlerOnclick = (e) => {
+  //   useEffect(() => {
+  //     commonAxios
+  //       .get(`/user/me`, null, {
+  //         headers: {
+  //           Authorization: `Bearer ${getCookie("access_token")}`,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //         setUserInfo(res.data);
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //         alert(err.response.data.detail);
+  //       });
+  //   }, [data.id]);
+
+  const handleUserId = (e) => {
     commonAxios
       .get(`/user/me`, null, {
         headers: {
@@ -55,6 +72,7 @@ function Info({ data, islike, setIslike }) {
       })
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
 
@@ -62,6 +80,7 @@ function Info({ data, islike, setIslike }) {
     movePage(`/${data.type}`);
   };
 
+  console.log(getCookie("access_token"));
   const handleLike = (e) => {
     setIslike(true);
     commonAxios
@@ -77,6 +96,7 @@ function Info({ data, islike, setIslike }) {
         }
       )
       .catch((err) => {
+        alert(err.response.data.detail);
         console.error(err);
       });
   };
@@ -97,6 +117,7 @@ function Info({ data, islike, setIslike }) {
         }
       )
       .catch((err) => {
+        alert(err.response.data.detail);
         console.error(err);
       });
   };
@@ -165,6 +186,7 @@ function Info({ data, islike, setIslike }) {
 
   return (
     <Form
+      onSibmit={handleUserId}
       children={
         <>
           <NavigationContainer>

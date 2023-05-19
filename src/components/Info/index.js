@@ -34,24 +34,36 @@ import { commonAxios } from "../../utils/commonAxios";
 import { getCookie } from "../../utils/getCookie";
 import { useEffect, useState } from "react";
 
-function Info({ data, ...props }) {
+function Info({ data, islike, setIslike }) {
   let date = data.created_at + "";
   const movePage = useNavigate();
-  const user_id = 1; // 나중에 들어올 로그인한 유저 아이디 값
+  const [userInfo, setUserInfo] = useState(2); // 나중에 들어올 로그인한 유저 아이디 값
+  console.log(islike);
 
-  const [islike, setIslike] = useState(props.like);
+  //   본인 아이디
 
-  useEffect(() => {
-    if (islike) {
-    }
-  }, [islike]);
+  const handlerOnclick = (e) => {
+    commonAxios
+      .get(`/user/me`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const goBack = () => {
     movePage(`/${data.type}`);
   };
 
   const handleLike = (e) => {
-    props.islike(true);
+    setIslike(true);
     commonAxios
       .post(
         `/post/${data.id}/like`,
@@ -70,7 +82,7 @@ function Info({ data, ...props }) {
   };
 
   const handleDislike = (e) => {
-    props.islike(false);
+    setIslike(false);
     commonAxios
       .delete(
         `/post/${data.id}/like`,
@@ -136,6 +148,21 @@ function Info({ data, ...props }) {
       });
   };
 
+  const handleClickChatButton = (e) => {
+    commonAxios
+      .post(`/chat/${data.author_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie("access_token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <Form
       children={
@@ -179,7 +206,7 @@ function Info({ data, ...props }) {
           <ConetentsContainer>
             <InfoContentContainer>{data.content}</InfoContentContainer>
             <OtherContentContainer>
-              {data.author_id === user_id ? (
+              {data.author_id === userInfo ? (
                 <>
                   <Link to={`/edit/${data.id}`}>
                     <EditIconContainer src={EditIcon} alt="edit" />
@@ -200,8 +227,8 @@ function Info({ data, ...props }) {
               )}
             </OtherContentContainer>
             <ChatButtonContainer>
-              <Link to={`/chat/${data.author_id}`}>
-                <ChatButton></ChatButton>
+              <Link to={"/chat"}>
+                <ChatButton onClick={handleClickChatButton}></ChatButton>
               </Link>
             </ChatButtonContainer>
           </ConetentsContainer>

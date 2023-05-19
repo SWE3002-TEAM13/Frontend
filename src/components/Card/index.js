@@ -9,14 +9,14 @@ import {
   StateAndPriceContainer,
   PriceTextContainer,
   ImageShow,
-} from './styles';
-import Like from '../common/Like';
-import StateTag from '../common/StateTag';
-import { commonAxios } from '../../utils/commonAxios';
-import { getCookie } from '../../utils/getCookie';
+} from "./styles";
+import Like from "../common/Like";
+import StateTag from "../common/StateTag";
+import { commonAxios } from "../../utils/commonAxios";
+import { getCookie } from "../../utils/getCookie";
 
 function Card({ data }) {
-  const handleLike = e => {
+  const handleLike = (e) => {
     commonAxios
       .post(
         `/post/${data.id}/like`,
@@ -25,16 +25,17 @@ function Card({ data }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
+            Authorization: `Bearer ${getCookie("access_token")}`,
           },
         }
       )
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
+  console.log(data.islike);
 
-  const handleDislike = e => {
+  const handleDislike = (e) => {
     commonAxios
       .delete(
         `/post/${data.id}/like`,
@@ -43,17 +44,18 @@ function Card({ data }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${getCookie('access_token')}`,
+            Authorization: `Bearer ${getCookie("access_token")}`,
           },
         }
       )
-      .catch(err => {
+      .catch((err) => {
+        alert("로그인해주세요.");
         console.error(err);
       });
   };
 
   return (
-    <CardContainer id={'card ' + data.id}>
+    <CardContainer id={"card " + data.id}>
       <ImgContainer>
         <ImageShow src={data.photo} alt="photo" />
       </ImgContainer>

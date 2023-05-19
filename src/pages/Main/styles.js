@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 
 export const MainPictureContainer = styled.img`
   width: 100%;
-  height: 100%;
+  height: 60vh;
   object-fit: cover;
 `;

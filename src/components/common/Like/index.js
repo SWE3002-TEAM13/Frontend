@@ -2,6 +2,7 @@ import { LikeContainer, LikeNumber, LikeIconContainer } from "./styles";
 import FillLikeIcon from "../../../assets/fill_like.svg";
 import NotFillLikeIcon from "../../../assets/not_fill_like.svg";
 import { useState } from "react";
+import { getCookie } from "../../../utils/getCookie";
 
 function Like({ liked, ...props }) {
   const [isLiked, setIsLiked] = useState(liked); // 클릭 여부 관리
@@ -15,11 +16,13 @@ function Like({ liked, ...props }) {
       <LikeIconContainer
         src={isLiked ? FillLikeIcon : NotFillLikeIcon}
         onClick={() => {
-          handleClick();
-          if (isLiked) {
-            props.onClickDislike();
-          } else {
-            props.onClickLike();
+          if (getCookie("access_token")) {
+            if (isLiked) {
+              props.onClickDislike();
+            } else {
+              props.onClickLike();
+            }
+            handleClick();
           }
         }}
         alt="like"

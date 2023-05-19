@@ -7,24 +7,20 @@ import { getCookie } from "../../../utils/getCookie";
 function Like({ liked, ...props }) {
   const [isLiked, setIsLiked] = useState(liked); // 클릭 여부 관리
 
-  const handleClick = () => {
-    setIsLiked(!isLiked);
-  };
-  console.log(props.error);
+  //   console.log(">>> ", isLiked);
 
   return (
     <LikeContainer>
       <LikeNumber>{props.count}</LikeNumber>
       <LikeIconContainer
-        src={!props.error && isLiked ? FillLikeIcon : NotFillLikeIcon}
+        src={!props.error && liked ? FillLikeIcon : NotFillLikeIcon}
         onClick={() => {
-          if (props.error == false && getCookie("access_token") != null) {
-            if (isLiked) {
+          if (!props.error && getCookie("access_token") != null) {
+            if (liked) {
               props.onClickDislike();
             } else {
               props.onClickLike();
             }
-            handleClick();
           }
         }}
         alt="like"

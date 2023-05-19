@@ -1,9 +1,9 @@
-import Info from '../../components/Info';
-import BasicLayout from '../../components/common/BasicLayout';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { commonAxios } from '../../utils/commonAxios';
-import { getCookie } from '../../utils/getCookie';
+import Info from "../../components/Info";
+import BasicLayout from "../../components/common/BasicLayout";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { commonAxios } from "../../utils/commonAxios";
+import { getCookie } from "../../utils/getCookie";
 
 function InfoPage() {
   const [info, setInfo] = useState([]);
@@ -14,19 +14,19 @@ function InfoPage() {
     commonAxios
       .get(`/post/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         setInfo(res.data);
         setIslike(res.data.islike);
         console.log(res);
         console.log(res.data.islike);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
-  }, [id]);
+  }, [islike]);
 
   return (
     <BasicLayout

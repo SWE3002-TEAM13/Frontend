@@ -16,7 +16,7 @@ import { commonAxios } from "../../utils/commonAxios";
 import { getCookie } from "../../utils/getCookie";
 
 function Card({ data }) {
-  const handleLike = (e) => {
+  const handleLike = (event) => {
     commonAxios
       .post(
         `/post/${data.id}/like`,
@@ -31,11 +31,12 @@ function Card({ data }) {
       )
       .catch((err) => {
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
   console.log(data.islike);
 
-  const handleDislike = (e) => {
+  const handleDislike = (event) => {
     commonAxios
       .delete(
         `/post/${data.id}/like`,
@@ -49,8 +50,8 @@ function Card({ data }) {
         }
       )
       .catch((err) => {
-        alert("로그인해주세요.");
         console.error(err);
+        alert(err.response.data.detail);
       });
   };
 

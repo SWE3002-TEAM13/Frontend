@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import BannedUser from '../../components/BannedUser/index.js';
-import { useNavigate } from 'react-router-dom';
-import { commonAxios } from '../../utils/commonAxios.js';
-import { getCookie } from '../../utils/getCookie.js';
-import CardList from '../../components/CardList/index.js';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import BannedUser from "../../components/BannedUser/index.js";
+import { useNavigate } from "react-router-dom";
+import { commonAxios } from "../../utils/commonAxios.js";
+import { getCookie } from "../../utils/getCookie.js";
+import CardList from "../../components/CardList/index.js";
 
 function MyProfilePage() {
   const navigate = useNavigate();
@@ -15,22 +15,22 @@ function MyProfilePage() {
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
 
-  const onClickUnblock = id => {
+  const onClickUnblock = (id) => {
     commonAxios
       .delete(`/user/block/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
-          alert('차단해제가 완료되었습니다.');
+          alert("차단해제가 완료되었습니다.");
           window.location.reload();
         } else {
-          alert('Unblock failed!');
+          alert("Unblock failed!");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -39,10 +39,10 @@ function MyProfilePage() {
     commonAxios
       .get(`/user/profile/me`, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         setProfile(res.data.profile);
         setBlockList(res.data.blocklist);
         setLikeList(res.data.likelist);
@@ -50,7 +50,7 @@ function MyProfilePage() {
         setLendList(res.data.lendlist);
         setShareList(res.data.sharelist);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }, []);
@@ -64,13 +64,15 @@ function MyProfilePage() {
             <ProfileTitleText>프로필</ProfileTitleText>
           </ProfileTitleBox>
           <ProfileBox>
-            <ImgUploadDiv imgUrl={profile.thumbnail} />
+            <ImgUploadDiv>
+              <ImgUpload src={profile.thumbnail} />
+            </ImgUploadDiv>
             <ProfileDiv>
               <ProfileName>{profile.nickname}</ProfileName>
               <CampusName>{profile.loc_str}</CampusName>
             </ProfileDiv>
           </ProfileBox>
-          <Button width="600px" onClick={() => navigate('/profileedit')}>
+          <Button width="600px" onClick={() => navigate("/profileedit")}>
             프로필수정
           </Button>
           <BannedUserTitle>유저 차단 목록</BannedUserTitle>
@@ -85,8 +87,10 @@ function MyProfilePage() {
                   onClick={() => navigate(`/profile/${user.id}`)}
                 />
               ))}
-            </BannedUserBox>) : ''
-          }
+            </BannedUserBox>
+          ) : (
+            ""
+          )}
           <LikedTitleBox>
             <Liked>좋아요</Liked>
             <SubTitle>목록</SubTitle>
@@ -95,8 +99,10 @@ function MyProfilePage() {
             <>
               <Gap height={35} />
               <CardList data={likeList} />
-            </>) : ''
-          }
+            </>
+          ) : (
+            ""
+          )}
           <TitleBox>
             <Title>대여원해요</Title>
             <SubTitle>이력</SubTitle>
@@ -106,8 +112,10 @@ function MyProfilePage() {
               <Gap height={35} />
               <CardList data={rentList} />
               <Gap height={32} />
-            </>) : ''
-          }
+            </>
+          ) : (
+            ""
+          )}
           <TitleBox>
             <Title>대여합니다</Title>
             <SubTitle>이력</SubTitle>
@@ -117,8 +125,10 @@ function MyProfilePage() {
               <Gap height={35} />
               <CardList data={lendList} />
               <Gap height={32} />
-            </>) : ''
-          }
+            </>
+          ) : (
+            ""
+          )}
           <TitleBox>
             <Title>나눔합시다</Title>
             <SubTitle>이력</SubTitle>
@@ -128,8 +138,10 @@ function MyProfilePage() {
               <Gap height={35} />
               <CardList data={shareList} />
               <Gap height={32} />
-            </>) : ''
-          }
+            </>
+          ) : (
+            ""
+          )}
         </>
       )}
     </Container>
@@ -186,11 +198,16 @@ const ProfileDiv = styled.div`
 `;
 
 const ImgUploadDiv = styled.div`
-  background: ${({ imgUrl }) => `url(${imgUrl})`};
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   height: 180px;
   width: 180px;
+  overflow: hidden;
+`;
+
+const ImgUpload = styled.img`
+  width: 180px;
+  height: 180px;
 `;
 
 const ProfileName = styled.div`

@@ -34,6 +34,7 @@ function Post(props) {
   const [content, setContent] = useState("");
   const [filename, setFilename] = useState("선택된 파일 없음");
   const [disabled, setDisabled] = useState(false);
+  //   const [beforeFile, setBeforeFile] = useState(true);
   const beforeFile = useRef(true);
 
   const edit = props.edit ? true : false;
@@ -75,14 +76,14 @@ function Post(props) {
 
   const handleChangeFile = (e) => {
     setFile(e.target.files[0]);
-
+    beforeFile.current = false;
     setFilename(e.target.files[0].name);
+    console.log("hihi");
   };
 
   const handleFilename = (e) => {
     if (edit && beforeFile.current) {
       let ptr = props.edit.photo.lastIndexOf("/");
-      beforeFile.current = false;
       return props.edit.photo.substr(ptr + 1);
     } else {
       return filename;
@@ -142,7 +143,7 @@ function Post(props) {
       alert("형식에 맞게 글을 작성해주세요.");
     } else {
       alert("글이 작성되었습니다.");
-      //   goBack();
+      goBack();
     }
 
     setDisabled(false);
@@ -150,7 +151,6 @@ function Post(props) {
 
   return (
     <Form
-      acton={`/${selectedType}`}
       onSubmit={handleSubmit}
       children={
         <InputForm>

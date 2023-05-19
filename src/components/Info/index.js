@@ -83,12 +83,10 @@ function Info({ data, islike, setIslike }) {
   console.log(getCookie("access_token"));
   const handleLike = (e) => {
     setIslike(true);
+    console.log(`/post/${data.id}/like`)
     commonAxios
       .post(
-        `/post/${data.id}/like`,
-        {
-          id: data.id,
-        },
+        `/post/${data.id}/like`, null,
         {
           headers: {
             Authorization: `Bearer ${getCookie("access_token")}`,
@@ -103,13 +101,10 @@ function Info({ data, islike, setIslike }) {
 
   const handleDislike = (e) => {
     setIslike(false);
+    console.log(data.id)
     commonAxios
       .delete(
         `/post/${data.id}/like`,
-        {
-          id: data.id,
-        },
-        null,
         {
           headers: {
             Authorization: `Bearer ${getCookie("access_token")}`,

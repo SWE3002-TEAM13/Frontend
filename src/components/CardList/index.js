@@ -4,9 +4,9 @@ import {
   SingleCardContainer,
   MoreButtonContainer,
   MoreButton,
-} from './styles';
-import Card from '../Card';
-import { Link } from 'react-router-dom';
+} from "./styles";
+import Card from "../Card";
+import { Link } from "react-router-dom";
 
 function CardList({ data, more }) {
   return (
@@ -28,7 +28,7 @@ function CardList({ data, more }) {
           <MoreButton>+ 더 불러오기</MoreButton>
         </MoreButtonContainer>
       ) : (
-        ''
+        ""
       )}
     </CardListAndMoreContainer>
   );

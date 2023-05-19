@@ -7,8 +7,7 @@ import { commonAxios } from "../../utils/commonAxios";
 function InfoPage() {
   const [info, setInfo] = useState([]);
   const { id } = useParams();
-  // 사용자가 눌렀던 건지 아닌건지 검증해야하는데... 그 기준이 될 데이터가 없음 post.id라던가..
-  const [islike, setIslike] = useState(false);
+  const [islike, setIslike] = useState();
 
   useEffect(() => {
     commonAxios
@@ -19,17 +18,17 @@ function InfoPage() {
       })
       .then((res) => {
         setInfo(res.data);
+        setIslike(res.data.islike);
         console.log(res);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, [id, islike]);
+  }, [id]);
 
-  console.log(info);
   return (
     <BasicLayout
-      children={<Info data={info} islike={setIslike} like={islike}></Info>}
+      children={<Info data={info} setIslike={setIslike} islike={islike}></Info>}
     />
   );
 }

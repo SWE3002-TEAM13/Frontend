@@ -1,10 +1,10 @@
 import { StyledChatButton, ChatIconContainer } from "./styles";
 import ChatIcon from "../../../assets/send_chat.svg";
 
-function ChatButton() {
+function ChatButton(props) {
   return (
-    <StyledChatButton>
-      <ChatIconContainer type="button" src={ChatIcon} alt="send_chat" />
+    <StyledChatButton type="button">
+      <ChatIconContainer src={ChatIcon} alt="send_chat" />
     </StyledChatButton>
   );
 }

@@ -37,8 +37,6 @@ function Post(props) {
   //   const [beforeFile, setBeforeFile] = useState(true);
   const beforeFile = useRef(true);
 
-  console.log("hihi", props.id);
-
   const edit = props.edit ? true : false;
 
   useEffect(() => {
@@ -53,6 +51,15 @@ function Post(props) {
   }, [props]);
 
   const movePage = useNavigate();
+
+  const convertURLtoFile = async (url) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split(".").pop();
+    const filename = url.split("/").pop();
+    const metadata = { type: `image/${ext}` };
+    return new File([data], filename, metadata);
+  };
 
   const goBack = () => {
     movePage(`/${selectedType}`);
@@ -99,6 +106,7 @@ function Post(props) {
   const handleSubmit = async (e) => {
     setDisabled(true);
     e.preventDefault();
+    console.log(selectedState, selectedType, title, price, content, file);
 
     const formData = new FormData();
     formData.append("type", selectedType);
@@ -107,9 +115,9 @@ function Post(props) {
     formData.append("price", price);
     formData.append("content", content);
     formData.append("category", "Book");
-    console.log(formData["type"]);
 
-    if (file) {
+    if (file && !beforeFile) {
+      console.log(file);
       formData.append("photo", file);
     }
 

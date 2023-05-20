@@ -9,66 +9,78 @@ import {
   StateAndPriceContainer,
   PriceTextContainer,
   ImageShow,
+  LikeStop,
 } from "./styles";
 import Like from "../common/Like";
 import StateTag from "../common/StateTag";
 import { commonAxios } from "../../utils/commonAxios";
 import { getCookie } from "../../utils/getCookie";
+import { useState } from "react";
 
-function Card({ data }) {
-  const handleLike = (event) => {
+function Card({ data, onClick, islike, setIslike }) {
+  const [error, setError] = useState(false);
+  const handleLikeClick = (event) => {
+    event.stopPropagation(); // 클릭 이벤트 전파 중지
+  };
+
+  const handleCardClick = () => {
+    onClick();
+  };
+
+  const handleLike = (e) => {
+    setIslike(true);
     commonAxios
-      .post(
-        `/post/${data.id}/like`,
-        {
-          id: data.id,
+      .post(`/post/${data.id}/like`, null, {
+        headers: {
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        }
-      )
+      })
       .catch((err) => {
-        console.error(err);
         alert(err.response.data.detail);
+        setError(true);
+        console.error(err);
       });
   };
-  console.log(data.islike);
 
-  const handleDislike = (event) => {
+  const handleDislike = (e) => {
+    setIslike(false);
     commonAxios
-      .delete(
-        `/post/${data.id}/like`,
-        {
-          id: data.id,
+      .delete(`/post/${data.id}/like`, {
+        headers: {
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        }
-      )
+      })
       .catch((err) => {
-        console.error(err);
+        setError(true);
         alert(err.response.data.detail);
+        console.error(err);
       });
   };
 
   return (
-    <CardContainer id={"card " + data.id}>
+    <CardContainer id={"card " + data.id} onClick={handleCardClick}>
       <ImgContainer>
         <ImageShow src={data.photo} alt="photo" />
       </ImgContainer>
       <ContentContainer>
         <PostTitleAndLikeContainer>
           <PostTitleContainer>{data.title}</PostTitleContainer>
-          <Like
+          <LikeStop onClick={handleLikeClick}>
+            <Like
+              liked={islike}
+              setting={setIslike}
+              error={error}
+              count={data.like_count}
+              onClickLike={handleLike}
+              onClickDislike={handleDislike}
+            ></Like>
+          </LikeStop>
+          {/* <Like
             liked={data.islike}
             count={data.like_count}
             onClickLike={handleLike}
             onClickDislike={handleDislike}
-          ></Like>
+          ></Like> */}
         </PostTitleAndLikeContainer>
         <PostAuthorContainer>{data.nickname}</PostAuthorContainer>
         <PostDateContainer>

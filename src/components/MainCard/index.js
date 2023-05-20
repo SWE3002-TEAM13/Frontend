@@ -20,13 +20,11 @@ import { commonAxios } from "../../utils/commonAxios";
 import Like from "../common/Like";
 
 function MainCard({ data, onClick, islike, setIslike }) {
-  const [isLiked, setIsLiked] = useState(false);
   const [error, setError] = useState(false);
   console.log(islike);
 
   const handleLikeClick = (event) => {
     event.stopPropagation(); // 클릭 이벤트 전파 중지
-    // setIsLiked(!isLiked);
   };
 
   const handleCardClick = () => {

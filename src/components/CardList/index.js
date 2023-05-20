@@ -6,9 +6,17 @@ import {
   MoreButton,
 } from "./styles";
 import Card from "../Card";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-function CardList({ data, more }) {
+function CardList({ data, more, setLike }) {
+  const navigate = useNavigate();
+  const [islike, setIsLike] = useState();
+
+  useEffect(() => {
+    setLike(islike);
+  }, [islike]);
+
   return (
     <CardListAndMoreContainer>
       <CardListContainer>
@@ -16,9 +24,19 @@ function CardList({ data, more }) {
           data.map((item, index) => {
             return (
               <SingleCardContainer key={index}>
-                <Link to={`/info/${item.id}`}>
-                  <Card data={item} />
-                </Link>
+                {/* <Card
+                  data={item}
+                  islike={data.islike}
+                  setIslike={setIsLike}
+                  onClick={() => navigate(`/info/${item.id}`)}
+                /> */}
+                <Card
+                  islike={item.islike}
+                  setIslike={setIsLike}
+                  key={index}
+                  data={item}
+                  onClick={() => navigate(`/info/${item.id}`)}
+                />
               </SingleCardContainer>
             );
           })}

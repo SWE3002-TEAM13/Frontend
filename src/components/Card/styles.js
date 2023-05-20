@@ -4,6 +4,7 @@ export const CardContainer = styled.div`
   display: flex;
   height: 120px;
   width: 100%;
+  cursor: pointer;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 10px;
   box-sizing: border-box;
@@ -71,3 +72,5 @@ export const PriceTextContainer = styled.div`
   min-width: max-content;
   font-size: 16px;
 `;
+
+export const LikeStop = styled.div``;

@@ -66,9 +66,9 @@ function MainPage() {
         <AnnouncementTitle>공지사항</AnnouncementTitle>
         <AnnouncementContainer>
           {announcementList.length > 0
-            ? announcementList.map((announcement) => (
+            ? announcementList.map((announcement, index) => (
                 <>
-                  <Announcement key={announcement} data={announcement} />
+                  <Announcement key={index} data={announcement} />
                   <Gap height={16} />
                 </>
               ))
@@ -82,12 +82,12 @@ function MainPage() {
         <Explain>성균관대생이 최근에 필요하다고 원한 상품!</Explain>
         <CardContainer>
           {rentList.length > 0
-            ? rentList.map((rent) => (
+            ? rentList.map((rent, index) => (
                 <>
                   <MainCard
                     islike={rent.islike}
                     setIslike={setIsLike}
-                    key={rent.id}
+                    key={index}
                     data={rent}
                     onClick={() => navigate(`/info/${rent.id}`)}
                   />
@@ -104,10 +104,10 @@ function MainPage() {
         <Explain>물건을 사지 말고 대여해서 돈을 아껴보자</Explain>
         <CardContainer>
           {lendList.length > 0
-            ? lendList.map((lend) => (
+            ? lendList.map((lend, index) => (
                 <>
                   <MainCard
-                    key={lend.id}
+                    key={index}
                     islike={lend.islike}
                     setIslike={setIsLike}
                     data={lend}
@@ -126,10 +126,10 @@ function MainPage() {
         <Explain>학우들과 함께 나눔을 실천해 지구를 지켜요</Explain>
         <CardContainer>
           {shareList.length > 0
-            ? shareList.map((share) => (
+            ? shareList.map((share, index) => (
                 <>
                   <MainCard
-                    key={share.id}
+                    key={index}
                     islike={share.islike}
                     setIslike={setIsLike}
                     data={share}

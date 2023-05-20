@@ -3,11 +3,12 @@ import SearchBox from "../../components/SearchBox";
 import BasicLayout from "../../components/common/BasicLayout";
 import { useEffect, useState } from "react";
 import { commonAxios } from "../../utils/commonAxios";
-import { getCookie } from '../../utils/getCookie';
+import { getCookie } from "../../utils/getCookie";
 
 function RentPage() {
   const [cards, setCards] = useState([]);
   const [search, setSearch] = useState(null);
+  const [like, setLike] = useState();
 
   useEffect(() => {
     commonAxios
@@ -17,7 +18,7 @@ function RentPage() {
           search,
         },
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
       .then((res) => {
@@ -28,7 +29,7 @@ function RentPage() {
         alert("검색 결과가 존재하지 않습니다.");
         console.error(err);
       });
-  }, [search]);
+  }, [search, like]);
 
   return (
     <BasicLayout
@@ -40,7 +41,7 @@ function RentPage() {
             value="rent"
             setValue={setSearch}
           />
-          <CardList data={cards} />
+          <CardList data={cards} setLike={setLike} />
         </>
       }
     ></BasicLayout>

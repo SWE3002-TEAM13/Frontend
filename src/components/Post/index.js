@@ -103,6 +103,13 @@ function Post(props) {
     setContent(e.target.value);
   };
 
+  const isNumeric = (str) => {
+    if (typeof str == "number") return true
+    else if (typeof str != "string") return false // we only process strings!  
+    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+           !isNaN(parseInt(str)) // ...and ensure strings of whitespace fail
+  }
+
   const handleSubmit = async (e) => {
     setDisabled(true);
     e.preventDefault();
@@ -121,41 +128,48 @@ function Post(props) {
       formData.append("photo", file);
     }
 
-    if (edit) {
-      commonAxios
-        .put(`/post/${props.id}`, formData, {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      commonAxios
-        .post(`/post`, formData, {
-          headers: {
-            Authorization: `Bearer ${getCookie("access_token")}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-
+    console.log(typeof price);
     await new Promise((r) => setTimeout(r, 1000));
-    if (title.length < 1 || price < -1 || content.length < 1) {
+    if (title.length < 1 || price < -1 || !isNumeric(price) || content.length < 1) {
+      console.log(`${title.length} ${price} ${!isNumeric(price)} ${content.length}`)
       alert("형식에 맞게 글을 작성해주세요.");
     } else {
-      alert("글이 작성되었습니다.");
-      goBack();
+      if (edit) {
+        commonAxios
+          .put(`/post/${props.id}`, formData, {
+            headers: {
+              Authorization: `Bearer ${getCookie("access_token")}`,
+            },
+          })
+          .then((res) => {
+            alert("글이 작성되었습니다.");
+            goBack();
+            console.log(res);
+          })
+          .catch((err) => {
+            alert(err.response.data.detail);
+            console.error(err);
+          });
+      } else {
+        commonAxios
+          .post(`/post`, formData, {
+            headers: {
+              Authorization: `Bearer ${getCookie("access_token")}`,
+            },
+          })
+          .then((res) => {
+            alert("글이 작성되었습니다.");
+            goBack();
+            console.log(res);
+          })
+          .catch((err) => {
+            alert(err.response.data.detail);
+            console.error(err);
+          });
+      }
     }
+
+
 
     setDisabled(false);
   };

@@ -47,7 +47,7 @@ function MainPage() {
   useEffect(() => {
     getAnnouncement();
     getLanding();
-  }, []);
+  }, [islike]);
 
   return (
     <>
@@ -107,8 +107,9 @@ function MainPage() {
             ? lendList.map((lend) => (
                 <>
                   <MainCard
+                    key={lend.id}
                     islike={lend.islike}
-                    setIsLike={setIsLike}
+                    setIslike={setIsLike}
                     data={lend}
                     onClick={() => navigate(`/info/${lend.id}`)}
                   />
@@ -129,6 +130,8 @@ function MainPage() {
                 <>
                   <MainCard
                     key={share.id}
+                    islike={share.islike}
+                    setIslike={setIsLike}
                     data={share}
                     onClick={() => navigate(`/info/${share.id}`)}
                   />

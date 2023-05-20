@@ -14,6 +14,7 @@ function MyProfilePage() {
   const [rentList, setRentList] = useState([]);
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
+  const [like, setLike] = useState();
 
   const onClickUnblock = (id) => {
     commonAxios
@@ -53,7 +54,7 @@ function MyProfilePage() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [like]);
 
   return (
     <Container>
@@ -98,7 +99,7 @@ function MyProfilePage() {
           {likeList.length > 0 ? (
             <>
               <Gap height={35} />
-              <CardList data={likeList} />
+              <CardList data={likeList} setLike={setLike} />
             </>
           ) : (
             ""
@@ -110,7 +111,7 @@ function MyProfilePage() {
           {rentList.length > 0 ? (
             <>
               <Gap height={35} />
-              <CardList data={rentList} />
+              <CardList data={rentList} setLike={setLike} />
               <Gap height={32} />
             </>
           ) : (
@@ -123,7 +124,7 @@ function MyProfilePage() {
           {lendList.length > 0 ? (
             <>
               <Gap height={35} />
-              <CardList data={lendList} />
+              <CardList data={lendList} setLike={setLike} />
               <Gap height={32} />
             </>
           ) : (

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import { commonAxios } from '../../utils/commonAxios.js';
-import CardList from '../../components/CardList';
-import { getCookie } from '../../utils/getCookie.js';
-
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import { commonAxios } from "../../utils/commonAxios.js";
+import CardList from "../../components/CardList";
+import { getCookie } from "../../utils/getCookie.js";
 
 function ProfilePage() {
   const { id } = useParams();
@@ -12,24 +11,25 @@ function ProfilePage() {
   const [rentList, setRentList] = useState([]);
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
+  const [like, setLike] = useState();
 
   useEffect(() => {
     commonAxios
       .get(`/user/profile/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
-      .then(res => {
+      .then((res) => {
         setProfile(res.data.profile);
         setRentList(res.data.rentlist);
         setLendList(res.data.lendlist);
         setShareList(res.data.sharelist);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
-  }, [id]);
+  }, [id, like]);
 
   return (
     <Container>
@@ -48,33 +48,39 @@ function ProfilePage() {
         <Title>대여원해요</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {rentList.length > 0 ? (
+      {/* {rentList.length > 0 ? (
         <>
           <Gap height={35} />
-          <CardList data={rentList} />
-        </>) : (''
-      )}
+          <CardList data={rentList} setLike={setLike} />
+        </>
+      ) : (
+        ""
+      )} */}
       <TitleBox>
         <Title>대여합니다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {lendList.length > 0 ? (
+      {/* {lendList.length > 0 ? (
         <>
           <Gap height={35} />
-          <CardList data={lendList} />
-        </>) : (''
-      )}
+          <CardList data={lendList} setLike={setLike} />
+        </>
+      ) : (
+        ""
+      )} */}
       <Gap height={32} />
       <TitleBox>
         <Title>나눔합시다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {shareList.length > 0 ? (
+      {/* {shareList.length > 0 ? (
         <>
           <Gap height={35} />
-          <CardList data={shareList} />
-        </>) : (''
-      )}
+          <CardList data={shareList} setLike={setLike} />
+        </>
+      ) : (
+        ""
+      )} */}
       <Gap height={32} />
     </Container>
   );

@@ -24,12 +24,6 @@ function CardList({ data, more, setLike }) {
           data.map((item, index) => {
             return (
               <SingleCardContainer key={index}>
-                {/* <Card
-                  data={item}
-                  islike={data.islike}
-                  setIslike={setIsLike}
-                  onClick={() => navigate(`/info/${item.id}`)}
-                /> */}
                 <Card
                   islike={item.islike}
                   setIslike={setIsLike}

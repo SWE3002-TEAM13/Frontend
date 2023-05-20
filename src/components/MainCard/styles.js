@@ -16,8 +16,7 @@ export const Img = styled.img`
   width: 360px;
   height: 172px;
   object-fit: cover;
-  `;
-
+`;
 
 export const PostTitleContainer = styled.div`
   font-weight: 500;
@@ -27,24 +26,24 @@ export const PostTitleContainer = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`
+`;
 
 export const PostAuthorContainer = styled.div`
   display: flex;
 `;
 
 export const Author = styled.div`
-  color: #8DC63F;
+  color: #8dc63f;
   font-weight: 500;
   font-size: 18px;
   margin-left: 23px;
-`
+`;
 
 export const Nickname = styled.div`
   font-weight: 500;
   font-size: 18px;
   margin-left: 8px;
-`
+`;
 
 export const StatusContainer = styled.div`
   margin-left: 23px;
@@ -76,3 +75,5 @@ export const Price = styled.div`
   font-weight: 500;
   font-size: 25px;
 `;
+
+export const LikeStop = styled.div``;

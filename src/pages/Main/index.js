@@ -5,13 +5,14 @@ import styled from "styled-components";
 import MainCard from "../../components/MainCard";
 import { commonAxios } from "../../utils/commonAxios";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from '../../utils/getCookie';
+import { getCookie } from "../../utils/getCookie";
 
 function MainPage() {
   const [announcementList, setAnnouncementList] = useState([]);
   const [rentList, setRentList] = useState([]);
   const [lendList, setLendList] = useState([]);
   const [shareList, setShareList] = useState([]);
+  const [islike, setIsLike] = useState();
 
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ function MainPage() {
     commonAxios
       .get(`/post/landing`, {
         headers: {
-          Authorization: `Bearer ${getCookie('access_token')}`,
+          Authorization: `Bearer ${getCookie("access_token")}`,
         },
       })
       .then((res) => {
@@ -84,6 +85,8 @@ function MainPage() {
             ? rentList.map((rent) => (
                 <>
                   <MainCard
+                    islike={rent.islike}
+                    setIslike={setIsLike}
                     key={rent.id}
                     data={rent}
                     onClick={() => navigate(`/info/${rent.id}`)}
@@ -104,6 +107,8 @@ function MainPage() {
             ? lendList.map((lend) => (
                 <>
                   <MainCard
+                    islike={lend.islike}
+                    setIsLike={setIsLike}
                     data={lend}
                     onClick={() => navigate(`/info/${lend.id}`)}
                   />

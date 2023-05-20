@@ -38,7 +38,9 @@ function ProfilePage() {
         <ProfileTitleText>프로필</ProfileTitleText>
       </ProfileTitleBox>
       <ProfileBox>
-        <ImgUploadDiv imgUrl={profile.thumbnail} />
+        <ImgUploadDiv>
+          <ImgUpload src={profile.thumbnail} />
+        </ImgUploadDiv>
         <ProfileDiv>
           <ProfileName>{profile.nickname}</ProfileName>
           <CampusName>{profile.loc_str}</CampusName>
@@ -48,39 +50,39 @@ function ProfilePage() {
         <Title>대여원해요</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {/* {rentList.length > 0 ? (
+      {rentList.length > 0 ? (
         <>
           <Gap height={35} />
           <CardList data={rentList} setLike={setLike} />
         </>
       ) : (
         ""
-      )} */}
+      )}
       <TitleBox>
         <Title>대여합니다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {/* {lendList.length > 0 ? (
+      {lendList.length > 0 ? (
         <>
           <Gap height={35} />
           <CardList data={lendList} setLike={setLike} />
         </>
       ) : (
         ""
-      )} */}
+      )}
       <Gap height={32} />
       <TitleBox>
         <Title>나눔합시다</Title>
         <SubTitle>이력</SubTitle>
       </TitleBox>
-      {/* {shareList.length > 0 ? (
+      {shareList.length > 0 ? (
         <>
           <Gap height={35} />
           <CardList data={shareList} setLike={setLike} />
         </>
       ) : (
         ""
-      )} */}
+      )}
       <Gap height={32} />
     </Container>
   );
@@ -135,11 +137,16 @@ const ProfileDiv = styled.div`
 `;
 
 const ImgUploadDiv = styled.div`
-  background: ${({ imgUrl }) => `url(${imgUrl})`};
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
   height: 180px;
   width: 180px;
+  overflow: hidden;
+`;
+
+const ImgUpload = styled.img`
+  width: 180px;
+  height: 180px;
 `;
 
 const ProfileName = styled.div`

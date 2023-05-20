@@ -37,6 +37,8 @@ function Post(props) {
   //   const [beforeFile, setBeforeFile] = useState(true);
   const beforeFile = useRef(true);
 
+  console.log("hihi", props.id);
+
   const edit = props.edit ? true : false;
 
   useEffect(() => {
@@ -105,6 +107,7 @@ function Post(props) {
     formData.append("price", price);
     formData.append("content", content);
     formData.append("category", "Book");
+    console.log(formData["type"]);
 
     if (file) {
       formData.append("photo", file);
@@ -143,7 +146,7 @@ function Post(props) {
       alert("형식에 맞게 글을 작성해주세요.");
     } else {
       alert("글이 작성되었습니다.");
-      goBack();
+      //   goBack();
     }
 
     setDisabled(false);

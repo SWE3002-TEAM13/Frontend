@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
-import Post from '../../components/Post';
-import BasicLayout from '../../components/common/BasicLayout';
-import { useEffect, useState } from 'react';
-import { commonAxios } from '../../utils/commonAxios';
+import { useParams } from "react-router-dom";
+import Post from "../../components/Post";
+import BasicLayout from "../../components/common/BasicLayout";
+import { useEffect, useState } from "react";
+import { commonAxios } from "../../utils/commonAxios";
 
 function EditPage() {
   const [info, setInfo] = useState(null);
@@ -11,16 +11,16 @@ function EditPage() {
   useEffect(() => {
     commonAxios
       .get(`/post/${id}`)
-      .then(res => {
+      .then((res) => {
         setInfo(res.data);
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   }, [id]);
 
-  return <BasicLayout children={<Post edit={info}></Post>} />;
+  return <BasicLayout children={<Post edit={info} id={id}></Post>} />;
 }
 
 export default EditPage;

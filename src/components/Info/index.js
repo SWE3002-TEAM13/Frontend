@@ -212,27 +212,32 @@ function Info({ data, islike, setIslike }) {
           </PhotoContainer>
           <ConetentsContainer>
             <InfoContentContainer>{data.content}</InfoContentContainer>
-            <OtherContentContainer>
-              {data.author_id === userInfo?.id ? (
-                <>
-                  <Link to={`/edit/${data.id}`}>
-                    <EditIconContainer src={EditIcon} alt="edit" />
-                  </Link>
-                  <IconBtn type="button" onClick={handleClickDeleteButton}>
-                    <DeleteIconContainer src={DeleteIcon} alt="delete" />
-                  </IconBtn>
-                </>
-              ) : (
-                <>
-                  <IconBtn type="button" onClick={handleClickBlockButton}>
-                    <EditIconContainer src={BlockIcon} alt="block" />
-                  </IconBtn>
-                  <IconBtn type="button" onClick={handleClickReportButton}>
-                    <DeleteIconContainer src={ReportIcon} alt="report" />
-                  </IconBtn>
-                </>
-              )}
-            </OtherContentContainer>
+            {getCookie("access_token") ? (
+              <OtherContentContainer>
+                {data.author_id === userInfo?.id ? (
+                  <>
+                    <Link to={`/edit/${data.id}`}>
+                      <EditIconContainer src={EditIcon} alt="edit" />
+                    </Link>
+                    <IconBtn type="button" onClick={handleClickDeleteButton}>
+                      <DeleteIconContainer src={DeleteIcon} alt="delete" />
+                    </IconBtn>
+                  </>
+                ) : (
+                  <>
+                    <IconBtn type="button" onClick={handleClickBlockButton}>
+                      <EditIconContainer src={BlockIcon} alt="block" />
+                    </IconBtn>
+                    <IconBtn type="button" onClick={handleClickReportButton}>
+                      <DeleteIconContainer src={ReportIcon} alt="report" />
+                    </IconBtn>
+                  </>
+                )}
+              </OtherContentContainer>
+            ) : (
+              <></>
+            )}
+
             <ChatButtonContainer>
               <Link to={"/chat"}>
                 <ChatButton onClick={handleClickChatButton}></ChatButton>

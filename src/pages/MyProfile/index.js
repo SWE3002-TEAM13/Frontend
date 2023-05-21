@@ -137,7 +137,7 @@ function MyProfilePage() {
           {shareList.length > 0 ? (
             <>
               <Gap height={35} />
-              <CardList data={shareList} />
+              <CardList data={shareList} setLike={setLike} />
               <Gap height={32} />
             </>
           ) : (

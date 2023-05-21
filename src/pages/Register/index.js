@@ -194,7 +194,7 @@ function RegisterPage() {
         <InputDiv>
           <InputTitle>닉네임</InputTitle>
           <NicknameExplain>
-            다른 사람들에게 보여줄 닉네임을 설정하세요!
+            다른 사람들에게 보여줄 닉네임을 설정하세요! (10자 이내)
           </NicknameExplain>
           <TextInput
             width="530px"

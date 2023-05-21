@@ -30,6 +30,7 @@ function LoginPage() {
         }
       })
       .catch(err => {
+        alert(err.response.data.detail);
         console.error(err);
       });
   };

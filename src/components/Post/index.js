@@ -104,11 +104,13 @@ function Post(props) {
   };
 
   const isNumeric = (str) => {
-    if (typeof str == "number") return true
-    else if (typeof str != "string") return false // we only process strings!  
-    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-           !isNaN(parseInt(str)) // ...and ensure strings of whitespace fail
-  }
+    if (typeof str == "number") return true;
+    else if (typeof str != "string") return false; // we only process strings!
+    return (
+      !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+      !isNaN(parseInt(str))
+    ); // ...and ensure strings of whitespace fail
+  };
 
   const handleSubmit = async (e) => {
     setDisabled(true);
@@ -123,15 +125,29 @@ function Post(props) {
     formData.append("content", content);
     formData.append("category", "Book");
 
-    if (file && !beforeFile) {
+    if (file) {
+      if (edit) {
+        if (!beforeFile) {
+          formData.append("photo", file);
+        }
+      } else {
+        formData.append("photo", file);
+      }
       console.log(file);
       formData.append("photo", file);
     }
 
     console.log(typeof price);
     await new Promise((r) => setTimeout(r, 1000));
-    if (title.length < 1 || price < -1 || !isNumeric(price) || content.length < 1) {
-      console.log(`${title.length} ${price} ${!isNumeric(price)} ${content.length}`)
+    if (
+      title.length < 1 ||
+      price < -1 ||
+      !isNumeric(price) ||
+      content.length < 1
+    ) {
+      console.log(
+        `${title.length} ${price} ${!isNumeric(price)} ${content.length}`
+      );
       alert("형식에 맞게 글을 작성해주세요.");
     } else {
       if (edit) {
@@ -168,8 +184,6 @@ function Post(props) {
           });
       }
     }
-
-
 
     setDisabled(false);
   };
